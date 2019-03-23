@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html>
+<div th:fragment="sidebarAdmin">
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="#">
@@ -17,12 +16,20 @@
                             <i class="fas fa-home"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_add">
-                            <i class="fas fa-plus-square"></i>Add Request</a>
+                        <a href="#" id="nav_all">
+                            <i class="fas fa-chart-bar"></i>All Record</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_profile" >
-                            <i class="fas fa-user-circle"></i>Profile</a>
+                        <a href="#" id="nav_add_emp">
+                            <i class="fas fa-user-plus"></i>Create User</a>
+                    </li>
+                    <li>
+                        <a href="#" id="nav_user_access">
+                            <i class="fas           fa-user-secret"></i>User Access</a>
+                    </li>
+                    <li>
+                        <a href="#" id="nav_add">
+                            <i class="fas fa-plus-square"></i>Add Request</a>
                     </li>
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
@@ -30,11 +37,11 @@
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a href="#" id="nav_history">
-                                    <i class="fas fa-history"></i>History</a>
+                                    <i class="fas fa-history"></i>All History</a>
                             </li>
                             <li>
                                 <a href="#" id="nav_status">
-                                    <i class="fas fa-exclamation"></i>Status</a>
+                                    <i class="fas fa-exclamation"></i>All Status</a>
                             </li>
                         </ul>
                     </li>
@@ -42,4 +49,4 @@
             </nav>
         </div>
     </aside>
-</html>
+</div>

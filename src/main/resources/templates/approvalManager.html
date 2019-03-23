@@ -1,22 +1,7 @@
-<%-- 
-    Document   : approvalManager
-    Created on : 18-Mar-2019, 08:19:05
-    Author     : Pandu
---%>
-
-<%@page import="java.util.List"%>
-<%@page import="models.Overtime"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
-    <%boolean cekData = session.getAttribute("all") != null;
-        Overtime ov = (cekData) ? (Overtime) session.getAttribute("overtime") : null;
-        boolean cekList = session.getAttribute("all") != null;
-        if (!cekList) {
-            response.sendRedirect("./HistoryServlet");
-        }
-    %>
+<!-- CEK SESSION DATA -->
 
     <form action="ApprovalServlet" method="POST">
         <div class="modal fade" id="modalApproval" tabindex="-1" 
@@ -32,23 +17,23 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control" value=<%= (session.getAttribute("otId") != null) ? session.getAttribute("otId") : ""%>>
+                            <input type="text" id="AotId" name="AotId" class="form-control" value="GET ID">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" value=<%= (session.getAttribute("otDate") != null) ? session.getAttribute("otDate") : ""%>>
+                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" value="GET DATE">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Aotduration" name="Aotduration" class="form-control" value=<%= (session.getAttribute("otDuration") != null) ? session.getAttribute("otDuration") : ""%>>
+                            <input type="text" id="Aotduration" name="Aotduration" class="form-control" value="GET DURATION">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" value=<%= (session.getAttribute("otDesc") != null) ? session.getAttribute("otDesc") : ""%>>
+                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" value="GET DESCRIPTION">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" value=<%= (session.getAttribute("timesheet") != null) ? session.getAttribute("timesheet") : ""%>>
+                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" value="GET TIMESHEET">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Status</label>

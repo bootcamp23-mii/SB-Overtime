@@ -1,6 +1,7 @@
 <!--SESSION CONTROLLER, THAT CORRECT DATA BASED ON LOGIN GIVEN DATA-->
 <html lang="en">
 <!--<jsp:include page="head.jsp"/>-->
+<div th:replace="fragments/head :: head"></div>
 
 <body class="animsition">
     <div class="page-wrapper">
@@ -9,8 +10,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/home.png" alt="CoolAdmin" />
+                        <a class="logo" th:href="@{index.html}">
+                            <img th:src="@{images/icon/home.png}" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -22,15 +23,15 @@
             </div>
 
             <!--INCLUDING THE MOBILE VIEW a.k.a RESPONSIVE-->
+            <div th:replace="fragments/navbarmobile :: navbarmobile"></div>
             <!--<jsp:include page="navbarmobile.jsp"/>-->
 
         </header>
         <!-- END HEADER MOBILE-->
 
         <!-- MENU SIDEBAR-->
-
         <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
-
+        <div th:replace="fragments/sidebar :: sidebar"></div>
         <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
@@ -38,14 +39,14 @@
             <!-- HEADER DESKTOP-->
 
             <!--HEADER CONTENT-->
+            <div th:replace="fragments/header :: header"></div>
             <!--<jsp:include page="header.jsp"/>-->
-
             <!-- HEADER DESKTOP-->
+
             <!-- MAIN CONTENT-->
             <div class="main-content-p" id="loadthis">
-
                 <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
-
+                <div th:replace="fragments/content :: content"></div>
                 <!--<jsp:include page="content.jsp"/>-->
 
             </div>
@@ -54,36 +55,38 @@
         </div>
 
         <!--INCLUDE THE FOOTER PAGE-->
+
+        <div th:replace="fragments/footer :: footer"></div>
         <!--<jsp:include page="footer.jsp"/>-->
 
     </div>
 
     <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script th:src="@{vendor/jquery-3.2.1.min.js}"></script>
 
     <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
+    <script th:src="@{vendor/bootstrap-4.1/bootstrap.min.js}"></script>
 
     <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
+    <script th:src="@{vendor/slick/slick.min.js}">
     </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    <script th:src="@{vendor/wow/wow.min.js}"></script>
+    <script th:src="@{vendor/animsition/animsition.min.js}"></script>
+    <script th:src="@{vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}">
     </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
+    <script th:src="@{vendor/counter-up/jquery.waypoints.min.js}"></script>
+    <script th:src="@{vendor/counter-up/jquery.counterup.min.js}">
     </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
+    <script th:src="@{vendor/circle-progress/circle-progress.min.js}"></script>
+    <script th:src="@{vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
+    <script th:src="@{vendor/chartjs/Chart.bundle.min.js}"></script>
+    <script th:src="@{vendor/select2/select2.min.js}">
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
-    <script src="js/selfScript.js"></script>
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/selfScript.js}"></script>
 </body>
 
 </html>
