@@ -5,10 +5,13 @@
  */
 package com.example.overtime.repository;
 
+import com.example.overtime.entity.Job;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Pandu
  */
-public interface JobRepo {
+public interface JobRepo extends CrudRepository<Job, Integer >{
     
 }

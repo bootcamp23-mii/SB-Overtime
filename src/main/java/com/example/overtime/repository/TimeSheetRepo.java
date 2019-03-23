@@ -5,10 +5,13 @@
  */
 package com.example.overtime.repository;
 
+import com.example.overtime.entity.TimeSheet;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Pandu
  */
-public interface TimeSheetRepo {
-    
+public interface TimeSheetRepo extends CrudRepository<TimeSheet, Integer> {
+
 }

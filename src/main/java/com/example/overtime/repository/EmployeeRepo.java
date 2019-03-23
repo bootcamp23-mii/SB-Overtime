@@ -5,10 +5,13 @@
  */
 package com.example.overtime.repository;
 
+import com.example.overtime.entity.Employee;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  *
  * @author Pandu
  */
-public interface EmployeeRepo {
+public interface EmployeeRepo extends CrudRepository<Employee, Integer > {
     
 }
