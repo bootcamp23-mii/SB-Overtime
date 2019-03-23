@@ -1,10 +1,3 @@
-<%-- 
-    Document   : content
-    Created on : 14-Mar-2019, 09:41:08
-    Author     : Pandu
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <div class="section__content section__content--p30">
@@ -28,20 +21,20 @@
                                     <div class="chart-info">
                                         <label class="label">Your Name</label>
                                         <label
-                                            name="subject"><%= (session.getAttribute("empname") != null) ? session.getAttribute("empname") : ""%></label>
+                                            name="subject">GET EMPLOYEE NAME</label>
                                     </div>
                                 </div>
                                 <div class="chart-info">
                                     <div class="chart-info">
                                         <label class="label">Your Email :</label>
                                         <label
-                                            name="to"><%= (session.getAttribute("empemail") != null) ? session.getAttribute("empemail") : ""%></label>
+                                            name="to">GET EMPLOYEE EMAIL</label>
                                     </div>
                                 </div>
                                 <div class="chart-info">
                                     <label>Your ID</label>
                                     <label
-                                        name="myid"><%= (session.getAttribute("empid") != null) ? session.getAttribute("empid") : ""%></label>
+                                        name="myid">GET EMPLOYEE ID</label>
                                 </div>
                                 <div class="chart-info">
                                     <input type="text" name="message" placeholder="Your Message" /><br />
