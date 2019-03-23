@@ -1,25 +1,8 @@
-<%-- 
-    Document   : adminUserAccess
-    Created on : Mar 19, 2019, 9:21:43 AM
-    Author     : milhamafemi
---%>
-
-<%@page import="java.util.List"%>
-<%@page import="models.Employee"%>
-<%@page import="models.Job"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%boolean cekData = session.getAttribute("dataEmp") != null;
-        Employee emp = (cekData) ? (Employee) session.getAttribute("UAid") : null;
-        boolean cekList = session.getAttribute("dataEmp") != null;
-        if (!cekList) {
-            response.sendRedirect("./AdminServlet");
-        }
-    %>
+    <!--SESSION CHECK DATA LOG-->
     <form action="AdminServlet" method="POST">
-        <div class="modal fade" id="modalUserAccess" tabindex="-1" 
-             role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
+        <div class="modal fade" id="modalUserAccess" tabindex="-1" role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
             <div class="modal-dialog" role="document" >
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -31,23 +14,18 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="label">ID</label>
-                            <input type="text" id="UAid" name="UAid" class="form-control" value=<%= (session.getAttribute("UAid") != null) ? session.getAttribute("UAid") : ""%>>
+                            <input type="text" id="UAid" name="UAid" class="form-control" value="INSERT VALUE">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="label">Name</label>
-                            <input type="text" id="UAname" name="UAname" class="form-control" value=<%= (session.getAttribute("UAname") != null) ? session.getAttribute("UAname") : ""%>>
+                            <input type="text" id="UAname" name="UAname" class="form-control" value="INSERT VALUE">
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Job</label>
                             <div>
-                                <select class="custom-select" name="UAjob" id="UAjob" ><% for (Job elem : (List<Job>) session.getAttribute("dataJob")) {
-                                        out.print("<option "
-                                                + "value=\"" + elem.getId() + "\" "
-                                                + (elem.getId().equals(session.getAttribute("UAjob")) ? "selected" : "") + ">"
-                                                + elem.getPosition()
-                                                + "</option>");
-                                    }
-                                    %></select>
+                                <select class="custom-select" name="UAjob" id="UAjob" >
+                                    <!--DROPDOWN LIST OF JOB-->
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -89,26 +67,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% int i = 1;
-                                                if (cekList) {
-                                                    for (Employee elem : (List<Employee>) session.getAttribute("dataEmp")) {%>
-                                            <tr>
-                                                <td><%= i++%></td>
-                                                <td><%= elem.getId()%></td>
-                                                <td><%= elem.getName()%></td>
-                                                <td><%= elem.getJob().getPosition()%></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUserAccess" 
-                                                            data-getid="<%= elem.getId()%>" 
-                                                            data-getname="<%= elem.getName()%>" 
-                                                            data-getjob="<%= elem.getJob().getPosition()%>" 
-                                                            ><i class="fas fa-edit"></i></button>
-                                                </td>
-                                            </tr>
-                                            <%}
-                                                } else {
-                                                    response.sendRedirect("./AdminServlet");
-                                                }%>
+                                            <!--LIST OF USER WITH EDITED JOB REFERENCES-->
                                         </tbody>
                                     </table>
                                 </div>
@@ -120,16 +79,16 @@
         </div>
     </div>
     <script>
-        $('#modalUserAccess').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('getid')
-            var name = button.data('getname')
-            var job = button.data('getjob')
-
-            var modal = $(this)
-            modal.find('#UAid').val(id)
-            modal.find('#UAname').val(name)
-            modal.find('#UAjob').val(job)
-        })
+//        $('#modalUserAccess').on('show.bs.modal', function (event) {
+//            var button = $(event.relatedTarget)
+//            var id = button.data('getid')
+//            var name = button.data('getname')
+//            var job = button.data('getjob')
+//
+//            var modal = $(this)
+//            modal.find('#UAid').val(id)
+//            modal.find('#UAname').val(name)
+//            modal.find('#UAjob').val(job)
+//        })
     </script>
 </html>
