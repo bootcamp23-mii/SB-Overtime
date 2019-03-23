@@ -97,6 +97,10 @@ p {
     border-radius: 3px;
 }
 
+.roundme{
+    border-radius: 10px;
+}
+
 /* ----- Typography ----- */
 body {
     font-family: "Poppins", sans-serif;

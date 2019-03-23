@@ -5,34 +5,31 @@
  */
 $(function () {
     $("#nav_home").on("click", function () {
-        $("#loadthis").load("content.jsp");
+        $("#loadthis").load("fragments/content.html");
     });
     $("#nav_review").on("click", function () {
-        $("#loadthis").load("approvalManager.jsp");
+        $("#loadthis").load("fragments/approvalManager.html");
     });
     $("#nav_all").on("click", function () {
-        $("#loadthis").load("content.jsp");
-    });
-    $("#nav_calender").on("click", function () {
-        $("#loadthis").load("calender.jsp");
+        $("#loadthis").load("fragments/content.html");
     });
     $("#nav_add").on("click", function () {
-        $("#loadthis").load("request.jsp");
+        $("#loadthis").load("fragments/request.html");
     });
     $("#nav_profile").on("click", function () {
-        $("#loadthis").load("profile.jsp");
+        $("#loadthis").load("fragments/profile.html");
     });
     $("#nav_history").on("click", function () {
-        $("#loadthis").load("history.jsp");
+        $("#loadthis").load("fragments/history.html");
     });
     $("#nav_status").on("click", function () {
-        $("#loadthis").load("status.jsp");
+        $("#loadthis").load("fragments/status.html");
     });
     $("#nav_add_emp").on("click", function () {
-        $("#loadthis").load("adminCreateUser.jsp");
+        $("#loadthis").load("fragments/adminCreateUser.html");
     });
     $("#nav_user_access").on("click", function () {
-        $("#loadthis").load("adminUserAccess.jsp");
+        $("#loadthis").load("fragments/adminUserAccess.html");
     });
 });
 
