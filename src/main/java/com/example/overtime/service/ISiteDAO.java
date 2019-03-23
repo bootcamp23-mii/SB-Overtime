@@ -5,10 +5,20 @@
  */
 package com.example.overtime.service;
 
+import com.example.overtime.entity.Site;
+
 /**
  *
  * @author Pandu
  */
 public interface ISiteDAO {
-    
+    Iterable<Site> findAll();
+
+    Site save(Site st);
+
+    Site edit(Site st);
+
+    void findById(Integer id);
+
+    void deleteById(Integer id);
 }

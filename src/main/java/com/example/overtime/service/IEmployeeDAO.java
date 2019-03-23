@@ -5,10 +5,20 @@
  */
 package com.example.overtime.service;
 
+import com.example.overtime.entity.Employee;
+
 /**
  *
  * @author Pandu
  */
 public interface IEmployeeDAO {
-    
+    Iterable<Employee> findAll();
+
+    Employee save(Employee emp);
+
+    Employee edit(Employee emp);
+
+    void findById(Integer id);
+
+    void deleteById(Integer id);
 }

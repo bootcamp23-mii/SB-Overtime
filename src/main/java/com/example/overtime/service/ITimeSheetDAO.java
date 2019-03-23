@@ -5,10 +5,20 @@
  */
 package com.example.overtime.service;
 
+import com.example.overtime.entity.TimeSheet;
+
 /**
  *
  * @author Pandu
  */
 public interface ITimeSheetDAO {
-    
+    Iterable<TimeSheet> findAll();
+
+    TimeSheet save(TimeSheet ts);
+
+    TimeSheet edit(TimeSheet ts);
+
+    void findById(Integer id);
+
+    void deleteById(Integer id);
 }

@@ -23,6 +23,10 @@ public class UltimateController {
     private static Logger log = LoggerFactory.getLogger(UltimateController.class);
 
     @Autowired
+    RegionDAO rdao;
+
+    
+    @Autowired
     private EmailService emailService;
 
     @GetMapping("/")
@@ -43,5 +47,7 @@ public class UltimateController {
         }
         return "redirect:/";
     }
+    
+    
 
 }
