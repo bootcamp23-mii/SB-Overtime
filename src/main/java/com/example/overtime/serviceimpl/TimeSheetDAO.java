@@ -6,37 +6,39 @@
 package com.example.overtime.serviceimpl;
 
 import com.example.overtime.entity.TimeSheet;
+import com.example.overtime.repository.TimeSheetRepo;
 import com.example.overtime.service.ITimeSheetDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pandu
  */
-public class TimeSheetDAO implements ITimeSheetDAO{
+@Service
+public class TimeSheetDAO implements ITimeSheetDAO {
+
+    @Autowired
+    TimeSheetRepo trep;
 
     @Override
     public Iterable<TimeSheet> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trep.findAll();
     }
 
     @Override
     public TimeSheet save(TimeSheet ts) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return trep.save(ts);
     }
 
     @Override
-    public TimeSheet edit(TimeSheet ts) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void findById(String id) {
+        trep.findWithId(id);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(String id) {
+        trep.deleteWithId(id);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

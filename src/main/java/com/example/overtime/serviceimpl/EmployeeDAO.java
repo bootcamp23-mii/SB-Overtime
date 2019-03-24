@@ -6,37 +6,39 @@
 package com.example.overtime.serviceimpl;
 
 import com.example.overtime.entity.Employee;
+import com.example.overtime.repository.EmployeeRepo;
 import com.example.overtime.service.IEmployeeDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pandu
  */
-public class EmployeeDAO implements IEmployeeDAO{
+@Service
+public class EmployeeDAO implements IEmployeeDAO {
+
+    @Autowired
+    EmployeeRepo erep;
 
     @Override
     public Iterable<Employee> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return erep.findAll();
     }
 
     @Override
     public Employee save(Employee emp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return erep.save(emp);
     }
 
     @Override
-    public Employee edit(Employee emp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void findById(String id) {
+        erep.findWithId(id);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(String id) {
+        erep.deleteWithId(id);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

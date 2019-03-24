@@ -6,12 +6,21 @@
 package com.example.overtime.repository;
 
 import com.example.overtime.entity.Job;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author Pandu
  */
-public interface JobRepo extends CrudRepository<Job, Integer >{
+public interface JobRepo extends CrudRepository<Job, Integer> {
+
+    @Modifying
+    @Query(value = "SELECT * FROM JOB WHERE id='?'1", nativeQuery = true)
+    public void findWithId(String id);
     
+    @Modifying
+    @Query(value = "DELETE JOB WHERE id='?'1", nativeQuery = true)
+    public void deleteWithId(String id);
 }

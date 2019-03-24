@@ -6,6 +6,8 @@
 package com.example.overtime.repository;
 
 import com.example.overtime.entity.TimeSheet;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -14,4 +16,11 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface TimeSheetRepo extends CrudRepository<TimeSheet, Integer> {
 
+    @Modifying
+    @Query(value = "SELECT * FROM TIMESHEET WHERE id='?'1", nativeQuery = true)
+    public void findWithId(String id);
+
+    @Modifying
+    @Query(value = "DELETE TIMESHEET WHERE id='?'1", nativeQuery = true)
+    public void deleteWithId(String id);
 }

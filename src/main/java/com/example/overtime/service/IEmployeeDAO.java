@@ -16,9 +16,8 @@ public interface IEmployeeDAO {
 
     Employee save(Employee emp);
 
-    Employee edit(Employee emp);
 
-    void findById(Integer id);
+    void findById(String id);
 
-    void deleteById(Integer id);
+    void deleteById(String id);
 }

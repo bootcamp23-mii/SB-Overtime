@@ -17,9 +17,7 @@ public interface IDivisionDAO {
 
     Division save(Division div);
 
-    Division edit(Division div);
+    void findById(String id);
 
-    void findById(Integer id);
-
-    void deleteById(Integer id);
+    void deleteById(String id);
 }

@@ -6,37 +6,39 @@
 package com.example.overtime.serviceimpl;
 
 import com.example.overtime.entity.Job;
+import com.example.overtime.repository.JobRepo;
 import com.example.overtime.service.IJobDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pandu
  */
-public class JobDAO implements IJobDAO{
+@Service
+public class JobDAO implements IJobDAO {
+
+    @Autowired
+    JobRepo jrep;
 
     @Override
     public Iterable<Job> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return jrep.findAll();
     }
 
     @Override
     public Job save(Job jb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return jrep.save(jb);
     }
 
     @Override
-    public Job edit(Job jb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void findById(String id) {
+        jrep.findWithId(id);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(String id) {
+        jrep.deleteWithId(id);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

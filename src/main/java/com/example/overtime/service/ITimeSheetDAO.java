@@ -12,13 +12,12 @@ import com.example.overtime.entity.TimeSheet;
  * @author Pandu
  */
 public interface ITimeSheetDAO {
+
     Iterable<TimeSheet> findAll();
 
     TimeSheet save(TimeSheet ts);
 
-    TimeSheet edit(TimeSheet ts);
+    void findById(String id);
 
-    void findById(Integer id);
-
-    void deleteById(Integer id);
+    void deleteById(String id);
 }

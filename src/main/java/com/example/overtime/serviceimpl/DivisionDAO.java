@@ -6,37 +6,39 @@
 package com.example.overtime.serviceimpl;
 
 import com.example.overtime.entity.Division;
+import com.example.overtime.repository.DivisionRepo;
 import com.example.overtime.service.IDivisionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pandu
  */
-public class DivisionDAO implements IDivisionDAO{
+@Service
+public class DivisionDAO implements IDivisionDAO {
+
+    @Autowired
+    DivisionRepo drepo;
 
     @Override
     public Iterable<Division> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return drepo.findAll();
     }
 
     @Override
     public Division save(Division div) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return drepo.save(div);
     }
 
     @Override
-    public Division edit(Division div) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void findById(String id) {
+        drepo.findWithId(id);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(String id) {
+        drepo.deleteWithId(id);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

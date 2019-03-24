@@ -6,37 +6,39 @@
 package com.example.overtime.serviceimpl;
 
 import com.example.overtime.entity.Overtime;
+import com.example.overtime.repository.OvertimeRepo;
 import com.example.overtime.service.IOvertimeDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pandu
  */
-public class OvertimeDAO implements IOvertimeDAO{
+@Service
+public class OvertimeDAO implements IOvertimeDAO {
+
+    @Autowired
+    OvertimeRepo orep;
 
     @Override
     public Iterable<Overtime> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return orep.findAll();
     }
 
     @Override
     public Overtime save(Overtime ot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return orep.save(ot);
     }
 
     @Override
-    public Overtime edit(Overtime ot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void findById(String id) {
+        orep.findWithId(id);
     }
 
     @Override
-    public void findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteById(String id) {
+        orep.deleteWithId(id);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
