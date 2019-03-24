@@ -20,37 +20,48 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class PageConfig extends WebMvcConfigurerAdapter {
 
-//     @Override
-//     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-// //        super.addResourceHandlers(registry);
-//         registry.addResourceHandler("/webjars/**")
-//                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//         registry.addResourceHandler("/js/**")
-//                 .addResourceLocations("classpath:/static/js/");
-//         registry.addResourceHandler("/css/**")
-//                 .addResourceLocations("classpath:/static/css/");
-//     }
+    // @Override
+    // public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    // // super.addResourceHandlers(registry);
+    // registry.addResourceHandler("/webjars/**")
+    // .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    // registry.addResourceHandler("/js/**")
+    // .addResourceLocations("classpath:/static/js/");
+    // registry.addResourceHandler("/css/**")
+    // .addResourceLocations("classpath:/static/css/");
+    // }
 
     @Bean
     LayoutDialect thymeleafLayoutDialect() {
         return new LayoutDialect();
     }
-//
-//    @Bean
-//    GroupingStrategy thymeleafGroupingStrategy() {
-//        return new GroupingStrategy();
-//    }
 
-//    @Bean
-//    public JasperReportsViewResolver getJasperReportsViewResolver() {
-//        JasperReportsViewResolver resolver = new JasperReportsViewResolver();
-//        resolver.setPrefix("classpath:/jasper/");
-//        resolver.setSuffix(".jasper");
-//        resolver.setViewNames("*report_*");
-//        resolver.setReportDataKey("datasource");
-//        resolver.setViewClass(JasperReportsMultiFormatView.class);
-//        resolver.setOrder(0);
-//        return resolver;
-//    }
+    // @Bean
+    // public HttpSessionEventPublisher httpSessionEventPublisher() {
+    // return new HttpSessionEventPublisher();
+    // }
+
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    // http.sessionManagement()
+    //     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+    // }
+    //
+    // @Bean
+    // GroupingStrategy thymeleafGroupingStrategy() {
+    // return new GroupingStrategy();
+    // }
+
+    // @Bean
+    // public JasperReportsViewResolver getJasperReportsViewResolver() {
+    // JasperReportsViewResolver resolver = new JasperReportsViewResolver();
+    // resolver.setPrefix("classpath:/jasper/");
+    // resolver.setSuffix(".jasper");
+    // resolver.setViewNames("*report_*");
+    // resolver.setReportDataKey("datasource");
+    // resolver.setViewClass(JasperReportsMultiFormatView.class);
+    // resolver.setOrder(0);
+    // return resolver;
+    // }
 
 }
