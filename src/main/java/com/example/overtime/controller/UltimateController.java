@@ -148,6 +148,7 @@ public class UltimateController {
     // return "/pages :: ELEMENT"; // fragment
     // }
 
+    // ==========FUNCTIONAL TOOLS CONTROL==========
     @GetMapping("/sendemail")
     public String signUpComplete() {
         try {
@@ -158,16 +159,18 @@ public class UltimateController {
         return "redirect:/";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/loginmed")
     public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
             HttpServletRequest request) {
-        if (ddao.findById(id) != null) {
-            Employee employee = ddao.findById(id);
+        if (edao.findById(id) != null) {
+            Employee employee = edao.findById(id);
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                request.getSession().setAttribute("login", id);
+                request.getSession().setAttribute("loginses", id);
+            } else {
+                return "redirect:/login";
             }
         }
-        return "redirect:/index";
+        return "redirect:/content";
     }
 
     // REMAPING ALL THE CONTROLLER NEED
