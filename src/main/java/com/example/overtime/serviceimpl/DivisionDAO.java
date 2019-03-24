@@ -33,7 +33,7 @@ public class DivisionDAO implements IDivisionDAO {
 
     @Override
     public void findById(String id) {
-        drepo.findWithId(id);
+        drepo.findById(id);
     }
 
     @Override

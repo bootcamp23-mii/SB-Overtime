@@ -11,12 +11,8 @@ import org.springframework.stereotype.Repository;
 /**
  * DivisionRepo
  */
-public interface DivisionRepo extends CrudRepository<Division, Integer> {
+public interface DivisionRepo extends CrudRepository<Division, String> {
 
-    @Modifying
-    @Query(value = "FROM DIVISION WHERE id='?'1", nativeQuery = true)
-    public void findWithId(String id);
-    
     @Modifying
     @Query(value = "DELETE DIVISION WHERE id='?'1", nativeQuery = true)
     public void deleteWithId(String id);

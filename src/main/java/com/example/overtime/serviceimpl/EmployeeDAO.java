@@ -33,7 +33,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     @Override
     public void findById(String id) {
-        erep.findWithId(id);
+        erep.findById(id);
     }
 
     @Override

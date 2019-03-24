@@ -14,12 +14,8 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Pandu
  */
-public interface EmployeeRepo extends CrudRepository<Employee, Integer> {
+public interface EmployeeRepo extends CrudRepository<Employee, String> {
 
-    @Modifying
-    @Query(value = "SELECT * FROM EMPLOYEE WHERE id='?'1", nativeQuery = true)
-    public void findWithId(String id);
-    
     @Modifying
     @Query(value = "DELETE EMPLOYEE WHERE id='?'1", nativeQuery = true)
     public void deleteWithId(String id);

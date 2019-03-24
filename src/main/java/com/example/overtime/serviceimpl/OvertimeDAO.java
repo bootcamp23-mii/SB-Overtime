@@ -33,7 +33,7 @@ public class OvertimeDAO implements IOvertimeDAO {
 
     @Override
     public void findById(String id) {
-        orep.findWithId(id);
+        orep.findById(id);
     }
 
     @Override

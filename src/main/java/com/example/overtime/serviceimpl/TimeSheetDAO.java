@@ -33,7 +33,7 @@ public class TimeSheetDAO implements ITimeSheetDAO {
 
     @Override
     public void findById(String id) {
-        trep.findWithId(id);
+        trep.findById(id);
     }
 
     @Override

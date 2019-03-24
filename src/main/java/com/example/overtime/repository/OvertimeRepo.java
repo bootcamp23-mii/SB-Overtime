@@ -14,11 +14,8 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Pandu
  */
-public interface OvertimeRepo extends CrudRepository<Overtime, Integer> {
+public interface OvertimeRepo extends CrudRepository<Overtime, String> {
 
-    @Modifying
-    @Query(value = "SELECT * FROM OVERTIME WHERE id='?'1", nativeQuery = true)
-    public void findWithId(String id);
     @Modifying
     @Query(value = "DELETE OVERTIME WHERE id='?'1", nativeQuery = true)
     public void deleteWithId(String id);

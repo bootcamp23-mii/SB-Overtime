@@ -33,7 +33,7 @@ public class SiteDAO implements ISiteDAO {
 
     @Override
     public void findById(String id) {
-        srep.findWithId(id);
+        srep.findById(id);
     }
 
     @Override
