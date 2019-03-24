@@ -21,7 +21,7 @@
                     <h3 class="title-10">REQUEST FORM</h3>
                     <div class="row m-t-25">
                     </div>
-                    <form action="OvertimeServlet" method="POST" class="form-horizontal">
+                    <form th:action="@{/ovtsave}" method="POST" class="form-horizontal">
                         <div class="row form-group">
                             <div class="col col-md-3">
                                 <label for="tf-date" class=" form-control-label">Date</label>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3">
-                                <label for="tf-timesheet" class=" form-control-label">Active Time Sheet</label>
+                                <label for="tf-signature" class=" form-control-label">SIGNATURE</label>
                             </div>
                             <div class="col-12 col-md-9">
                                 <input type="file" id="tf-signature" name="tf-signature" placeholder="PIC Signatur" class="form-control" />
