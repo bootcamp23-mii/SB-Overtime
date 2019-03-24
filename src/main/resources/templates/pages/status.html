@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
 
-    <%boolean cekData = session.getAttribute("data") != null;
+<section layout:fragment="content">
+
+    <!-- <%boolean cekData = session.getAttribute("data") != null;
         Overtime ov = (cekData) ? (Overtime) session.getAttribute("overtime") : null;
         boolean cekList = session.getAttribute("data") != null;
         if (!cekList) {
             response.sendRedirect("./HistoryServlet");
         }
-    %>
+    %> -->
 
     <form action="StatusServlet" method="POST">
         <div class="modal fade" id="modalStatus" tabindex="-1" 
@@ -127,5 +129,5 @@
             wme.close();
         })
     </script> -->
-
+</section>
 </html>

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+
+<section layout:fragment="content">
 
 <!-- CEK SESSION DATA -->
 
@@ -126,7 +128,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <!-- <script>
         $('#modalApproval').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var id = button.data('getid')
@@ -144,6 +146,6 @@
             modal.find('#Atimesheet').val(ts)
             modal.find('#Aotstatus').val(status)
         })
-    </script>
-
+    </script> -->
+</section>
 </html>

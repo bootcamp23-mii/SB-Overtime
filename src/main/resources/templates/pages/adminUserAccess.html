@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+
+<section layout:fragment="content">
+
     <!--SESSION CHECK DATA LOG-->
     <form action="AdminServlet" method="POST">
         <div class="modal fade" id="modalUserAccess" tabindex="-1" role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
@@ -91,4 +94,5 @@
 //            modal.find('#UAjob').val(job)
 //        })
     </script>
+</section>
 </html>

@@ -61,38 +61,7 @@ public class UltimateController {
     @Autowired
     private EmailService emailService;
 
-//    @GetMapping("/")
-//    public String index(Model model) {
-//        model.addAttribute("regionData", rdao.findAll());
-//        model.addAttribute("regionsave", new Regions());
-//        model.addAttribute("regionedit", new Regions());
-//        model.addAttribute("regiondelete", new Regions());
-//        return "index";
-//    }
-    @GetMapping("/sendemail")
-    public String signUpComplete() {
-        try {
-            emailService.sendEmail("pandu4431@gmail.com");
-        } catch (Exception ex) {
-            log.info("error" + ex.getMessage());
-        }
-        return "redirect:/";
-    }
-
-//    REMAPING ALL THE CONTROLLER NEED
-//    CONTROLLER LIST
-//    GET
-//    -GET ALL DATA DIVISION 
-//    -GET ALL DATA EMPLOYEE 
-//    -GET ALL DATA OVERTIME 
-//    -GET ALL DATA SITE 
-//    -GET ALL DATA JOB 
-//    -GET ALL DATA TIMESHEET 
-//            
-//    POST
-//    -POST DATA
-//    -OVERTIME(REQUEST OVERTIME)
-//    -POST DATA EMPLOYE(ADMIN)
+    // ==========PAGE CONTROLLER==========
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("divdata", ddao.findAll());
@@ -121,6 +90,85 @@ public class UltimateController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+    @GetMapping("/content")
+    public String content(Model model) {
+        return "pages/content";
+    }
+
+    @GetMapping("/activation")
+    public String activation(Model model) {
+        return "pages/activationUser";
+    }
+
+    @GetMapping("/createuser")
+    public String createuser(Model model) {
+        return "pages/adminCreateUser";
+    }
+
+    @GetMapping("/approval")
+    public String approval(Model model) {
+        return "pages/approvalManager";
+    }
+
+    @GetMapping("/history")
+    public String history(Model model) {
+        return "pages/history";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        return "pages/profile";
+    }
+
+    @GetMapping("/request")
+    public String request(Model model) {
+        return "pages/request";
+    }
+
+    @GetMapping("/status")
+    public String status(Model model) {
+        return "pages/status";
+    }
+
+    // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    // public String detailRefresh(@PathVariable long id, Model model) {
+    //
+    // T element = service.findOne(id);
+    //
+    // return "/pages :: ELEMENT"; // fragment
+    // }
+
+    @GetMapping("/sendemail")
+    public String signUpComplete() {
+        try {
+            emailService.sendEmail("pandu4431@gmail.com");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
+        return "redirect:/";
+    }
+
+    // REMAPING ALL THE CONTROLLER NEED
+    // CONTROLLER LIST
+    // GET
+    // -GET ALL DATA DIVISION
+    // -GET ALL DATA EMPLOYEE
+    // -GET ALL DATA OVERTIME
+    // -GET ALL DATA SITE
+    // -GET ALL DATA JOB
+    // -GET ALL DATA TIMESHEET
+    //
+    // POST
+    // -POST DATA
+    // -OVERTIME(REQUEST OVERTIME)
+    // -POST DATA EMPLOYE(ADMIN)
+
+    // ==========MAPPING ALL CONTROLLER NEED==========
     @RequestMapping(value = "/divsave", method = RequestMethod.POST)
     public String divSave(@ModelAttribute("regionsave") Division div) {
         ddao.save(div);

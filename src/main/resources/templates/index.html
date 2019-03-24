@@ -1,6 +1,7 @@
 <!--SESSION CONTROLLER, THAT CORRECT DATA BASED ON LOGIN GIVEN DATA-->
-<html lang="en">
-<!--<jsp:include page="head.jsp"/>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+
 <div th:replace="fragments/head :: head"></div>
 
 <body class="animsition">
@@ -44,12 +45,13 @@
             <!-- HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
-            <div class="main-content-p" id="loadthis">
-                <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
 
+            <div class="main-content-p" id="loadthis">
                 <div class="row m-t-25">
                 </div>
-                <div th:replace="fragments/content :: content"></div>
+                <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
+                <!--<div th:replace="fragments/content :: content"></div>-->
+                <section layout:fragment="content"></section>
                 <!--<jsp:include page="content.jsp"/>-->
 
             </div>
@@ -58,7 +60,6 @@
         </div>
 
         <!--INCLUDE THE FOOTER PAGE-->
-
         <div th:replace="fragments/footer :: footer"></div>
         <!--<jsp:include page="footer.jsp"/>-->
 
