@@ -5,12 +5,15 @@
  */
 package com.example.overtime.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
 import com.example.overtime.entity.Overtime;
 import com.example.overtime.entity.Site;
 import com.example.overtime.entity.TimeSheet;
+import com.example.overtime.service.BCrypt;
 import com.example.overtime.serviceimpl.DivisionDAO;
 import com.example.overtime.serviceimpl.EmailService;
 import com.example.overtime.serviceimpl.EmployeeDAO;
@@ -27,8 +30,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -151,6 +156,18 @@ public class UltimateController {
             log.info("error" + ex.getMessage());
         }
         return "redirect:/";
+    }
+
+    @PostMapping("/login")
+    public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
+            HttpServletRequest request) {
+        if (ddao.findById(id) != null) {
+            Employee employee = ddao.findById(id);
+            if (BCrypt.checkpw(password, employee.getPassword())) {
+                request.getSession().setAttribute("login", id);
+            }
+        }
+        return "redirect:/index";
     }
 
     // REMAPING ALL THE CONTROLLER NEED

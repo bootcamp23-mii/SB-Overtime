@@ -32,8 +32,8 @@ public class JobDAO implements IJobDAO {
     }
 
     @Override
-    public void findById(String id) {
-        jrep.findById(id);
+    public Job findById(String id) {
+        return jrep.findById(id).get();
     }
 
     @Override

@@ -16,8 +16,7 @@ public interface ISiteDAO {
 
     Site save(Site st);
 
-
-    void findById(String id);
+    Site findById(String id);
 
     void deleteById(String id);
 }

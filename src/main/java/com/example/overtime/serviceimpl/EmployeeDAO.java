@@ -32,8 +32,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     }
 
     @Override
-    public void findById(String id) {
-        erep.findById(id);
+    public Employee findById(String id) {
+        return erep.findById(id).get();
     }
 
     @Override

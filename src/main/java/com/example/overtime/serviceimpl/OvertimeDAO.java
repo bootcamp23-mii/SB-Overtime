@@ -32,8 +32,8 @@ public class OvertimeDAO implements IOvertimeDAO {
     }
 
     @Override
-    public void findById(String id) {
-        orep.findById(id);
+    public Overtime findById(String id) {
+        return orep.findById(id).get();
     }
 
     @Override

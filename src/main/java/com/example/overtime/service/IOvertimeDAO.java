@@ -16,8 +16,7 @@ public interface IOvertimeDAO {
 
     Overtime save(Overtime ot);
 
-
-    void findById(String id);
+    Overtime findById(String id);
 
     void deleteById(String id);
 }
