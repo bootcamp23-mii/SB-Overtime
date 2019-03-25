@@ -16,8 +16,7 @@ public interface IJobDAO {
 
     Job save(Job jb);
 
-
-    void findById(String id);
+    Job findById(String id);
 
     void deleteById(String id);
 }

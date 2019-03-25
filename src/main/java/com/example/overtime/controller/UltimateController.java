@@ -5,12 +5,17 @@
  */
 package com.example.overtime.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpServletRequest;
 import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
 import com.example.overtime.entity.Overtime;
 import com.example.overtime.entity.Site;
+import com.example.overtime.entity.Status;
 import com.example.overtime.entity.TimeSheet;
+import com.example.overtime.service.BCrypt;
 import com.example.overtime.serviceimpl.DivisionDAO;
 import com.example.overtime.serviceimpl.EmailService;
 import com.example.overtime.serviceimpl.EmployeeDAO;
@@ -27,8 +32,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -37,6 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class UltimateController {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private static Logger log = LoggerFactory.getLogger(UltimateController.class);
 
@@ -87,7 +95,17 @@ public class UltimateController {
         model.addAttribute("tsdata", tdao.findAll());
         model.addAttribute("tssave", new TimeSheet());
         model.addAttribute("tsdelete", new TimeSheet());
-        return "index";
+        return "pages/content";
+    }
+
+    @GetMapping("/contentadmin")
+    public String contadm(Model model) {
+        return "pages/testadmin";
+    }
+
+    @GetMapping("/contentmanager")
+    public String contman(Model model) {
+        return "pages/testmanager";
     }
 
     @GetMapping("/login")
@@ -95,10 +113,10 @@ public class UltimateController {
         return "login";
     }
 
-    @GetMapping("/content")
-    public String content(Model model) {
-        return "pages/content";
-    }
+    // @GetMapping("/content")
+    // public String content(Model model) {
+    // return "pages/content";
+    // }
 
     @GetMapping("/activation")
     public String activation(Model model) {
@@ -143,6 +161,7 @@ public class UltimateController {
     // return "/pages :: ELEMENT"; // fragment
     // }
 
+    // ==========FUNCTIONAL TOOLS CONTROL==========
     @GetMapping("/sendemail")
     public String signUpComplete() {
         try {
@@ -152,6 +171,61 @@ public class UltimateController {
         }
         return "redirect:/";
     }
+
+    @PostMapping("/loginmed")
+    public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
+            HttpServletRequest request) {
+        if (edao.findById(id) != null) {
+            Employee employee = edao.findById(id);
+            if (BCrypt.checkpw(password, employee.getPassword())) {
+                request.getSession().setAttribute("loginses", id);
+            } else {
+                return "redirect:/login";
+            }
+        }
+        if (edao.findById(id).getJob().getId().equals("JOB03")) {
+            return "redirect:/contentadmin";
+        } else if (edao.findById(id).getJob().getId().equals("JOB02")) {
+            return "redirect:/contentmanager";
+        }
+
+        return "redirect:/";
+    }
+
+    // @GetMapping("/")
+    // public String process(Model model, HttpSession session) {
+    // @SuppressWarnings("unchecked")
+    // List<String> messages = (List<String>)
+    // session.getAttribute("MY_SESSION_MESSAGES");
+
+    // if (messages == null) {
+    // messages = new ArrayList<>();
+    // }
+    // model.addAttribute("sessionMessages", messages);
+
+    // return "index";
+    // }
+
+    // @PostMapping("/persistMessage")
+    // public String persistMessage(@RequestParam("msg") String msg,
+    // HttpServletRequest request) {
+    // @SuppressWarnings("unchecked")
+    // List<String> messages = (List<String>)
+    // request.getSession().getAttribute("MY_SESSION_MESSAGES");
+    // if (messages == null) {
+    // messages = new ArrayList<>();
+    // request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
+    // }
+    // messages.add(msg);
+    // request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
+    // return "redirect:/";
+    // }
+
+    // @PostMapping("/logout")
+    // public String destroySession(HttpServletRequest request) {
+    // request.getSession().invalidate();
+    // return "redirect:/login";
+    // }
 
     // REMAPING ALL THE CONTROLLER NEED
     // CONTROLLER LIST
@@ -224,8 +298,12 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/ovtsave", method = RequestMethod.POST)
-    public String ovtSave(@ModelAttribute("ovtsave") Overtime ovt) {
-        odao.save(ovt);
+    public String ovtSave(String id, @RequestParam("tf-date") String date,
+            @RequestParam("tf-duration") String timeduration, @RequestParam("tf-description") String keterangan,
+            @RequestParam("tf-timesheet") String timesheet, String status)
+            throws NumberFormatException, ParseException {
+        odao.save(new Overtime("id", sdf.parse(date), Integer.valueOf(timeduration), keterangan,
+                new TimeSheet(timesheet), new Status("STA01")));
         return "redirect:/";
     }
 

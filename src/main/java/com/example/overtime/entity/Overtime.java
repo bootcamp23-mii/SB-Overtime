@@ -73,6 +73,15 @@ public class Overtime implements Serializable {
     public Overtime() {
     }
 
+    public Overtime(String id, Date date, Integer timeduration, String keterangan, TimeSheet timesheet, Status status) {
+        this.id = id;
+        this.date = date;
+        this.timeduration = timeduration;
+        this.keterangan = keterangan;
+        this.timesheet = timesheet;
+        this.status = status;
+    }
+
     public Overtime(String id) {
         this.id = id;
     }
@@ -151,7 +160,6 @@ public class Overtime implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Overtime)) {
             return false;
         }

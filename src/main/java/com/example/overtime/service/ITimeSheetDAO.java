@@ -17,7 +17,7 @@ public interface ITimeSheetDAO {
 
     TimeSheet save(TimeSheet ts);
 
-    void findById(String id);
+    TimeSheet findById(String id);
 
     void deleteById(String id);
 }

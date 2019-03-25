@@ -32,8 +32,8 @@ public class SiteDAO implements ISiteDAO {
     }
 
     @Override
-    public void findById(String id) {
-        srep.findById(id);
+    public Site findById(String id) {
+        return srep.findById(id).get();
     }
 
     @Override

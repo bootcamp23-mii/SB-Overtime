@@ -16,8 +16,7 @@ public interface IEmployeeDAO {
 
     Employee save(Employee emp);
 
-
-    void findById(String id);
+    Employee findById(String id);
 
     void deleteById(String id);
 }
