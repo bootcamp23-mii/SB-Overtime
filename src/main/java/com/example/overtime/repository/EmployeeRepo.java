@@ -17,6 +17,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface EmployeeRepo extends CrudRepository<Employee, String> {
 
     @Modifying
-    @Query(value = "DELETE EMPLOYEE WHERE id='?'1", nativeQuery = true)
+    @Query(value = "DELETE EMPLOYEE WHERE id=?1", nativeQuery = true)
     public void deleteWithId(String id);
 }

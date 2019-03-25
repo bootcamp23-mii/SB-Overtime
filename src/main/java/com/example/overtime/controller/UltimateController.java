@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -96,6 +95,13 @@ public class UltimateController {
         model.addAttribute("tsdata", tdao.findAll());
         model.addAttribute("tssave", new TimeSheet());
         model.addAttribute("tsdelete", new TimeSheet());
+
+        // ==========INDIRECT METHOD==========
+        String id = "EMP1";
+        model.addAttribute("userhistory", odao.findHistoryByUser(id));
+        model.addAttribute("userstatus", odao.findStatusByUser(id));
+
+
         return "pages/content";
     }
 
@@ -273,7 +279,7 @@ public class UltimateController {
             @RequestParam("cb-division") String division, 
             @RequestParam("cb-site") String site,
             @RequestParam("cb-job") String job){
-        edao.save(new Employee("id", name, address, new Integer(salary), email, new Integer("0"), new Employee(manager),new Division(division) 
+        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, new Integer("0"), new Employee(manager),new Division(division) 
                 ,new Site(site), new Job(job)));
         return "redirect:/";
     }
