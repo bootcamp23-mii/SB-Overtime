@@ -126,6 +126,7 @@ public class UltimateController {
 
     @GetMapping("/createuser")
     public String createuser(Model model) {
+        model.addAttribute("divdata", ddao.findAll());
         return "pages/adminCreateUser";
     }
 

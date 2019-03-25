@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface DivisionRepo extends CrudRepository<Division, String> {
 
     @Modifying
-    @Query(value = "DELETE DIVISION WHERE id='?'1", nativeQuery = true)
+    @Query(value = "DELETE DIVISION WHERE id=?1", nativeQuery = true)
     public void deleteWithId(String id);
 }
