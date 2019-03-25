@@ -66,17 +66,24 @@
                                             <label for="cb-division" class=" form-control-label">Division</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <div>
-                                                <select class="custom-select" name="cb-division" id="cb-division"
-                                                    th:field="*{division}">
-                                                    <option class="form-control" th:value="'div'"
+
+
+                                            <select class="custom-select" name="cb-division" id="cb-division">
+                                                <div th:each="data :${divdata}">
+                                                    <option class="form-control" th:value="${data.id}" th:text="${data.name}"></option>
+                                                </div>
+                                            </select>
+
+                                            <!-- <select class="custom-select" name="cb-division" id="cb-division">
+                                                <div th:each="data :${division}">
+                                                    <option class="form-control" th:value="data.name"
                                                         th:text="Application Developer Division"></option>
                                                     <option class="form-control" th:value="'hr'"
                                                         th:text="Human Resource"></option>
                                                     <option class="form-control" th:value="'ms'"
                                                         th:text="Managed Service"></option>
-                                                </select>
-                                            </div>
+                                                </div>
+                                            </select> -->
                                             <span class="help-block">Your Division?</span>
                                         </div>
                                     </div>
