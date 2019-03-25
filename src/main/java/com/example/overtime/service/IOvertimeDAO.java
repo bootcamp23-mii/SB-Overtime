@@ -18,9 +18,9 @@ public interface IOvertimeDAO {
 
     Overtime findById(String id);
 
-    Overtime findHistoryByUser(String id);
+    // Overtime findHistoryByUser(String id);
 
-    Overtime findStatusByUser(String id);
+    // Overtime findStatusByUser(String id);
 
     void deleteById(String id);
 }

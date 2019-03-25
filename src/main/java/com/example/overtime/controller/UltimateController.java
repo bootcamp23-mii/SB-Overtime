@@ -8,6 +8,8 @@ package com.example.overtime.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
@@ -97,10 +99,10 @@ public class UltimateController {
         model.addAttribute("tsdelete", new TimeSheet());
 
         // ==========INDIRECT METHOD==========
-        String id = "EMP1";
-        model.addAttribute("userhistory", odao.findHistoryByUser(id));
-        model.addAttribute("userstatus", odao.findStatusByUser(id));
-
+        // HARD CODED SAMPLE OF EMP1
+        // String id = "EMP1";
+        // model.addAttribute("userhistory", odao.findHistoryByUser(id));
+        // model.addAttribute("userstatus", odao.findStatusByUser(id));
 
         return "pages/content";
     }
@@ -182,20 +184,27 @@ public class UltimateController {
 
     @PostMapping("/loginmed")
     public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
-            HttpServletRequest request) {
+            HttpServletRequest request, HttpSession session) {
+
         if (edao.findById(id) != null) {
             Employee employee = edao.findById(id);
+
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                request.getSession().setAttribute("loginses", id);
+                String role = edao.findById(id).getJob().getId();
+                System.out.println(role);
+                session.setAttribute("loginses", id);
+                session.setAttribute("roleloginses", role);
+                // request.getSession().setAttribute("loginses", id);
+                // request.getSession().setAttribute("roleloginses", role);
             } else {
                 return "redirect:/login";
             }
         }
-        if (edao.findById(id).getJob().getId().equals("JOB03")) {
-            return "redirect:/contentadmin";
-        } else if (edao.findById(id).getJob().getId().equals("JOB02")) {
-            return "redirect:/contentmanager";
-        }
+        // if (edao.findById(id).getJob().getId().equals("JOB03")) {
+        // return "redirect:/contentadmin";
+        // } else if (edao.findById(id).getJob().getId().equals("JOB02")) {
+        // return "redirect:/contentmanager";
+        // }
 
         return "redirect:/";
     }
@@ -270,15 +279,12 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
-    public String empSave(String id, @RequestParam("tf-name") String name, 
-            @RequestParam("tf-address") String address,
-            @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String activation ,
-            @RequestParam("tf-manager") String manager, 
-            @RequestParam("cb-division") String division, 
-            @RequestParam("cb-site") String site,
-            @RequestParam("cb-job") String job){
-        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, new Integer("0"), new Employee(manager),new Division(division) 
-                ,new Site(site), new Job(job)));
+    public String empSave(String id, @RequestParam("tf-name") String name, @RequestParam("tf-address") String address,
+            @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String activation,
+            @RequestParam("tf-manager") String manager, @RequestParam("cb-division") String division,
+            @RequestParam("cb-site") String site, @RequestParam("cb-job") String job) {
+        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, new Integer("0"),
+                new Employee(manager), new Division(division), new Site(site), new Job(job)));
         return "redirect:/";
     }
 
