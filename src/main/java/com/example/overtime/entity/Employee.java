@@ -94,7 +94,8 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String id, String name, String address, Integer salary, String email, Integer activation, Employee manager, Division division, Site site, Job job) {
+    public Employee(String id, String name, String address, Integer salary,
+             String email, Integer activation, Employee manager, Division division, Site site, Job job) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -106,7 +107,6 @@ public class Employee implements Serializable {
         this.site = site;
         this.job = job;
     }
-    
 
     public String getId() {
         return id;
@@ -245,5 +245,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.example.overtime.entity.Employee[ id=" + id + " ]";
     }
-    
+
 }
