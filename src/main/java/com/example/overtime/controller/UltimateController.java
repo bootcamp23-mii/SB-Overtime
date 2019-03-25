@@ -126,6 +126,9 @@ public class UltimateController {
 
     @GetMapping("/createuser")
     public String createuser(Model model) {
+        model.addAttribute("division", ddao.findAll());
+        model.addAttribute("site", sdao.findAll());
+        model.addAttribute("job", jdao.findAll());
         return "pages/adminCreateUser";
     }
 
@@ -263,8 +266,15 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
-    public String empSave(@ModelAttribute("empsave") Employee emp) {
-        edao.save(emp);
+    public String empSave(String id, @RequestParam("tf-name") String name, 
+            @RequestParam("tf-address") String address,
+            @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String activation ,
+            @RequestParam("tf-manager") String manager, 
+            @RequestParam("cb-division") String division, 
+            @RequestParam("cb-site") String site,
+            @RequestParam("cb-job") String job){
+        edao.save(new Employee("id", name, address, new Integer(salary), email, new Integer("0"), new Employee(manager),new Division(division) 
+                ,new Site(site), new Job(job)));
         return "redirect:/";
     }
 
