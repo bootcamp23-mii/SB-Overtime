@@ -23,15 +23,14 @@
                             <div class="row m-t-25">
                             </div>
                             <div class="col-lg-12">
-                                <form action="AdminServlet" method="POST">
+                                <form th:action="@{/empsave}" th:object="${empsave}" method="POST" >
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="tf-name" class=" form-control-label">Name</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="tf-name" name="tf-name" placeholder=""
+                                            <input type="text" id="tf-name" th:field="*{empsave.name}" name="tf-name" placeholder="What's Your Name?"
                                                 class="form-control" />
-                                            <span class="help-block">What' Your Name?</span>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -39,9 +38,8 @@
                                             <label for="tf-address" class=" form-control-label">Address</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="tf-address" name="tf-address" placeholder=""
+                                            <input type="text" id="tf-address" name="tf-address" th:field="*{empsave.address}" placeholder="Where Are You From?"
                                                 class="form-control" />
-                                            <span class="help-block">Where Are You From?</span>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -49,19 +47,17 @@
                                             <label for="tf-salary" class=" form-control-label">Salary</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="tf-salary" name="tf-salary" placeholder=""
+                                            <input type="text" id="tf-salary" name="tf-salary" th:field="*{empsave.salary}" placeholder="How much Salary Have You got?"
                                                 class="form-control" />
-                                            <span class="help-block">How much Salary You have got?</span>
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="tf-email" class=" form-control-label">Email</label>
+                                            <label for="tf-email" class=" form-control-label" >Email</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="email" id="tf-email" name="tf-email" placeholder=""
+                                            <input type="email" id="tf-email" name="tf-email" th:field="*{empsave.email}" placeholder="Your Email?"
                                                 class="form-control" />
-                                            <span class="help-block">Your Email?</span>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -95,9 +91,8 @@
                                             <label for="tf-manager" class=" form-control-label">Manager Id</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="tf-description" name="tf-manager" placeholder=""
+                                            <input type="text" id="tf-description" name="tf-manager" th:field="*{empsave.managerid}" placeholder="Who is Your manager?"
                                                 class="form-control" />
-                                            <span class="help-block">Who is Your manager?</span>
                                         </div>
                                     </div>
                                     <div class="row form-group">
