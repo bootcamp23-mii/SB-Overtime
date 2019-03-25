@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{index}">
+    layout:decorate="~{index}">
 
-    <section layout:fragment="content">
+<section layout:fragment="content">
 
-        <div class="section__content section__content--p30">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
             <div class="container-fluid">
-                <div class="container-fluid">
-                    <div class="row">
-                    </div>
-                    <div class="row m-t-25">
-                    </div>
-                    <div class="col-md-12">
-                    </div>
+                <div class="row">
                 </div>
                 <div class="row m-t-25">
                 </div>
+<<<<<<< HEAD
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="au-card recent-report">
@@ -33,106 +29,140 @@
                                                 <input type="text" id="tf-name" name="tf-name" placeholder="What's Your Name?"
                                                        class="form-control" />
                                             </div>
+=======
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div class="row m-t-25">
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="au-card recent-report">
+                        <div class="au-card-inner">
+                            <h3 class="title-10"> Create User</h3>
+                            <div class="row m-t-25">
+                            </div>
+                            <div class="col-lg-12">
+                                <form th:action="@{/empsave}" method="POST">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="tf-name" class=" form-control-label">Name</label>
+>>>>>>> f336fcfa5f2bf2fb0dfa86a41ac63d3db3d4b0dc
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="tf-address" class=" form-control-label">Address</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="text" id="tf-address" name="tf-address" placeholder="Where Are You From?"
-                                                       class="form-control" />
-                                            </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="tf-name" name="tf-name"
+                                                placeholder="What's Your Name?" class="form-control" />
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="tf-salary" class=" form-control-label">Salary</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="text" id="tf-salary" name="tf-salary" placeholder="How much Salary Have You got?"
-                                                       class="form-control" />
-                                            </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="tf-address" class=" form-control-label">Address</label>
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="tf-email" class=" form-control-label" >Email</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="email" id="tf-email" name="tf-email" placeholder="Your Email?"
-                                                       class="form-control" />
-                                            </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="tf-address" name="tf-address"
+                                                placeholder="Where Are You From?" class="form-control" />
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="cb-division" class=" form-control-label">Division</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <div>
-                                                    <select class="custom-select" name="cb-division" id="cb-division">
-                                                        <div th:each="div : ${divdata}">
-                                                            <option class="form-control" th:value="${div.id}" th:text="${div.name}">
-                                                            </option>
-                                                        </div>
-                                                    </select>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="tf-salary" class=" form-control-label">Salary</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="tf-salary" name="tf-salary"
+                                                placeholder="How much Salary Have You got?" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="tf-email" class=" form-control-label">Email</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="email" id="tf-email" name="tf-email" placeholder="Your Email?"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="cb-division" class=" form-control-label">Division</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+
+
+                                            <select class="custom-select" name="cb-division" id="cb-division">
+                                                <div th:each="data :${divdata}">
+                                                    <option class="form-control" th:value="${data.id}" th:text="${data.name}"></option>
                                                 </div>
-                                                <span class="help-block">Your Division?</span>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="cb-site" class=" form-control-label">Site</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <div>
-                                                    <select class="custom-select" name="cb-site" id="cb-site">
-                                                        <!--                                                        <option class="form-control"
-                                                                                                                        th:each=" sit : ${site}"
-                                                                                                                        th:value="${sit}"
-                                                                                                                        th:text="${sit.name}">
-                                                                                                                </option>-->
-                                                    </select>
+                                            </select>
+
+                                            <!-- <select class="custom-select" name="cb-division" id="cb-division">
+                                                <div th:each="data :${division}">
+                                                    <option class="form-control" th:value="data.name"
+                                                        th:text="Application Developer Division"></option>
+                                                    <option class="form-control" th:value="'hr'"
+                                                        th:text="Human Resource"></option>
+                                                    <option class="form-control" th:value="'ms'"
+                                                        th:text="Managed Service"></option>
                                                 </div>
-                                                <span class="help-block">Your Site?</span>
-                                            </div>
+                                            </select> -->
+                                            <span class="help-block">Your Division?</span>
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="tf-manager" class=" form-control-label">Manager Id</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="text" id="tf-description" name="tf-manager" placeholder="Who is Your manager?"
-                                                       class="form-control" />
-                                            </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="cb-site" class=" form-control-label">Site</label>
                                         </div>
-                                        <div class="row form-group">
-                                            <div class="col col-md-3">
-                                                <label for="cb-job" class=" form-control-label">Position</label>
+                                        <div class="col-12 col-md-9">
+                                            <div>
+                                                <select class="custom-select" name="cb-site" id="cb-site">
+                                                    <!--                                                        <option class="form-control"
+                                                                th:each=" sit : ${site}"
+                                                                th:value="${sit}"
+                                                                th:text="${sit.name}">
+                                                        </option>-->
+                                                </select>
                                             </div>
-                                            <div class="col-12 col-md-9">
-                                                <div>
-                                                    <select class="custom-select" name="cb-job" id="cb-job">
-                                                        <!--                                                        <option class="form-control"
-                                                                                                                        th:each=" jb : ${job}"
-                                                                                                                        th:value="${jb}"
-                                                                                                                        th:text="${jb.name}">
-                                                                                                                </option>-->
-                                                    </select>
-                                                </div> <span class="help-block">What's Your Position?</span>
-                                            </div>
+                                            <span class="help-block">Your Site?</span>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-dot-circle-o"></i> Submit
-                                        </button>
-                                        <button type="reset" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-ban"></i> Reset
-                                        </button>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="tf-manager" class=" form-control-label">Manager Id</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="tf-description" name="tf-manager"
+                                                placeholder="Who is Your manager?" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="cb-job" class=" form-control-label">Position</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <div>
+                                                <select class="custom-select" name="cb-job" id="cb-job">
+                                                    <!--                                                        <option class="form-control"
+                                                                th:each=" jb : ${job}"
+                                                                th:value="${jb}"
+                                                                th:text="${jb.name}">
+                                                        </option>-->
+                                                </select>
+                                            </div> <span class="help-block">What's Your Position?</span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-ban"></i> Reset
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 </html>
