@@ -32,7 +32,17 @@
 
         <!-- MENU SIDEBAR-->
         <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
+        
+<!--        <span th:if="${job.id=='JOB03'}">
+        <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+        </span>
+        <span th:unless="${job.id=='JOB02'}">
+        <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
+        </span>
+        <span th:unless="${job.id=='JOB01'}">-->
         <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!--</span>-->
+        
         <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
