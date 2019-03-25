@@ -41,4 +41,14 @@ public class OvertimeDAO implements IOvertimeDAO {
         orep.deleteWithId(id);
     }
 
+    @Override
+    public Overtime findHistoryByUser(String id) {
+        return orep.getStatus(id);
+    }
+
+    @Override
+    public Overtime findStatusByUser(String id) {
+        return orep.getStatus(id);
+    }
+
 }

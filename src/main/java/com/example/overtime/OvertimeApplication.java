@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OvertimeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OvertimeApplication.class, args);
-		System.out.println("SUCCESSED DEPLOY SPRINGBOOT");
+		System.out.println("SUCCESSFULLY DEPLOY SPRINGBOOT");
 	}
 
 }
