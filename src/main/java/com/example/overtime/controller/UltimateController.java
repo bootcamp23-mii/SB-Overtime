@@ -183,7 +183,7 @@ public class UltimateController {
     @GetMapping("/status")
     public String status(HttpSession session, Model model) {
         String data = (String) session.getAttribute("loginses");
-        System.out.println("DATANYA : "+ data);
+        System.out.println("DATANYA : " + data);
         model.addAttribute("statusdata", odao.findStatusByUser(data));
         return "pages/status";
     }

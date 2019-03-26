@@ -3,7 +3,7 @@
     layout:decorate="~{index}">
 
 <section layout:fragment="content">
-    <form th:action="@{/otsave}" method="POST">
+    <form th:action="@{/stsave}" method="POST">
         <div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
             aris-hidden="true">
             <div class="modal-dialog" role="document">
@@ -47,6 +47,7 @@
         </div>
     </form>
 
+
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
@@ -80,11 +81,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="data : ${historydata}">
+                                            <tr th:each="data : ${statusdata}">
                                                 <td th:text="${data.id}"></td>
                                                 <td th:text="${data.date}"></td>
                                                 <td th:text="${data.timesheet.id}"></td>
-                                                <td th:text="${data.status.status}"></td>
+                                                <td>
+                                                    <button data-target="#modalStatus" data-toggle="modal"
+                                                        class="btn btn-warning"></button>
+
+
+                                                    <!-- <button data-target="#modalStatus" data-toggle="modal"
+                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
+                                                        th:data-getduration="${data.timeduration}"
+                                                        th:data-getdescription="${data.keterangan}"
+                                                        th:data-getts="${data.timesheet.id}"
+                                                        th:data-getstatus="${data.status.id}"
+                                                        class="btn btn-primary">EDIT</button>
+                                                    <button data-target="#modalDelete" data-toggle="modal"
+                                                        th:data-getname="${as.name}" th:data-getid="${as.id}"
+                                                        class="btn btn-warning">DELETE</button> -->
+
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -99,12 +116,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- <script>
+    <script>
         $('#modalStatus').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var id = button.data('getid')
@@ -132,7 +148,7 @@
             wme.print();
             wme.close();
         })
-    </script> -->
+    </script>
 </section>
 
 </html>
