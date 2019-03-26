@@ -17,26 +17,23 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="SotId" name="SotId" class="form-control" value="GET ID" />
+                            <input type="text" id="SotId" name="SotId" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Sotdate" name="Sotdate" class="form-control" value="GET DATE" />
+                            <input type="date" id="Sotdate" name="Sotdate" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Sotduration" name="Sotduration" class="form-control"
-                                value="GET DURATION" />
+                            <input type="text" id="Sotduration" name="Sotduration" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Sotdesc" name="Sotdesc" class="form-control"
-                                value="GET DESCRIPTION" />
+                            <input type="text" id="Sotdesc" name="Sotdesc" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control"
-                                value="GET TIMESHEET" />
+                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -69,7 +66,7 @@
                                 </div>
                                 <div class="table-responsive table--no-card m-b-30">
                                     <!--TABLE HERE-->
-                                    <table id="historyTable" class="table table-borderless table-striped table-earning"
+                                    <table id="statusTable" class="table table-borderless table-striped table-earning"
                                         cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
@@ -87,19 +84,21 @@
                                                 <td th:text="${data.timesheet.id}"></td>
                                                 <td>
                                                     <button data-target="#modalStatus" data-toggle="modal"
-                                                        class="btn btn-warning"></button>
+                                                        class="btn btn-warning">EDIT</button>
 
 
-                                                    <!-- <button data-target="#modalStatus" data-toggle="modal"
-                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
+                                                    <button data-target="#modalStatus" data-toggle="modal"
+                                                        th:data-getid="${data.id}" 
+                                                        th:data-getdate="${data.date}"
                                                         th:data-getduration="${data.timeduration}"
                                                         th:data-getdescription="${data.keterangan}"
                                                         th:data-getts="${data.timesheet.id}"
                                                         th:data-getstatus="${data.status.id}"
                                                         class="btn btn-primary">EDIT</button>
+
                                                     <button data-target="#modalDelete" data-toggle="modal"
-                                                        th:data-getname="${as.name}" th:data-getid="${as.id}"
-                                                        class="btn btn-warning">DELETE</button> -->
+                                                        th:data-getid="${data.id}"
+                                                        class="btn btn-warning">DELETE</button>
 
                                                 </td>
                                             </tr>
@@ -110,7 +109,7 @@
                                 </div>
 
                                 <div class="chart-note">
-                                    <button class="btnhistory au-btn au-btn-icon au-btn--blue">
+                                    <button class="btnstatus au-btn au-btn-icon au-btn--blue">
                                         <i class="zmdi"></i>PRINT</button>
                                 </div>
                             </div>
@@ -137,7 +136,9 @@
             modal.find('#Sotdesc').val(desc)
             modal.find('#Stimesheet').val(ts)
             modal.find('#Sotstatus').val(status)
-        })
+        });
+    </script>
+    <script>
 
         $('.btnstatus').click(function () {
             var printme = document.getElementById('statusTable');
@@ -147,8 +148,9 @@
             wme.focus();
             wme.print();
             wme.close();
-        })
+        });
     </script>
+
 </section>
 
 </html>
