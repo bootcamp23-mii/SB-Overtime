@@ -8,6 +8,8 @@ package com.example.overtime.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
@@ -72,9 +74,19 @@ public class UltimateController {
     private EmailService emailService;
 
     // ==========PAGE CONTROLLER==========
+    @GetMapping("/*")
+    public String indexnull(Model model) {
+        return "error";
+    }
+
     @GetMapping("/")
     public String index(Model model) {
+
+        // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
+        // THE APP, CC:PANDU
+
         model.addAttribute("divdata", ddao.findAll());
+
         model.addAttribute("divsave", new Division());
         model.addAttribute("divdelete", new Division());
         
@@ -135,7 +147,7 @@ public class UltimateController {
         model.addAttribute("divdata", ddao.findAll());
         model.addAttribute("sitedata", sdao.findAll());
         model.addAttribute("jobdata", jdao.findAll());
-        
+
         return "pages/adminCreateUser";
     }
     
@@ -146,6 +158,8 @@ public class UltimateController {
     
     @GetMapping("/history")
     public String history(Model model) {
+        model.addAttribute("historydata", odao.findHistoryByUser("EMP1"));
+        // model.addAttribute("historydata", odao.findAll());
         return "pages/history";
     }
     
@@ -161,8 +175,10 @@ public class UltimateController {
     
     @GetMapping("/status")
     public String status(Model model) {
+        model.addAttribute("statusdata", odao.findAll());
         return "pages/status";
     }
+
 
     // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     // public String detailRefresh(@PathVariable long id, Model model) {
@@ -171,6 +187,7 @@ public class UltimateController {
     //
     // return "/pages :: ELEMENT"; // fragment
     // }
+
     // ==========FUNCTIONAL TOOLS CONTROL==========
     @GetMapping("/sendemail")
     public String signUpComplete() {
@@ -184,21 +201,22 @@ public class UltimateController {
     
     @PostMapping("/loginmed")
     public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
-            HttpServletRequest request) {
+            HttpServletRequest request, HttpSession session) {
+
         if (edao.findById(id) != null) {
             Employee employee = edao.findById(id);
+
             if (BCrypt.checkpw(password, employee.getPassword())) {
-                request.getSession().setAttribute("loginses", id);
+                String role = edao.findById(id).getJob().getId();
+                System.out.println(role);
+                session.setAttribute("loginses", id);
+                session.setAttribute("roleloginses", role);
+                // request.getSession().setAttribute("loginses", id);
+                // request.getSession().setAttribute("roleloginses", role);
             } else {
                 return "redirect:/login";
             }
         }
-        if (edao.findById(id).getJob().getId().equals("JOB03")) {
-            return "redirect:/contentadmin";
-        } else if (edao.findById(id).getJob().getId().equals("JOB02")) {
-            return "redirect:/contentmanager";
-        }
-        
         return "redirect:/";
     }
 
@@ -266,6 +284,7 @@ public class UltimateController {
     }
     
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
+
     public String empSave(String id, @RequestParam("tf-name") String name,
             @RequestParam("tf-address") String address,
             @RequestParam("tf-salary") String salary,

@@ -32,17 +32,43 @@
 
         <!-- MENU SIDEBAR-->
         <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
-        
-<!--        <span th:if="${job.id=='JOB03'}">
+
+        <!--        <span th:if="${job.id=='JOB03'}">
         <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
         </span>
         <span th:unless="${job.id=='JOB02'}">
         <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
         </span>
         <span th:unless="${job.id=='JOB01'}">-->
-        <div th:replace="fragments/sidebar :: sidebar"></div>
+        <!-- <div th:each="data :${session.roleloginses}">
+            <div th:if="${data=='JOB01'}">
+                <div th:replace="fragments/sidebar :: sidebar"></div>
+            </div>
+            <div th:unless="${data=='JOB02'}">
+                <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
+            </div>
+            <div th:unless="${data=='JOB03'}">
+                <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+            </div>
+        </div> -->
+
+
+        <div th:switch="${session.roleloginses}">
+            <div th:case="'JOB01'">
+                <div th:replace="fragments/sidebar :: sidebar"></div>
+            </div>
+            <div th:case="'JOB02'">
+                <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
+            </div>
+            <div th:case="'JOB03'">
+                <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+            </div>
+        </div>
+
+
+
         <!--</span>-->
-        
+
         <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
@@ -61,7 +87,9 @@
                 </div>
                 <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
                 <!--<div th:replace="fragments/content :: content"></div>-->
+
                 <section layout:fragment="content"></section>
+                
                 <!--<jsp:include page="content.jsp"/>-->
 
             </div>

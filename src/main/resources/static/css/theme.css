@@ -97,8 +97,12 @@ p {
     border-radius: 3px;
 }
 
-.roundme{
+.roundme-10{
     border-radius: 10px;
+}
+
+.roundme-20{
+    border-radius: 20px;
 }
 
 /* ----- Typography ----- */
