@@ -20,7 +20,7 @@ public interface IOvertimeDAO {
 
     Iterable<Overtime> findHistoryByUser(String id);
 
-    Overtime findStatusByUser(String id);
+    Iterable<Overtime> findStatusByUser(String id);
 
     void deleteById(String id);
 }

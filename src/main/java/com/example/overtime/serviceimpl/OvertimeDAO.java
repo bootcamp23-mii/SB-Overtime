@@ -47,7 +47,7 @@ public class OvertimeDAO implements IOvertimeDAO {
     }
 
     @Override
-    public Overtime findStatusByUser(String id) {
+    public Iterable<Overtime> findStatusByUser(String id) {
         return orep.getStatus(id);
     }
 

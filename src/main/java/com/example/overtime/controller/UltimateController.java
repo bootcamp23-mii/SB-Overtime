@@ -49,29 +49,29 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class UltimateController {
-    
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    
+
     private static Logger log = LoggerFactory.getLogger(UltimateController.class);
-    
+
     @Autowired
     DivisionDAO ddao;
-    
+
     @Autowired
     EmployeeDAO edao;
-    
+
     @Autowired
     JobDAO jdao;
-    
+
     @Autowired
     OvertimeDAO odao;
-    
+
     @Autowired
     SiteDAO sdao;
-    
+
     @Autowired
     TimeSheetDAO tdao;
-    
+
     @Autowired
     private EmailService emailService;
 
@@ -79,7 +79,7 @@ public class UltimateController {
     @GetMapping("/*")
     public String indexnull(Model model, HttpSession session) {
         // if (session.getAttribute("loginses").toString() == null) {
-        //     return "login";
+        // return "login";
         // }
         return "error";
     }
@@ -94,23 +94,23 @@ public class UltimateController {
 
         // model.addAttribute("divsave", new Division());
         // model.addAttribute("divdelete", new Division());
-        
+
         // model.addAttribute("empdata", edao.findAll());
         // model.addAttribute("empsave", new Employee());
         // model.addAttribute("empdelete", new Employee());
-        
+
         // model.addAttribute("jobdata", jdao.findAll());
         // model.addAttribute("jobsave", new Job());
         // model.addAttribute("jobdelete", new Job());
-        
+
         // model.addAttribute("ovtdata", odao.findAll());
         // model.addAttribute("ovtsave", new Overtime());
         // model.addAttribute("ovtdelete", new Overtime());
-        
+
         // model.addAttribute("sitedata", sdao.findAll());
         // model.addAttribute("sitesave", new Site());
         // model.addAttribute("sitedelete", new Site());
-        
+
         // model.addAttribute("tsdata", tdao.findAll());
         // model.addAttribute("tssave", new TimeSheet());
         // model.addAttribute("tsdelete", new TimeSheet());
@@ -119,20 +119,20 @@ public class UltimateController {
         // String id = "EMP1";
         // model.addAttribute("userhistory", odao.findHistoryByUser(id));
         // model.addAttribute("userstatus", odao.findStatusByUser(id));
-        
+
         return "pages/content";
     }
-    
+
     @GetMapping("/contentadmin")
     public String contadm(Model model) {
         return "pages/testadmin";
     }
-    
+
     @GetMapping("/contentmanager")
     public String contman(Model model) {
         return "pages/testmanager";
     }
-    
+
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
@@ -146,7 +146,7 @@ public class UltimateController {
     public String activation(Model model) {
         return "pages/activationUser";
     }
-    
+
     @GetMapping("/createuser")
     public String createuser(Model model) {
         model.addAttribute("divdata", ddao.findAll());
@@ -155,12 +155,12 @@ public class UltimateController {
 
         return "pages/adminCreateUser";
     }
-    
+
     @GetMapping("/approval")
     public String approval(Model model) {
         return "pages/approvalManager";
     }
-    
+
     @GetMapping("/history")
     public String history(HttpSession session, Model model) {
         String wewant = (String) session.getAttribute("loginses");
@@ -169,23 +169,24 @@ public class UltimateController {
         // model.addAttribute("historydata", odao.findAll());
         return "pages/history";
     }
-    
+
     @GetMapping("/profile")
     public String profile(Model model) {
         return "pages/profile";
     }
-    
+
     @GetMapping("/request")
     public String request(Model model) {
         return "pages/request";
     }
-    
+
     @GetMapping("/status")
-    public String status(Model model) {
-        model.addAttribute("statusdata", odao.findStatusByUser("EMP2"));
+    public String status(HttpSession session, Model model) {
+        String data = (String) session.getAttribute("loginses");
+        System.out.println("DATANYA : "+ data);
+        model.addAttribute("statusdata", odao.findStatusByUser(data));
         return "pages/status";
     }
-
 
     // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     // public String detailRefresh(@PathVariable long id, Model model) {
@@ -205,7 +206,7 @@ public class UltimateController {
         }
         return "redirect:/";
     }
-    
+
     @PostMapping("/loginmed")
     public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
             HttpServletRequest request, HttpSession session) {
@@ -277,67 +278,63 @@ public class UltimateController {
         ddao.save(div);
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/divdelete", method = RequestMethod.POST)
     public String divDelete(@ModelAttribute("divdelete") Division div) {
         ddao.deleteById(div.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/divdelete/{id}", method = RequestMethod.GET)
     public ModelAndView divdelete(@PathVariable String id, ModelMap model) {
         ddao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
 
-    public String empSave(String id, @RequestParam("tf-name") String name,
-            @RequestParam("tf-address") String address,
-            @RequestParam("tf-salary") String salary,
-            @RequestParam("tf-email") String email, String password, String activation,
-            @RequestParam("tf-manager") String manager,
-            @RequestParam("cb-division") String division,
-            @RequestParam("cb-site") String site,
-            @RequestParam("cb-job") String job) throws Exception {
+    public String empSave(String id, @RequestParam("tf-name") String name, @RequestParam("tf-address") String address,
+            @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String password,
+            String activation, @RequestParam("tf-manager") String manager, @RequestParam("cb-division") String division,
+            @RequestParam("cb-site") String site, @RequestParam("cb-job") String job) throws Exception {
         password = "EMP" + email;
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash, new Integer("0"), new Employee(manager), new Division(division),
-                new Site(site), new Job(job)));
+        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
+                new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
         emailService.sendEmail(email);
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/empdelete", method = RequestMethod.POST)
     public String empDelete(@ModelAttribute("empdelete") Employee emp) {
         edao.deleteById(emp.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/empdelete/{id}", method = RequestMethod.GET)
     public ModelAndView empdelete(@PathVariable String id, ModelMap model) {
         edao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
     @RequestMapping(value = "/jobsave", method = RequestMethod.POST)
     public String jobSave(@ModelAttribute("jobsave") Job job) {
         jdao.save(job);
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/jobdelete", method = RequestMethod.POST)
     public String jobDelete(@ModelAttribute("jobdelete") Job job) {
         jdao.deleteById(job.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/jobdelete/{id}", method = RequestMethod.GET)
     public ModelAndView jobdelete(@PathVariable String id, ModelMap model) {
         jdao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
     @RequestMapping(value = "/ovtsave", method = RequestMethod.POST)
     public String ovtSave(String id, @RequestParam("tf-date") String date,
             @RequestParam("tf-duration") String timeduration, @RequestParam("tf-description") String keterangan,
@@ -347,53 +344,53 @@ public class UltimateController {
                 new TimeSheet(timesheet), new Status("STA01")));
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
     public String ovtDelete(@ModelAttribute("ovtdelete") Overtime ovt) {
         odao.deleteById(ovt.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/ovtdelete/{id}", method = RequestMethod.GET)
     public ModelAndView ovtdelete(@PathVariable String id, ModelMap model) {
         odao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
     @RequestMapping(value = "/sitesave", method = RequestMethod.POST)
     public String siteSave(@ModelAttribute("sitesave") Site site) {
         sdao.save(site);
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/sitedelete", method = RequestMethod.POST)
     public String siteDelete(@ModelAttribute("sitedelete") Site site) {
         sdao.deleteById(site.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/sitedelete/{id}", method = RequestMethod.GET)
     public ModelAndView sitedelete(@PathVariable String id, ModelMap model) {
         sdao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
     @RequestMapping(value = "/tssave", method = RequestMethod.POST)
     public String tsSave(@ModelAttribute("tssave") TimeSheet ts) {
         tdao.save(ts);
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/tsdelete", method = RequestMethod.POST)
     public String tsDelete(@ModelAttribute("tsdelete") TimeSheet ts) {
         tdao.deleteById(ts.getId());
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/tsdelete/{id}", method = RequestMethod.GET)
     public ModelAndView tsdelete(@PathVariable String id, ModelMap model) {
         tdao.deleteById(id);
         return new ModelAndView("redirect:/");
     }
-    
+
 }

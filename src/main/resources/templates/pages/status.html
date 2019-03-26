@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{index}">
 
 <section layout:fragment="content">
-
-    <!-- <%boolean cekData = session.getAttribute("data") != null;
-        Overtime ov = (cekData) ? (Overtime) session.getAttribute("overtime") : null;
-        boolean cekList = session.getAttribute("data") != null;
-        if (!cekList) {
-            response.sendRedirect("./HistoryServlet");
-        }
-    %> -->
-
-    <form action="StatusServlet" method="POST">
-        <div class="modal fade" id="modalStatus" tabindex="-1" 
-             role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
-            <div class="modal-dialog" role="document" >
+    <form th:action="@{/otsave}" method="POST">
+        <div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+            aris-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <h3 class="modal-title">EDITOR</h3>
@@ -25,32 +17,36 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="SotId" name="SotId" class="form-control" value="GET ID"/>
+                            <input type="text" id="SotId" name="SotId" class="form-control" value="GET ID" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Sotdate" name="Sotdate" class="form-control" value="GET DATE"/>
+                            <input type="date" id="Sotdate" name="Sotdate" class="form-control" value="GET DATE" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Sotduration" name="Sotduration" class="form-control" value="GET DURATION"/>
+                            <input type="text" id="Sotduration" name="Sotduration" class="form-control"
+                                value="GET DURATION" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Sotdesc" name="Sotdesc" class="form-control" value="GET DESCRIPTION"/>
+                            <input type="text" id="Sotdesc" name="Sotdesc" class="form-control"
+                                value="GET DESCRIPTION" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control" value="GET TIMESHEET"/>
+                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control"
+                                value="GET TIMESHEET" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" value="Save" name="save" >SAVE CHANGE</button>
+                        <button class="btn btn-primary" type="submit" value="Save" name="save">SAVE CHANGE</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
@@ -61,28 +57,35 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
+
                     <div class="row m-t-45">
                     </div>
                     <div class="au-card recent-report">
                         <div class="au-card-inner">
                             <div class="col-lg-12">
-                                <h3 class="title-10" > Status</h3>
+                                <h3 class="title-10"> History</h3>
                                 <div class="row m-t-25">
                                 </div>
                                 <div class="table-responsive table--no-card m-b-30">
                                     <!--TABLE HERE-->
-
-                                    <table id="statusTable" class="table table-borderless table-striped table-earning" cellspacing='30' align ='center'>
+                                    <table id="historyTable" class="table table-borderless table-striped table-earning"
+                                        cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
                                                 <th>Date</th>
-                                                <th>Duration</th>
-                                                <th>Action</th>
+                                                <!--<th>Duration</th>-->
+                                                <th>Time Sheet</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- GET TABLE STRUCTURE FOR STATUS OF THE REQUEST -->
+                                            <tr th:each="data : ${historydata}">
+                                                <td th:text="${data.id}"></td>
+                                                <td th:text="${data.date}"></td>
+                                                <td th:text="${data.timesheet.id}"></td>
+                                                <td th:text="${data.status.status}"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -90,12 +93,13 @@
                                 </div>
 
                                 <div class="chart-note">
-                                    <button class="btnstatus au-btn au-btn-icon au-btn--blue">
+                                    <button class="btnhistory au-btn au-btn-icon au-btn--blue">
                                         <i class="zmdi"></i>PRINT</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -130,4 +134,5 @@
         })
     </script> -->
 </section>
+
 </html>
