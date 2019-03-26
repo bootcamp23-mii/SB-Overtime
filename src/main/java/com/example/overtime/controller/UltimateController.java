@@ -92,33 +92,33 @@ public class UltimateController {
 
         model.addAttribute("divdata", ddao.findAll());
 
-        model.addAttribute("divsave", new Division());
-        model.addAttribute("divdelete", new Division());
+        // model.addAttribute("divsave", new Division());
+        // model.addAttribute("divdelete", new Division());
         
-        model.addAttribute("empdata", edao.findAll());
-        model.addAttribute("empsave", new Employee());
-        model.addAttribute("empdelete", new Employee());
+        // model.addAttribute("empdata", edao.findAll());
+        // model.addAttribute("empsave", new Employee());
+        // model.addAttribute("empdelete", new Employee());
         
-        model.addAttribute("jobdata", jdao.findAll());
-        model.addAttribute("jobsave", new Job());
-        model.addAttribute("jobdelete", new Job());
+        // model.addAttribute("jobdata", jdao.findAll());
+        // model.addAttribute("jobsave", new Job());
+        // model.addAttribute("jobdelete", new Job());
         
-        model.addAttribute("ovtdata", odao.findAll());
-        model.addAttribute("ovtsave", new Overtime());
-        model.addAttribute("ovtdelete", new Overtime());
+        // model.addAttribute("ovtdata", odao.findAll());
+        // model.addAttribute("ovtsave", new Overtime());
+        // model.addAttribute("ovtdelete", new Overtime());
         
-        model.addAttribute("sitedata", sdao.findAll());
-        model.addAttribute("sitesave", new Site());
-        model.addAttribute("sitedelete", new Site());
+        // model.addAttribute("sitedata", sdao.findAll());
+        // model.addAttribute("sitesave", new Site());
+        // model.addAttribute("sitedelete", new Site());
         
-        model.addAttribute("tsdata", tdao.findAll());
-        model.addAttribute("tssave", new TimeSheet());
-        model.addAttribute("tsdelete", new TimeSheet());
+        // model.addAttribute("tsdata", tdao.findAll());
+        // model.addAttribute("tssave", new TimeSheet());
+        // model.addAttribute("tsdelete", new TimeSheet());
 
         // ==========INDIRECT METHOD==========
-        String id = "EMP1";
-        model.addAttribute("userhistory", odao.findHistoryByUser(id));
-        model.addAttribute("userstatus", odao.findStatusByUser(id));
+        // String id = "EMP1";
+        // model.addAttribute("userhistory", odao.findHistoryByUser(id));
+        // model.addAttribute("userstatus", odao.findStatusByUser(id));
         
         return "pages/content";
     }
