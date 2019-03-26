@@ -42,7 +42,7 @@ public class OvertimeDAO implements IOvertimeDAO {
     }
 
     @Override
-    public Overtime findHistoryByUser(String id) {
+    public Iterable<Overtime> findHistoryByUser(String id) {
         return orep.getHistory(id);
     }
 

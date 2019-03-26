@@ -7,6 +7,8 @@ package com.example.overtime.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -73,7 +75,10 @@ public class UltimateController {
 
     // ==========PAGE CONTROLLER==========
     @GetMapping("/*")
-    public String indexnull(Model model) {
+    public String indexnull(Model model, HttpSession session) {
+        // if (session.getAttribute("loginses").toString() == null) {
+        //     return "login";
+        // }
         return "error";
     }
 
@@ -156,8 +161,10 @@ public class UltimateController {
     }
 
     @GetMapping("/history")
-    public String history(Model model) {
-        model.addAttribute("historydata", odao.findHistoryByUser("EMP1"));
+    public String history(HttpSession session, Model model) {
+        String wewant = (String) session.getAttribute("loginses");
+        System.out.println("WEWANT ADALAH" + wewant);
+        model.addAttribute("historydata", odao.findHistoryByUser(wewant));
         // model.addAttribute("historydata", odao.findAll());
         return "pages/history";
     }

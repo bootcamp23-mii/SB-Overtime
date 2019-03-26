@@ -20,11 +20,9 @@ public interface OvertimeRepo extends CrudRepository<Overtime, String> {
     @Query(value = "DELETE OVERTIME WHERE id='?1'", nativeQuery = true)
     public void deleteWithId(String id);
 
-    @Modifying
-    @Query(value = "SELECT FROM OVERTIME WHERE STATUS = 'STA01' and timesheet in(from TimeSheet where employee = '?1')", nativeQuery = true)
+    @Query(value = "from Overtime where status = 'STA01' and timesheet in(from TimeSheet where employee = '?')", nativeQuery = true)
     public Overtime getStatus(String id);
 
-    @Modifying
-    @Query(value = "SELECT FROM  WHERE STATUS != 'STA01' and timesheet in(from TimeSheet where employee = '?1')", nativeQuery = true)
-    public Overtime getHistory(String id);
+    @Query(value = "select * from tb_t_overtime where status != 'STA01' and timesheet in(select id from tb_t_time_sheet where employee = ?1)", nativeQuery = true)
+    public Iterable<Overtime> getHistory(String id);
 }
