@@ -72,10 +72,16 @@ public class UltimateController {
     private EmailService emailService;
 
     // ==========PAGE CONTROLLER==========
+    @GetMapping("/*")
+    public String indexnull(Model model) {
+        return "error";
+    }
+
     @GetMapping("/")
     public String index(Model model) {
 
-        // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF THE APP, CC:PANDU
+        // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
+        // THE APP, CC:PANDU
 
         model.addAttribute("divdata", ddao.findAll());
         // model.addAttribute("divsave", new Division());
@@ -140,7 +146,7 @@ public class UltimateController {
         model.addAttribute("divdata", ddao.findAll());
         model.addAttribute("sitedata", sdao.findAll());
         model.addAttribute("jobdata", jdao.findAll());
-        
+
         return "pages/adminCreateUser";
     }
 
@@ -151,6 +157,7 @@ public class UltimateController {
 
     @GetMapping("/history")
     public String history(Model model) {
+        model.addAttribute("historydata", odao.findAll());
         return "pages/history";
     }
 
@@ -166,6 +173,7 @@ public class UltimateController {
 
     @GetMapping("/status")
     public String status(Model model) {
+        model.addAttribute("statusdata", odao.findAll());
         return "pages/status";
     }
 
