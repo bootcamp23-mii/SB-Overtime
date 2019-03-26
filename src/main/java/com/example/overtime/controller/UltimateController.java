@@ -174,7 +174,7 @@ public class UltimateController {
 
     @GetMapping("/status")
     public String status(Model model) {
-        model.addAttribute("statusdata", odao.findAll());
+        model.addAttribute("statusdata", odao.findStatusByUser("EMP2"));
         return "pages/status";
     }
 
