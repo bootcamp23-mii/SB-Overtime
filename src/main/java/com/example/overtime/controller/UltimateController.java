@@ -157,7 +157,8 @@ public class UltimateController {
 
     @GetMapping("/history")
     public String history(Model model) {
-        model.addAttribute("historydata", odao.findAll());
+        model.addAttribute("historydata", odao.findHistoryByUser("EMP1"));
+        // model.addAttribute("historydata", odao.findAll());
         return "pages/history";
     }
 
@@ -176,14 +177,6 @@ public class UltimateController {
         model.addAttribute("statusdata", odao.findAll());
         return "pages/status";
     }
-
-    // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    // public String detailRefresh(@PathVariable long id, Model model) {
-    //
-    // T element = service.findOne(id);
-    //
-    // return "/pages :: ELEMENT"; // fragment
-    // }
 
     // ==========FUNCTIONAL TOOLS CONTROL==========
     @GetMapping("/sendemail")
@@ -214,12 +207,6 @@ public class UltimateController {
                 return "redirect:/login";
             }
         }
-        // if (edao.findById(id).getJob().getId().equals("JOB03")) {
-        // return "redirect:/contentadmin";
-        // } else if (edao.findById(id).getJob().getId().equals("JOB02")) {
-        // return "redirect:/contentmanager";
-        // }
-
         return "redirect:/";
     }
 
