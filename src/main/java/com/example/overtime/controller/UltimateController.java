@@ -79,7 +79,7 @@ public class UltimateController {
     @GetMapping("/*")
     public String indexnull(Model model, HttpSession session) {
         // if (session.getAttribute("loginses").toString() == null) {
-        //     return "login";
+        // return "login";
         // }
         return "error";
     }
@@ -94,18 +94,23 @@ public class UltimateController {
 
         // model.addAttribute("divsave", new Division());
         // model.addAttribute("divdelete", new Division());
-//         model.addAttribute("empdata", edao.findAll());
+
+        // model.addAttribute("empdata", edao.findAll());
         // model.addAttribute("empsave", new Employee());
         // model.addAttribute("empdelete", new Employee());
+
         // model.addAttribute("jobdata", jdao.findAll());
         // model.addAttribute("jobsave", new Job());
         // model.addAttribute("jobdelete", new Job());
+
         // model.addAttribute("ovtdata", odao.findAll());
         // model.addAttribute("ovtsave", new Overtime());
         // model.addAttribute("ovtdelete", new Overtime());
+
         // model.addAttribute("sitedata", sdao.findAll());
         // model.addAttribute("sitesave", new Site());
         // model.addAttribute("sitedelete", new Site());
+
         // model.addAttribute("tsdata", tdao.findAll());
         // model.addAttribute("tssave", new TimeSheet());
         // model.addAttribute("tsdelete", new TimeSheet());
@@ -184,8 +189,10 @@ public class UltimateController {
     }
 
     @GetMapping("/status")
-    public String status(Model model) {
-        model.addAttribute("statusdata", odao.findStatusByUser("EMP2"));
+    public String status(HttpSession session, Model model) {
+        String data = (String) session.getAttribute("loginses");
+        System.out.println("DATANYA : " + data);
+        model.addAttribute("statusdata", odao.findStatusByUser(data));
         return "pages/status";
     }
 
@@ -308,8 +315,8 @@ public class UltimateController {
             @RequestParam("cb-job") String job) throws Exception {
         password = "EMP" + email;
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash, new Integer("0"), new Employee(manager), new Division(division),
-                new Site(site), new Job(job)));
+        edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
+                new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
         emailService.sendEmail(email);
         return "redirect:/";
     }
