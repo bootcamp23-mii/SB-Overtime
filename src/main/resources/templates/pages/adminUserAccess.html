@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
 
-<section layout:fragment="content">
+    <section layout:fragment="content">
 
-    <!--SESSION CHECK DATA LOG-->
-    <form action="AdminServlet" method="POST">
+        <!--SESSION CHECK DATA LOG-->
+
         <div class="modal fade" id="modalUserAccess" tabindex="-1" role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
             <div class="modal-dialog" role="document" >
                 <div class="modal-content">
@@ -14,65 +14,79 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="label">ID</label>
-                            <input type="text" id="UAid" name="UAid" class="form-control" value="INSERT VALUE"/>
-                        </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="label">Name</label>
-                            <input type="text" id="UAname" name="UAname" class="form-control" value="INSERT VALUE"/>
-                        </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Job</label>
-                            <div>
-                                <select class="custom-select" name="UAjob" id="UAjob" >
-                                    <!--DROPDOWN LIST OF JOB-->
-                                </select>
+                    <form th:action="@{/updaterole}" method="POST">
+                        <div class="modal-body">
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="label">ID</label>
+                                <input type="text" id="UAid" name="UAid" class="form-control"/>
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="label">Name</label>
+                                <input type="text" id="UAname" name="UAname" class="form-control"/>
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">Job</label>
+                                <div>
+                                    <select class="custom-select" name="UAjob" id="UAjob">
+                                        <div th:each="job :${jobdata}">
+                                            <option class="form-control" th:value="${job.id}"
+                                                    th:text="${job.position}"></option>
+                                        </div>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" value="updateJob" name="updateJob" >SAVE CHANGE</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit" value="updateJob" name="updateJob" >SAVE CHANGE</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
+
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                    </div>
                 </div>
-            </div>
-            <div class="row m-t-25">
-            </div>
-            <!--            <div class="row m-t-25">
-                        </div>-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="au-card recent-report">
-                        <div class="au-card-inner">
-                            <h3 class="title-10" >User Access</h3>
-                            <div class="row m-t-25">
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <!--TABLE HERE-->
-                                    <table id="userAccessTable" class="table table-borderless table-striped table-earning" cellspacing='30' align ='center'>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Job</th>
-                                                <th>Edit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!--LIST OF USER WITH EDITED JOB REFERENCES-->
-                                        </tbody>
-                                    </table>
+                <div class="row m-t-25">
+                </div>
+                <!--            <div class="row m-t-25">
+                            </div>-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="au-card recent-report">
+                            <div class="au-card-inner">
+                                <h3 class="title-10" >User Access</h3>
+                                <div class="row m-t-25">
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="table-responsive table--no-card m-b-30">
+                                        <!--TABLE HERE-->
+                                        <table id="userAccessTable" class="table table-borderless table-striped table-earning" cellspacing='30' align ='center'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Name</th>
+                                                    <th>Job</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tbody id="tblData">
+                                                <tr th:each="emp : ${empdata}">
+                                                    <td th:text="${emp.id}"></td>
+                                                    <td th:text="${emp.name}"></td>
+                                                    <td th:text="${emp.job.position}"></td>
+                                                    <td>
+                                                        <button data-target="#modalUserAccess" data-toggle="modal"  th:data-getid="${emp.id}" th:data-getjob="${emp.name}" th:data-getname="${emp.job.position}" class="btn btn-success">Change Role</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,19 +94,18 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-//        $('#modalUserAccess').on('show.bs.modal', function (event) {
-//            var button = $(event.relatedTarget)
-//            var id = button.data('getid')
-//            var name = button.data('getname')
-//            var job = button.data('getjob')
-//
-//            var modal = $(this)
-//            modal.find('#UAid').val(id)
-//            modal.find('#UAname').val(name)
-//            modal.find('#UAjob').val(job)
-//        })
-    </script>
-</section>
+        <script>
+                    $('#modalUserAccess').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget);
+                        var id = button.data('getid');
+                        var name = button.data('getname');
+                        var job = button.data('getjob');
+            
+                        var modal = $(this);
+                        modal.find('#UAid').val(id);
+                        modal.find('#UAname').val(name);
+                        modal.find('#UAjob').val(job);
+                    });
+        </script>
+    </section>
 </html>
