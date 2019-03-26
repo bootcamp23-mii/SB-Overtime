@@ -223,9 +223,26 @@ public class UltimateController {
 
             if (BCrypt.checkpw(password, employee.getPassword())) {
                 String role = edao.findById(id).getJob().getId();
+                String uname        = edao.findById(id).getName();
+                String uaddress     = edao.findById(id).getAddress();
+                String usalary      = edao.findById(id).getSalary().toString();
+                String umail        = edao.findById(id).getEmail();
+                String umanager     = edao.findById(id).getManager().getName();
+                String udivision    = edao.findById(id).getDivision().getName();
+                String usite        = edao.findById(id).getSite().getName();
+
                 System.out.println(role);
+
                 session.setAttribute("loginses", id);
                 session.setAttribute("roleloginses", role);
+
+                session.setAttribute("uname", uname);
+                session.setAttribute("uaddress", uaddress);
+                session.setAttribute("usalary", usalary);
+                session.setAttribute("umail", umail);
+                session.setAttribute("umanager", umanager);
+                session.setAttribute("udivision", udivision);
+                session.setAttribute("usite", usite);
                 // request.getSession().setAttribute("loginses", id);
                 // request.getSession().setAttribute("roleloginses", role);
             } else {
