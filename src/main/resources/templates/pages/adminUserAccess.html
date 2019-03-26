@@ -73,7 +73,6 @@
                                                     <th>Edit</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
                                             <tbody id="tblData">
                                                 <tr th:each="emp : ${empdata}">
                                                     <td th:text="${emp.id}"></td>
@@ -83,7 +82,6 @@
                                                         <button data-target="#modalUserAccess" data-toggle="modal"  th:data-getid="${emp.id}" th:data-getname="${emp.name}" th:data-getjob="${emp.job.position}" class="btn btn-success">Change Role</button>
                                                     </td>
                                                 </tr>
-                                            </tbody>
                                             </tbody>
                                         </table>
                                     </div>
