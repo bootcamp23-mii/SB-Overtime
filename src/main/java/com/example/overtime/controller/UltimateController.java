@@ -243,7 +243,7 @@ public class UltimateController {
                 session.setAttribute("umanager", umanager);
                 session.setAttribute("udivision", udivision);
                 session.setAttribute("usite", usite);
-                strds
+                
                 // request.getSession().setAttribute("loginses", id);
                 // request.getSession().setAttribute("roleloginses", role);
             } else {
