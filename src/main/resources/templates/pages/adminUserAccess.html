@@ -92,18 +92,5 @@
                 </div>
             </div>
         </div>
-        <script>
-                    $('#modalUserAccess').on('show.bs.modal', function (event) {
-                        var button = $(event.relatedTarget);
-                        var id = button.data('getid');
-                        var name = button.data('getname');
-                        var job = button.data('getjob');
-            
-                        var modal = $(this);
-                        modal.find('#UAid').val(id);
-                        modal.find('#UAname').val(name);
-                        modal.find('#UAjob').val(job);
-                    });
-        </script>
     </section>
 </html>
