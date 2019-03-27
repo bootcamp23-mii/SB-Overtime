@@ -6,7 +6,7 @@
 
     <!-- CEK SESSION DATA -->
 
-    <!-- <form th:action="@{/ovtsave}" method="POST">
+    <form th:action="@{/ovtsave}" method="POST">
         <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
             aris-hidden="true">
             <div class="modal-dialog" role="document">
@@ -20,26 +20,23 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control" value="GET ID" />
+                            <input type="text" id="AotId" name="AotId" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" value="GET DATE" />
+                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Aotduration" name="Aotduration" class="form-control"
-                                value="GET DURATION" />
+                            <input type="text" id="Aotduration" name="Aotduration" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control"
-                                value="GET DESCRIPTION" />
+                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control"
-                                value="GET TIMESHEET" />
+                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Status</label>
@@ -52,7 +49,7 @@
                 </div>
             </div>
         </div>
-    </form> -->
+    </form>
 
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -81,17 +78,33 @@
                                         cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
+                                                <th>Id</th>
                                                 <th>Date</th>
                                                 <th>Duration</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="data : ${approvaldata}">
-                                                <td th:text="${data.date}"></td>
-                                                <td th:text="${data.timesheet.id}"></td>
+                                            <tr th:each="dataapp : ${approvaldata}">
+                                                <td th:text="${dataapp.id}"></td>
+                                                <td th:text="${dataapp.date}"></td>
+                                                <td th:text="${dataapp.timesheet.id}"></td>
                                                 <td>
-                                                    
+                                                    <!-- <form th:action="@{/ovtaccept}">
+                                                        <input type="hidden" id="idfor1" name="idfor1"
+                                                            th:value="${dataapp.id}" />
+                                                        <button class="btn btn-primary" type="submit"
+                                                            id="submitButton">ACCEPT</button>
+                                                    </form>
+
+                                                    <form th:action="@{/ovtreject}">
+                                                        <input type="hidden" id="idfor2" name="idfor2"
+                                                            th:value="${dataapp.id}" />
+                                                        <button class="btn btn-warning" type="submit"
+                                                            id="submitButton">REJECT</button>
+                                                    </form> -->
+
+
                                                     <button data-target="#modalStatus" data-toggle="modal"
                                                         th:data-getid="${data.id}" th:data-getdate="${data.date}"
                                                         th:data-getduration="${data.timeduration}"
@@ -116,25 +129,25 @@
             </div>
         </div>
     </div>
-    <!-- <script>
+    <script>
         $('#modalApproval').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('getid')
-            var date = button.data('getdate')
-            var duration = button.data('getduration')
-            var desc = button.data('getdescription')
-            var ts = button.data('getts')
-            var status = button.data('getstatus')
+            var button = $(event.relatedTarget);
+            var id = button.data('getid');
+            var date = button.data('getdate');
+            var duration = button.data('getduration');
+            var desc = button.data('getdescription');
+            var ts = button.data('getts');
+            var status = button.data('getstatus');
 
-            var modal = $(this)
-            modal.find('#AotId').val(id)
-            modal.find('#Aotdate').val(date)
-            modal.find('#Aotduration').val(duration)
-            modal.find('#Aotdesc').val(desc)
-            modal.find('#Atimesheet').val(ts)
-            modal.find('#Aotstatus').val(status)
-        })
-    </script> -->
+            var modal = $(this);
+            modal.find('#AotId').val(id);
+            modal.find('#Aotdate').val(date);
+            modal.find('#Aotduration').val(duration);
+            modal.find('#Aotdesc').val(desc);
+            modal.find('#Atimesheet').val(ts);
+            modal.find('#Aotstatus').val(status);
+        });
+    </script>
 </section>
 
 </html>

@@ -28,6 +28,10 @@ import com.example.overtime.serviceimpl.OvertimeDAO;
 import com.example.overtime.serviceimpl.SiteDAO;
 import com.example.overtime.serviceimpl.TimeSheetDAO;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -217,6 +221,29 @@ public class UltimateController {
         return "redirect:/";
     }
 
+    public void UploadPhoto() {
+        String folderName = "resources";
+        // String uploadPath = request.getServletContext().getRealPath("tf-signature") +
+        // File.separator + folderName;
+        String pathFile = "D:/372267-200.png";
+        File file = new File("D:/372267-200.png");
+
+        byte[] b = new byte[(int) file.length()];
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream.read(b);
+            for (int i = 0; i < b.length; i++) {
+                System.out.print((char) b[i]);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found.");
+            e.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("Error Reading The File.");
+            e1.printStackTrace();
+        }
+    }
+
     @PostMapping("/loginmed")
     public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
             HttpServletRequest request, HttpSession session) {
@@ -391,13 +418,13 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/ovtaccept", method = RequestMethod.POST)
-    public String ovtAccept(@RequestParam() String id) {
+    public String ovtAccept(@RequestParam("idfor1") String id) {
         odao.acceptOvertime(id);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/ovtreject", method = RequestMethod.POST)
-    public String ovtReject(@RequestParam() String id) {
+    public String ovtReject(@RequestParam("idfor2") String id) {
         odao.rejectOvertime(id);
         return "redirect:/";
     }
