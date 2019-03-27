@@ -7,7 +7,7 @@
     <!-- CEK SESSION DATA -->
 
     <form th:action="@{/ovtsave}" method="POST">
-        <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+        <div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
             aris-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -78,7 +78,7 @@
                                         cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th>Name</th>
                                                 <th>Date</th>
                                                 <th>Duration</th>
                                                 <th>Aksi</th>
@@ -86,10 +86,20 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="dataapp : ${approvaldata}">
-                                                <td th:text="${dataapp.id}"></td>
+                                                <td th:text="${dataapp.timesheet.employee.name}"></td>
                                                 <td th:text="${dataapp.date}"></td>
-                                                <td th:text="${dataapp.timesheet.id}"></td>
+                                                <td th:text="${dataapp.timeduration}"></td>
                                                 <td>
+                                                    <button data-target="#modalStatus" data-toggle="modal"
+                                                        data-getdescription="${data.keterangan}"
+                                                        data-getts="${data.timesheet.id}"
+                                                        class="btn btn-primary">EDIT</button>
+
+                                                    <!-- <button data-target="#modalDelete" data-toggle="modal"
+                                                        th:data-getid="${data.id}"
+                                                        class="btn btn-warning">DELETE</button> -->
+
+
                                                     <!-- <form th:action="@{/ovtaccept}">
                                                         <input type="hidden" id="idfor1" name="idfor1"
                                                             th:value="${dataapp.id}" />
@@ -105,17 +115,6 @@
                                                     </form> -->
 
 
-                                                    <button data-target="#modalStatus" data-toggle="modal"
-                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
-                                                        th:data-getduration="${data.timeduration}"
-                                                        th:data-getdescription="${data.keterangan}"
-                                                        th:data-getts="${data.timesheet.id}"
-                                                        th:data-getstatus="${data.status.id}"
-                                                        class="btn btn-primary">EDIT</button>
-
-                                                    <button data-target="#modalDelete" data-toggle="modal"
-                                                        th:data-getid="${data.id}"
-                                                        class="btn btn-warning">DELETE</button>
 
                                                 </td>
                                             </tr>
