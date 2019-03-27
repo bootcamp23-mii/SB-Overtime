@@ -32,4 +32,3 @@ $(function () {
         $("#loadthis").load("fragments/adminUserAccess.html");
     });
 });
-

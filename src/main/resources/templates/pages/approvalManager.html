@@ -7,7 +7,7 @@
     <!-- CEK SESSION DATA -->
 
     <form th:action="@{/ovtsave}" method="POST">
-        <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+        <div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
             aris-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -20,7 +20,7 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control" />
+                            <input type="text" id="AotId" name="AotId" class="form-control AotId" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
@@ -36,11 +36,11 @@
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" />
+                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control Atimesheet" />
                         </div>
                         <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Status</label>
-                            <input type="text" id="Aotstatus" class="form-control" value="STA02" />
+                            <!-- <label data-error="wrong" data-success="true" class="">Status</label> -->
+                            <input type="hidden" id="Aotstatus" class="form-control" value="STA02" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -78,7 +78,7 @@
                                         cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
+                                                <th>Name</th>
                                                 <th>Date</th>
                                                 <th>Duration</th>
                                                 <th>Aksi</th>
@@ -86,37 +86,20 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="dataapp : ${approvaldata}">
-                                                <td th:text="${dataapp.id}"></td>
+                                                <td th:text="${dataapp.timesheet.employee.name}"></td>
                                                 <td th:text="${dataapp.date}"></td>
-                                                <td th:text="${dataapp.timesheet.id}"></td>
+                                                <td th:text="${dataapp.timeduration}"></td>
                                                 <td>
-                                                    <!-- <form th:action="@{/ovtaccept}">
-                                                        <input type="hidden" id="idfor1" name="idfor1"
-                                                            th:value="${dataapp.id}" />
-                                                        <button class="btn btn-primary" type="submit"
-                                                            id="submitButton">ACCEPT</button>
-                                                    </form>
-
-                                                    <form th:action="@{/ovtreject}">
-                                                        <input type="hidden" id="idfor2" name="idfor2"
-                                                            th:value="${dataapp.id}" />
-                                                        <button class="btn btn-warning" type="submit"
-                                                            id="submitButton">REJECT</button>
-                                                    </form> -->
-
-
                                                     <button data-target="#modalStatus" data-toggle="modal"
-                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
-                                                        th:data-getduration="${data.timeduration}"
-                                                        th:data-getdescription="${data.keterangan}"
-                                                        th:data-getts="${data.timesheet.id}"
-                                                        th:data-getstatus="${data.status.id}"
+                                                        th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
+                                                        th:data-getduration="${dataapp.timeduration}"
+                                                        th:data-getdescription="${dataapp.keterangan}"
+                                                        th:data-getts="${dataapp.timesheet.id}"
                                                         class="btn btn-primary">EDIT</button>
 
                                                     <button data-target="#modalDelete" data-toggle="modal"
                                                         th:data-getid="${data.id}"
                                                         class="btn btn-warning">DELETE</button>
-
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -129,25 +112,8 @@
             </div>
         </div>
     </div>
-    <script>
-        $('#modalApproval').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('getid');
-            var date = button.data('getdate');
-            var duration = button.data('getduration');
-            var desc = button.data('getdescription');
-            var ts = button.data('getts');
-            var status = button.data('getstatus');
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
 
-            var modal = $(this);
-            modal.find('#AotId').val(id);
-            modal.find('#Aotdate').val(date);
-            modal.find('#Aotduration').val(duration);
-            modal.find('#Aotdesc').val(desc);
-            modal.find('#Atimesheet').val(ts);
-            modal.find('#Aotstatus').val(status);
-        });
-    </script>
 </section>
 
 </html>

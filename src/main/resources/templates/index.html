@@ -105,7 +105,9 @@
     </div>
 
     <!-- Jquery JS-->
-    <script th:src="@{vendor/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    <!-- <script th:src="@{vendor/jquery-3.2.1.min.js}"></script> -->
 
     <!-- Bootstrap JS-->
     <script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
@@ -145,6 +147,36 @@
     <!-- Main JS-->
     <script th:src="@{js/main.js}"></script>
     <script th:src="@{js/selfScript.js}"></script>
+    <!-- <script>
+        $('#modalStatus').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('getid')
+            var ts = button.data('getts')
+            var modal = $(this)
+            modal.find('.AotId').val(id)
+            modal.find('.Atimesheet').val(ts)
+        })
+    </script> -->
+
+    <script>
+        $('#modalStatus').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('getid')
+            var ts = button.data('getts')
+            var date = button.data('getdate')
+            var duration = button.data('getduration')
+            var desc = button.data('getdescription')
+            var status = button.data('getstatus')
+
+            var modal = $(this)
+            modal.find('#AotId').val(id)
+            modal.find('#Aotdate').val(date)
+            modal.find('#Aotduration').val(duration)
+            modal.find('#Aotdesc').val(desc)
+            modal.find('#Atimesheet').val(ts)
+            modal.find('#Aotstatus').val(status)
+        });
+    </script>
 </body>
 
 </html>
