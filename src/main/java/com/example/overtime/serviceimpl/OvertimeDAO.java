@@ -51,4 +51,19 @@ public class OvertimeDAO implements IOvertimeDAO {
         return orep.getStatus(id);
     }
 
+    @Override
+    public Overtime acceptOvertime(String id) {
+        return orep.acceptOvertime(id);
+    }
+
+    @Override
+    public Overtime rejectOvertime(String id) {
+        return orep.rejectOvertime(id);
+    }
+
+    @Override
+    public Iterable<Overtime> findStatusByManager(String id) {
+        return orep.getStatusByManager(id);
+    }
+
 }

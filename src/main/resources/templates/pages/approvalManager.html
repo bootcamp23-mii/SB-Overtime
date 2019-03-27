@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{index}">
 
 <section layout:fragment="content">
 
-<!-- CEK SESSION DATA -->
+    <!-- CEK SESSION DATA -->
 
-    <form action="ApprovalServlet" method="POST">
-        <div class="modal fade" id="modalApproval" tabindex="-1" 
-             role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
-            <div class="modal-dialog" role="document" >
+    <!-- <form th:action="@{/ovtsave}" method="POST">
+        <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+            aris-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <h3 class="modal-title">EDITOR</h3>
@@ -19,36 +20,39 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control" value="GET ID"/>
+                            <input type="text" id="AotId" name="AotId" class="form-control" value="GET ID" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" value="GET DATE"/>
+                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" value="GET DATE" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Aotduration" name="Aotduration" class="form-control" value="GET DURATION"/>
+                            <input type="text" id="Aotduration" name="Aotduration" class="form-control"
+                                value="GET DURATION" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" value="GET DESCRIPTION"/>
+                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control"
+                                value="GET DESCRIPTION" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" value="GET TIMESHEET"/>
+                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control"
+                                value="GET TIMESHEET" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Status</label>
-                            <input type="text" id="Aotstatus" class="form-control" value="STA02"/>
+                            <input type="text" id="Aotstatus" class="form-control" value="STA02" />
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" value="Save" name="save" >ACCEPT OVERTIME</button>
+                        <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT OVERTIME</button>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </form> -->
 
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -73,51 +77,35 @@
                                 <div class="table-responsive table--no-card m-b-30">
                                     <!--TABLE HERE-->
 
-                                    <table id="approvalTable" class="table table-borderless table-striped table-earning" cellspacing='30' align ='center'>
+                                    <table id="approvalTable" class="table table-borderless table-striped table-earning"
+                                        cellspacing='30' align='center'>
                                         <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <!--<th>Id</th>-->
                                                 <th>Date</th>
                                                 <th>Duration</th>
-                                                <!--<th>Keterangan</th>-->
-                                                <!--<th>Time Sheet</th>-->
-                                                <!--<th>Status</th>-->
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% int i = 1;
-                                                if (cekList) {
-                                                    for (Overtime elem : (List<Overtime>) session.getAttribute("all")) {%>
-                                            <tr>
-                                                <td><%= i++%></td>
-                                                <!--<td><--%= // elem.getId()%></td>-->
-                                                <td><%= elem.getDate()%></td>
-                                                <td><%= elem.getTimeduration()%></td>
-                                                <!--<td><--%= // elem.getKeterangan()%></td>-->
-                                                <!--<td><--%= // elem.getTimesheet().getId()%></td>-->
-                                                <!--<td><--%= // elem.getStatus().getStatus()%></td>-->
+                                            <tr th:each="data : ${approvaldata}">
+                                                <td th:text="${data.date}"></td>
+                                                <td th:text="${data.timesheet.id}"></td>
                                                 <td>
-                                                    <% if (elem.getStatus().getId().equals("STA01")) {%>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalApproval" 
-                                                            data-getid="<%= elem.getId()%>" 
-                                                            data-getdate="<%= elem.getDate()%>" 
-                                                            data-getduration="<%= elem.getTimeduration()%>" 
-                                                            data-getdescription="<%= elem.getKeterangan()%>" 
-                                                            data-getts="<%= elem.getTimesheet().getId()%>"
-                                                            data-getstatus="<%= elem.getStatus().getId()%>" 
-                                                            ><i class="fas fa-check-circle"></i></button>
-                                                    <button type="button" class="btn btn-danger" href="HistoryServlet?action=delete&id=<%= elem.getId()%>"><i class="fas fa-trash"></i></button>
-                                                        <%} else {%>
-                                                    <button type="button" disabled="true" class="btn btn-dark">CONFIRMED</button>
-                                                    <%}%>
+                                                    
+                                                    <button data-target="#modalStatus" data-toggle="modal"
+                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
+                                                        th:data-getduration="${data.timeduration}"
+                                                        th:data-getdescription="${data.keterangan}"
+                                                        th:data-getts="${data.timesheet.id}"
+                                                        th:data-getstatus="${data.status.id}"
+                                                        class="btn btn-primary">EDIT</button>
+
+                                                    <button data-target="#modalDelete" data-toggle="modal"
+                                                        th:data-getid="${data.id}"
+                                                        class="btn btn-warning">DELETE</button>
+
                                                 </td>
                                             </tr>
-                                            <%}
-                                                } else {
-                                                    response.sendRedirect("./HistoryServlet");
-                                                }%>
                                         </tbody>
                                     </table>
                                 </div>
@@ -148,4 +136,5 @@
         })
     </script> -->
 </section>
+
 </html>

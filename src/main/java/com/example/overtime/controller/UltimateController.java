@@ -165,7 +165,10 @@ public class UltimateController {
     }
 
     @GetMapping("/approval")
-    public String approval(Model model) {
+    public String approval(HttpSession session, Model model) {
+        String data = (String) session.getAttribute("loginses");
+        System.out.println("DATANYA : " + data);
+        model.addAttribute("approvaldata", odao.findStatusByManager(data));
         return "pages/approvalManager";
     }
 
@@ -223,13 +226,13 @@ public class UltimateController {
 
             if (BCrypt.checkpw(password, employee.getPassword())) {
                 String role = edao.findById(id).getJob().getId();
-                String uname        = edao.findById(id).getName();
-                String uaddress     = edao.findById(id).getAddress();
-                String usalary      = edao.findById(id).getSalary().toString();
-                String umail        = edao.findById(id).getEmail();
-                String umanager     = edao.findById(id).getManager().getName();
-                String udivision    = edao.findById(id).getDivision().getName();
-                String usite        = edao.findById(id).getSite().getName();
+                String uname = edao.findById(id).getName();
+                String uaddress = edao.findById(id).getAddress();
+                String usalary = edao.findById(id).getSalary().toString();
+                String umail = edao.findById(id).getEmail();
+                String umanager = edao.findById(id).getManager().getName();
+                String udivision = edao.findById(id).getDivision().getName();
+                String usite = edao.findById(id).getSite().getName();
 
                 System.out.println(role);
 
@@ -243,7 +246,7 @@ public class UltimateController {
                 session.setAttribute("umanager", umanager);
                 session.setAttribute("udivision", udivision);
                 session.setAttribute("usite", usite);
-                
+
                 // request.getSession().setAttribute("loginses", id);
                 // request.getSession().setAttribute("roleloginses", role);
             } else {
@@ -323,14 +326,10 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
-    public String empSave(String id, @RequestParam("tf-name") String name,
-            @RequestParam("tf-address") String address,
-            @RequestParam("tf-salary") String salary,
-            @RequestParam("tf-email") String email, String password, String activation,
-            @RequestParam("tf-manager") String manager,
-            @RequestParam("cb-division") String division,
-            @RequestParam("cb-site") String site,
-            @RequestParam("cb-job") String job) throws Exception {
+    public String empSave(String id, @RequestParam("tf-name") String name, @RequestParam("tf-address") String address,
+            @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String password,
+            String activation, @RequestParam("tf-manager") String manager, @RequestParam("cb-division") String division,
+            @RequestParam("cb-site") String site, @RequestParam("cb-job") String job) throws Exception {
         password = "EMP" + email;
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
         edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
@@ -379,9 +378,27 @@ public class UltimateController {
         return "redirect:/";
     }
 
+    // @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
+    // public String ovtDelete(@ModelAttribute("ovtdelete") Overtime ovt) {
+    // odao.deleteById(ovt.getId());
+    // return "redirect:/";
+    // }
+
     @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
-    public String ovtDelete(@ModelAttribute("ovtdelete") Overtime ovt) {
-        odao.deleteById(ovt.getId());
+    public String ovtDelete(@RequestParam() String id) {
+        odao.deleteById(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/ovtaccept", method = RequestMethod.POST)
+    public String ovtAccept(@RequestParam() String id) {
+        odao.acceptOvertime(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/ovtreject", method = RequestMethod.POST)
+    public String ovtReject(@RequestParam() String id) {
+        odao.rejectOvertime(id);
         return "redirect:/";
     }
 
