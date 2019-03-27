@@ -20,7 +20,7 @@
                     <div class="modal-body">
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control" />
+                            <input type="text" id="AotId" name="AotId" class="form-control AotId" />
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Date</label>
@@ -36,11 +36,11 @@
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control" />
+                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control Atimesheet" />
                         </div>
                         <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Status</label>
-                            <input type="text" id="Aotstatus" class="form-control" value="STA02" />
+                            <!-- <label data-error="wrong" data-success="true" class="">Status</label> -->
+                            <input type="hidden" id="Aotstatus" class="form-control" value="STA02" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -91,31 +91,15 @@
                                                 <td th:text="${dataapp.timeduration}"></td>
                                                 <td>
                                                     <button data-target="#modalStatus" data-toggle="modal"
-                                                        data-getdescription="${data.keterangan}"
-                                                        data-getts="${data.timesheet.id}"
+                                                        th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
+                                                        th:data-getduration="${dataapp.timeduration}"
+                                                        th:data-getdescription="${dataapp.keterangan}"
+                                                        th:data-getts="${dataapp.timesheet.id}"
                                                         class="btn btn-primary">EDIT</button>
 
-                                                    <!-- <button data-target="#modalDelete" data-toggle="modal"
+                                                    <button data-target="#modalDelete" data-toggle="modal"
                                                         th:data-getid="${data.id}"
-                                                        class="btn btn-warning">DELETE</button> -->
-
-
-                                                    <!-- <form th:action="@{/ovtaccept}">
-                                                        <input type="hidden" id="idfor1" name="idfor1"
-                                                            th:value="${dataapp.id}" />
-                                                        <button class="btn btn-primary" type="submit"
-                                                            id="submitButton">ACCEPT</button>
-                                                    </form>
-
-                                                    <form th:action="@{/ovtreject}">
-                                                        <input type="hidden" id="idfor2" name="idfor2"
-                                                            th:value="${dataapp.id}" />
-                                                        <button class="btn btn-warning" type="submit"
-                                                            id="submitButton">REJECT</button>
-                                                    </form> -->
-
-
-
+                                                        class="btn btn-warning">DELETE</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -128,25 +112,8 @@
             </div>
         </div>
     </div>
-    <script>
-        $('#modalApproval').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('getid');
-            var date = button.data('getdate');
-            var duration = button.data('getduration');
-            var desc = button.data('getdescription');
-            var ts = button.data('getts');
-            var status = button.data('getstatus');
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
 
-            var modal = $(this);
-            modal.find('#AotId').val(id);
-            modal.find('#Aotdate').val(date);
-            modal.find('#Aotduration').val(duration);
-            modal.find('#Aotdesc').val(desc);
-            modal.find('#Atimesheet').val(ts);
-            modal.find('#Aotstatus').val(status);
-        });
-    </script>
 </section>
 
 </html>
