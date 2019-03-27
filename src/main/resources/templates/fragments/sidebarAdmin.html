@@ -12,23 +12,23 @@
                     <!--IF POSIBLE, USE THE ACTIVE/INACTIVE STATUS TO NAVBAR BELOW-->
 
                     <li class="">
-                        <a id="nav_home" class="js-arrow" href="#">
+                        <a id="nav_home" class="js-arrow" th:href="@{/}">
                             <i class="fas fa-home"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_all">
-                            <i class="fas fa-chart-bar"></i>All Record</a>
+                        <a id="nav_all" th:href="@{/}">
+                            <i class="fas fa-chart-bar" ></i>All Record</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_add_emp">
+                        <a id="nav_add_emp" th:href="@{/createuser}">
                             <i class="fas fa-user-plus"></i>Create User</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_user_access">
-                            <i class="fas           fa-user-secret"></i>User Access</a>
+                        <a id="nav_user_access" th:href="@{/changerole}">
+                            <i class="fas fa-user-secret"></i>User Access</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_add">
+                        <a id="nav_add" th:href="@{/request}"> 
                             <i class="fas fa-plus-square"></i>Add Request</a>
                     </li>
                     <li class="has-sub">
@@ -36,11 +36,11 @@
                             <i class="fas fa-history"></i>View</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="#" id="nav_history">
+                                <a id="nav_history" th:href="@{/history}">
                                     <i class="fas fa-history"></i>All History</a>
                             </li>
                             <li>
-                                <a href="#" id="nav_status">
+                                <a id="nav_status" th:href="@{/status}">
                                     <i class="fas fa-exclamation"></i>All Status</a>
                             </li>
                         </ul>

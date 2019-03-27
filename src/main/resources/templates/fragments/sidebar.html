@@ -12,15 +12,15 @@
                     <!--IF POSIBLE, USE THE ACTIVE/INACTIVE STATUS TO NAVBAR BELOW-->
 
                     <li class="">
-                        <a id="nav_home" class="js-arrow" href="#">
+                        <a id="nav_home" class="js-arrow" th:href="@{/}">
                             <i class="fas fa-home"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_add">
+                        <a id="nav_add" th:href="@{/request}">
                             <i class="fas fa-plus-square"></i>Add Request</a>
                     </li>
                     <li>
-                        <a href="#" id="nav_profile">
+                        <a  id="nav_profile" th:href="@{/profile}">
                             <i class="fas fa-user-circle"></i>Profile</a>
                     </li>
                     <li class="has-sub">
@@ -28,11 +28,11 @@
                             <i class="fas fa-history"></i>View</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="#" id="nav_history">
+                                <a id="nav_history" th:href="@{/history}">
                                     <i class="fas fa-history"></i>History</a>
                             </li>
                             <li>
-                                <a href="#" id="nav_status">
+                                <a id="nav_status" th:href="@{/status}">
                                     <i class="fas fa-exclamation"></i>Status</a>
                             </li>
                         </ul>
@@ -42,4 +42,3 @@
         </div>
     </aside>
 </div>
-<div> </div>
