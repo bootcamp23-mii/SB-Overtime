@@ -6,8 +6,8 @@
 
     <!-- CEK SESSION DATA -->
 
-    <form th:action="@{/ovtsave}" method="POST">
-        <div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+    <form th:action="@{/ovtaccept}" method="POST">
+        <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
             aris-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT OVERTIME</button>
+                        <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT</button>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
                                                 <td th:text="${dataapp.date}"></td>
                                                 <td th:text="${dataapp.timeduration}"></td>
                                                 <td>
-                                                    <button data-target="#modalStatus" data-toggle="modal"
+                                                    <button data-target="#modalApproval" data-toggle="modal"
                                                         th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
                                                         th:data-getduration="${dataapp.timeduration}"
                                                         th:data-getdescription="${dataapp.keterangan}"
                                                         th:data-getts="${dataapp.timesheet.id}"
-                                                        class="btn btn-primary">EDIT</button>
+                                                        class="btn btn-primary">ACCEPT</button>
 
                                                     <button data-target="#modalDelete" data-toggle="modal"
                                                         th:data-getid="${dataapp.id}"

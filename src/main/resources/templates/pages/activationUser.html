@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 
-<section layout:fragment="content">
-
+<div th:replace="fragments/head :: head"></div>
 <div class="page-wrapper">
     <div class="page-content--bge5">
         <div class="container">
@@ -25,7 +24,7 @@
                             <label>ENCRYPTED</label>
                             <input class="au-input au-input--full" type="password" name="passwordLogin" placeholder=""/>
                         </div>
-                        <form action="ActivationServlet" method="POST">
+                        <form action="@{/activate}" method="POST">
                             <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Activate Your
                                 Accounnt !</button>
                         </form>
@@ -35,7 +34,6 @@
         </div>
     </div>
 </div>
-</section>
 </html>
 <!--</section>-->
 <!--</html>-->

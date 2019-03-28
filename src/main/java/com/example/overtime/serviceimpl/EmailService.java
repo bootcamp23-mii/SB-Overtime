@@ -33,7 +33,7 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String emailAddress) throws Exception {
+    public void sendEmail(String emailAddress, String emailSubject) throws Exception {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -47,7 +47,7 @@ public class EmailService {
         helper.setTo(emailAddress);
         helper.setText(text, true);
         helper.setFrom("lgg121770@gmail.com");
-        helper.setSubject("EMAIL SAMPLE");
+        helper.setSubject(emailSubject);
 
         javaMailSender.send(message);
     }

@@ -2,46 +2,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 
-    <div th:replace="fragments/head :: head"></div>
+<div th:replace="fragments/head :: head"></div>
 
 
-    <body class="animsition">
-        <div class="page-wrapper">
-            <!-- HEADER MOBILE-->
-            <header class="header-mobile d-block d-lg-none">
-                <div class="header-mobile__bar">
-                    <div class="container-fluid">
-                        <div class="header-mobile-inner">
-                            <a class="logo" th:href="@{index.html}">
-                                <img th:src="@{images/icon/home.png}" alt="CoolAdmin" />
-                            </a>
-                            <button class="hamburger hamburger--slider" type="button">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                            </button>
-                        </div>
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" th:href="@{index.html}">
+                            <img th:src="@{images/icon/home.png}" alt="CoolAdmin" />
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!--INCLUDING THE MOBILE VIEW a.k.a RESPONSIVE-->
-                <div th:replace="fragments/navbarmobile :: navbarmobile"></div>
-                <!--<jsp:include page="navbarmobile.jsp"/>-->
+            <!--INCLUDING THE MOBILE VIEW a.k.a RESPONSIVE-->
+            <div th:replace="fragments/navbarmobile :: navbarmobile"></div>
+            <!--<jsp:include page="navbarmobile.jsp"/>-->
 
-            </header>
-            <!-- END HEADER MOBILE-->
+        </header>
+        <!-- END HEADER MOBILE-->
 
-            <!-- MENU SIDEBAR-->
-            <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
+        <!-- MENU SIDEBAR-->
+        <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
 
-            <!--        <span th:if="${job.id=='JOB03'}">
+        <!--        <span th:if="${job.id=='JOB03'}">
             <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
             </span>
             <span th:unless="${job.id=='JOB02'}">
             <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
             </span>
             <span th:unless="${job.id=='JOB01'}">-->
-            <!-- <div th:each="data :${session.roleloginses}">
+        <!-- <div th:each="data :${session.roleloginses}">
                 <div th:if="${data=='JOB01'}">
                     <div th:replace="fragments/sidebar :: sidebar"></div>
                 </div>
@@ -54,54 +54,48 @@
             </div> -->
 
 
-            <div th:switch="${session.roleloginses}">
-                <div th:case="'JOB01'">
-                    <div th:replace="fragments/sidebar :: sidebar"></div>
-                </div>
-                <div th:case="'JOB02'">
-                    <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
-                </div>
-                <div th:case="'JOB03'">
-                    <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
-                </div>
+        <div th:switch="${session.roleloginses}">
+            <div th:case="'JOB01'">
+                <div th:replace="fragments/sidebar :: sidebar"></div>
             </div>
-
-
-
-            <!--</span>-->
-
-            <!-- END MENU SIDEBAR-->
-
-            <!-- PAGE CONTAINER-->
-            <div class="page-container">
-                <!-- HEADER DESKTOP-->
-
-                <!--HEADER CONTENT-->
-                <div th:replace="fragments/header :: header"></div>
-                <!--<jsp:include page="header.jsp"/>-->
-                <!-- HEADER DESKTOP-->
-
-                <!-- MAIN CONTENT-->
-
-                <div class="main-content-p" id="loadthis">
-                    <div class="row m-t-25">
-                    </div>
-                    <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
-                    <!--<div th:replace="fragments/content :: content"></div>-->
-
-                    <section layout:fragment="content"></section>
-
-                    <!--<jsp:include page="content.jsp"/>-->
-
-                </div>
-                <!-- END MAIN CONTENT-->
-                <!-- END PAGE CONTAINER-->
+            <div th:case="'JOB02'">
+                <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
             </div>
+            <div th:case="'JOB03'">
+                <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
+            </div>
+        </div>
 
-            <!--INCLUDE THE FOOTER PAGE-->
-            <div th:replace="fragments/footer :: footer"></div>
-            <!--<jsp:include page="footer.jsp"/>-->
 
+
+        <!--</span>-->
+
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+
+            <!--HEADER CONTENT-->
+            <div th:replace="fragments/header :: header"></div>
+            <!--<jsp:include page="header.jsp"/>-->
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+
+            <div class="main-content-p" id="loadthis">
+                <div class="row m-t-25">
+                </div>
+                <!--DEFAULT CONTENT THAT CAN BE REPLACED BY SIDEBAR SELECTION-->
+                <!--<div th:replace="fragments/content :: content"></div>-->
+
+                <section layout:fragment="content"></section>
+
+                <!--<jsp:include page="content.jsp"/>-->
+
+            </div>
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
         </div>
 
         <!-- Jquery JS-->
@@ -283,6 +277,110 @@
 
         </script>
     </body>
+        <!--INCLUDE THE FOOTER PAGE-->
+        <div th:replace="fragments/footer :: footer"></div>
+        <!--<jsp:include page="footer.jsp"/>-->
+
+    </div>
+
+    <!-- Jquery JS-->
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+
+    <!-- <script th:src="@{vendor/jquery-3.2.1.min.js}"></script> -->
+
+    <!-- Bootstrap JS-->
+    <script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
+    <script th:src="@{vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+
+    <!-- Vendor JS       -->
+    <script th:src="@{vendor/slick/slick.min.js}">
+    </script>
+    <script th:src="@{vendor/wow/wow.min.js}"></script>
+    <script th:src="@{vendor/animsition/animsition.min.js}"></script>
+    <script th:src="@{vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}">
+    </script>
+    <script th:src="@{vendor/counter-up/jquery.waypoints.min.js}"></script>
+    <script th:src="@{vendor/counter-up/jquery.counterup.min.js}">
+    </script>
+    <script th:src="@{vendor/circle-progress/circle-progress.min.js}"></script>
+    <script th:src="@{vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
+    <script th:src="@{vendor/chartjs/Chart.bundle.min.js}"></script>
+    <script th:src="@{vendor/select2/select2.min.js}"></script>
+
+    <!-- Main JS-->
+    <script th:src="@{js/main.js}"></script>
+    <script th:src="@{js/selfScript.js}"></script>
+
+    <!--MODAL STATUS-->
+    <script>
+        $('#modalApproval').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('getid')
+            var ts = button.data('getts')
+            var date = button.data('getdate')
+            var duration = button.data('getduration')
+            var desc = button.data('getdescription')
+            var status = button.data('getstatus')
+
+            var modal = $(this)
+            modal.find('#AotId').val(id)
+            modal.find('#Aotdate').val(date)
+            modal.find('#Aotduration').val(duration)
+            modal.find('#Aotdesc').val(desc)
+            modal.find('#Atimesheet').val(ts)
+            modal.find('#Aotstatus').val(status)
+        });
+    </script>
+
+    <!--Change Role User-->
+    <script>
+        $('#modalUserAccess').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('getid');
+            var name = button.data('getname');
+            var job = button.data('getjob');
+
+            var modal = $(this);
+            modal.find('#UAid').val(id);
+            modal.find('#UAname').val(name);
+            modal.find('#UAjob').val(job);
+        });
+    </script>
+
+    <!-- MODAL STATUS -->
+    <script>
+        $('#modalStatus').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('getid')
+            var date = button.data('getdate')
+            var duration = button.data('getduration')
+            var desc = button.data('getdescription')
+            var ts = button.data('getts')
+            var status = button.data('getstatus')
+
+            var modal = $(this)
+            modal.find('#SotId').val(id)
+            modal.find('#Sotdate').val(date)
+            modal.find('#Sotduration').val(duration)
+            modal.find('#Sotdesc').val(desc)
+            modal.find('#Stimesheet').val(ts)
+            modal.find('#Sotstatus').val(status)
+        });
+    </script>
+
+    <!-- PRINT TABLE STATUS -->
+    <script>
+        $('.btnstatus').click(function () {
+            var printme = document.getElementById('statusTable');
+            var wme = window.open("", "", "width=900,height=700");
+            wme.document.write(printme.outerHTML);
+            wme.document.close();
+            wme.focus();
+            wme.print();
+            wme.close();
+        });
+    </script>
+</body>
 
 </html>
 <!-- end document-->
