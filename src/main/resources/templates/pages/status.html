@@ -33,7 +33,7 @@
                         </div>
                         <div class="md-form mb-2">
                             <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control"/>
+                            <input type="text" id="Stimesheet" name="Stimesheet" class="form-control" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -84,12 +84,7 @@
                                                 <td th:text="${data.timesheet.id}"></td>
                                                 <td>
                                                     <button data-target="#modalStatus" data-toggle="modal"
-                                                        class="btn btn-warning">EDIT</button>
-
-
-                                                    <button data-target="#modalStatus" data-toggle="modal"
-                                                        th:data-getid="${data.id}" 
-                                                        th:data-getdate="${data.date}"
+                                                        th:data-getid="${data.id}" th:data-getdate="${data.date}"
                                                         th:data-getduration="${data.timeduration}"
                                                         th:data-getdescription="${data.keterangan}"
                                                         th:data-getts="${data.timesheet.id}"
@@ -119,38 +114,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $('#modalStatus').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('getid')
-            var date = button.data('getdate')
-            var duration = button.data('getduration')
-            var desc = button.data('getdescription')
-            var ts = button.data('getts')
-            var status = button.data('getstatus')
-
-            var modal = $(this)
-            modal.find('#SotId').val(id)
-            modal.find('#Sotdate').val(date)
-            modal.find('#Sotduration').val(duration)
-            modal.find('#Sotdesc').val(desc)
-            modal.find('#Stimesheet').val(ts)
-            modal.find('#Sotstatus').val(status)
-        });
-    </script>
-    <!-- <script>
-
-        $('.btnstatus').click(function () {
-            var printme = document.getElementById('statusTable');
-            var wme = window.open("", "", "width=900,height=700");
-            wme.document.write(printme.outerHTML);
-            wme.document.close();
-            wme.focus();
-            wme.print();
-            wme.close();
-        });
-    </script> -->
-
 </section>
-
 </html>
