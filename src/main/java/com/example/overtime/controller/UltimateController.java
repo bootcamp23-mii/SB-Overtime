@@ -161,6 +161,7 @@ public class UltimateController {
 
     @GetMapping("/createuser")
     public String createuser(Model model) {
+        model.addAttribute("empdata", edao.findAll());
         model.addAttribute("divdata", ddao.findAll());
         model.addAttribute("sitedata", sdao.findAll());
         model.addAttribute("jobdata", jdao.findAll());
@@ -214,7 +215,7 @@ public class UltimateController {
     @GetMapping("/sendemail")
     public String signUpComplete() {
         try {
-            emailService.sendEmail("pandu4431@gmail.com");
+            emailService.sendEmail("pandu4431@gmail.com", "BABI");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
         }
@@ -273,9 +274,6 @@ public class UltimateController {
                 session.setAttribute("umanager", umanager);
                 session.setAttribute("udivision", udivision);
                 session.setAttribute("usite", usite);
-
-                // request.getSession().setAttribute("loginses", id);
-                // request.getSession().setAttribute("roleloginses", role);
             } else {
                 return "redirect:/login";
             }
@@ -283,50 +281,6 @@ public class UltimateController {
         return "redirect:/";
     }
 
-    // @GetMapping("/")
-    // public String process(Model model, HttpSession session) {
-    // @SuppressWarnings("unchecked")
-    // List<String> messages = (List<String>)
-    // session.getAttribute("MY_SESSION_MESSAGES");
-    // if (messages == null) {
-    // messages = new ArrayList<>();
-    // }
-    // model.addAttribute("sessionMessages", messages);
-    // return "index";
-    // }
-    // @PostMapping("/persistMessage")
-    // public String persistMessage(@RequestParam("msg") String msg,
-    // HttpServletRequest request) {
-    // @SuppressWarnings("unchecked")
-    // List<String> messages = (List<String>)
-    // request.getSession().getAttribute("MY_SESSION_MESSAGES");
-    // if (messages == null) {
-    // messages = new ArrayList<>();
-    // request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
-    // }
-    // messages.add(msg);
-    // request.getSession().setAttribute("MY_SESSION_MESSAGES", messages);
-    // return "redirect:/";
-    // }
-    // @PostMapping("/logout")
-    // public String destroySession(HttpServletRequest request) {
-    // request.getSession().invalidate();
-    // return "redirect:/login";
-    // }
-    // REMAPING ALL THE CONTROLLER NEED
-    // CONTROLLER LIST
-    // GET
-    // -GET ALL DATA DIVISION
-    // -GET ALL DATA EMPLOYEE
-    // -GET ALL DATA OVERTIME
-    // -GET ALL DATA SITE
-    // -GET ALL DATA JOB
-    // -GET ALL DATA TIMESHEET
-    //
-    // POST
-    // -POST DATA
-    // -OVERTIME(REQUEST OVERTIME)
-    // -POST DATA EMPLOYE(ADMIN)
     // ==========MAPPING ALL CONTROLLER NEED==========
     @RequestMapping(value = "/divsave", method = RequestMethod.POST)
     public String divSave(@ModelAttribute("regionsave") Division div) {
@@ -359,9 +313,10 @@ public class UltimateController {
             @RequestParam("cb-site") String site, @RequestParam("cb-job") String job) throws Exception {
         password = "EMP" + email;
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
+        String subject = "ACCOUNT ACTIVATION";
         edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
                 new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
-        emailService.sendEmail(email);
+        emailService.sendEmail(email, subject);
         return "redirect:/";
     }
 
@@ -417,16 +372,29 @@ public class UltimateController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/ovtaccept", method = RequestMethod.POST)
-    public String ovtAccept(@RequestParam("idfor1") String id) {
-        odao.acceptOvertime(id);
-        return "redirect:/";
+    // @RequestMapping(value = "/ovtaccept")
+    // public String ovtAccept(@RequestParam) {
+    // return "redirect:/";
+    // }
+
+    @RequestMapping(value = "/ovtaccept")
+    public String ovtAccept(@RequestParam("AotId") String id, @RequestParam("Aotdate") String date,
+            @RequestParam("Aotduration") String timeduration, @RequestParam("Aotdesc") String keterangan,
+            @RequestParam("Atimesheet") String timesheet) throws NumberFormatException, ParseException {
+        System.out.println("INI IDINYA  HAHA " + id);
+        odao.save(new Overtime(id, sdf.parse(date), Integer.valueOf(timeduration), keterangan, new TimeSheet(timesheet),
+                new Status("STA02")));
+        return "redirect:/approval";
     }
 
     @RequestMapping(value = "/ovtreject", method = RequestMethod.POST)
-    public String ovtReject(@RequestParam("idfor2") String id) {
-        odao.rejectOvertime(id);
-        return "redirect:/";
+    public String ovtReject(@RequestParam("AotId") String id, @RequestParam("Aotdate") String date,
+            @RequestParam("Aotduration") String timeduration, @RequestParam("Aotdesc") String keterangan,
+            @RequestParam("Atimesheet") String timesheet) throws NumberFormatException, ParseException {
+        System.out.println("INI IDINYA  HAHA " + id);
+        odao.save(new Overtime(id, sdf.parse(date), Integer.valueOf(timeduration), keterangan, new TimeSheet(timesheet),
+                new Status("STA03")));
+        return "redirect:/approval";
     }
 
     @RequestMapping(value = "/ovtdelete/{id}", method = RequestMethod.GET)

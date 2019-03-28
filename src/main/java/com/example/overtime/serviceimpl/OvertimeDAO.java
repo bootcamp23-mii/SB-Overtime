@@ -52,13 +52,13 @@ public class OvertimeDAO implements IOvertimeDAO {
     }
 
     @Override
-    public Overtime acceptOvertime(String id) {
-        return orep.acceptOvertime(id);
+    public void acceptOvertime(String id) {
+        orep.acceptOvertime(id);
     }
 
     @Override
-    public Overtime rejectOvertime(String id) {
-        return orep.rejectOvertime(id);
+    public void rejectOvertime(String id) {
+        orep.rejectOvertime(id);
     }
 
     @Override

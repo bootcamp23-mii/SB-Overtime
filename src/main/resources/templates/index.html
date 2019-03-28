@@ -132,9 +132,9 @@
     <script th:src="@{js/main.js}"></script>
     <script th:src="@{js/selfScript.js}"></script>
 
-    <!--Update Overtime For Approval-->
+    <!--MODAL STATUS-->
     <script>
-        $('#modalStatus').on('show.bs.modal', function (event) {
+        $('#modalApproval').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var id = button.data('getid')
             var ts = button.data('getts')
@@ -201,7 +201,6 @@
             wme.close();
         });
     </script>
-
 </body>
 
 </html>

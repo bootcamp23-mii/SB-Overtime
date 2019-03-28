@@ -18,9 +18,9 @@ public interface IOvertimeDAO {
 
     Overtime findById(String id);
 
-    Overtime acceptOvertime(String id);
+    void acceptOvertime(String id);
 
-    Overtime rejectOvertime(String id);
+    void rejectOvertime(String id);
 
     Iterable<Overtime> findHistoryByUser(String id);
 

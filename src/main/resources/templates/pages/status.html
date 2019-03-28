@@ -80,7 +80,7 @@
                                         <tbody>
                                             <tr th:each="data : ${statusdata}">
                                                 <td th:text="${data.id}"></td>
-                                                <td th:text="${data.date}"></td>
+                                                <td data-date-format="ddd MMMM YYYY" th:text="${data.date}"></td>
                                                 <td th:text="${data.timesheet.id}"></td>
                                                 <td>
                                                     <button data-target="#modalStatus" data-toggle="modal"
@@ -115,4 +115,5 @@
         </div>
     </div>
 </section>
+
 </html>
