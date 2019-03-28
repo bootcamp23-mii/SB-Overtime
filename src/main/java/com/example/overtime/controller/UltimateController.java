@@ -86,10 +86,9 @@ public class UltimateController {
 
     @Autowired
     private EmailService emailService;
-    
-      @Autowired
+
+    @Autowired
     private FileStorageService fileStorageService;
-    
 
     // ==========PAGE CONTROLLER==========
     @GetMapping("/*")
@@ -110,23 +109,18 @@ public class UltimateController {
 
         // model.addAttribute("divsave", new Division());
         // model.addAttribute("divdelete", new Division());
-
         // model.addAttribute("empdata", edao.findAll());
         // model.addAttribute("empsave", new Employee());
         // model.addAttribute("empdelete", new Employee());
-
         // model.addAttribute("jobdata", jdao.findAll());
         // model.addAttribute("jobsave", new Job());
         // model.addAttribute("jobdelete", new Job());
-
         // model.addAttribute("ovtdata", odao.findAll());
         // model.addAttribute("ovtsave", new Overtime());
         // model.addAttribute("ovtdelete", new Overtime());
-
         // model.addAttribute("sitedata", sdao.findAll());
         // model.addAttribute("sitesave", new Site());
         // model.addAttribute("sitedelete", new Site());
-
         // model.addAttribute("tsdata", tdao.findAll());
         // model.addAttribute("tssave", new TimeSheet());
         // model.addAttribute("tsdelete", new TimeSheet());
@@ -136,25 +130,24 @@ public class UltimateController {
         // model.addAttribute("userstatus", odao.findStatusByUser(id));
         return "pages/content";
     }
-    
+
     @GetMapping("/upload")
     public String upload() {
         return "/upload";
     }
 
-
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         Employee employee = fileStorageService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(employee.getId())
-                .toUriString();
-
-        new UploadFileResponse(employee.getName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
-        return "redirect:/";
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(employee.getId())
+//                .toUriString();
+//
+//        new UploadFileResponse(employee.getName(), fileDownloadUri,
+//                file.getContentType(), file.getSize());
+        return "redirect:/profile";
     }
 
 //    @PostMapping("/uploadMultipleFiles")
@@ -164,11 +157,10 @@ public class UltimateController {
 //                .map(file -> uploadFile(file))
 //                .collect(Collectors.toList());
 //    }
-
-     @GetMapping("/downloadFile/{fileId}")
+    @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) {
         // Load file from database
-         Employee employee = fileStorageService.getFile(fileId);
+        Employee employee = fileStorageService.getFile(fileId);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
@@ -178,14 +170,14 @@ public class UltimateController {
 
     @GetMapping("/lihatFile")
     public ResponseEntity<byte[]> getImage() throws IOException {
-        Employee employee = fileStorageService.getFile("EMP1");
+        Employee employee = fileStorageService.getFile("EMP2");
 
         return ResponseEntity
                 .ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(employee.getPhoto());
     }
-    
+
     @GetMapping("/contentadmin")
     public String contadm(Model model) {
         return "pages/testadmin";
@@ -426,7 +418,6 @@ public class UltimateController {
     // odao.deleteById(ovt.getId());
     // return "redirect:/";
     // }
-
     @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
     public String ovtDelete(@RequestParam() String id) {
         odao.deleteById(id);
@@ -437,7 +428,6 @@ public class UltimateController {
     // public String ovtAccept(@RequestParam) {
     // return "redirect:/";
     // }
-
     @RequestMapping(value = "/ovtaccept")
     public String ovtAccept(@RequestParam("AotId") String id, @RequestParam("Aotdate") String date,
             @RequestParam("Aotduration") String timeduration, @RequestParam("Aotdesc") String keterangan,

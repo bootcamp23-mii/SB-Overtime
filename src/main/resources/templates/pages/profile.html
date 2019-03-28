@@ -33,9 +33,12 @@
                                         </center>
                                         <hr>
                                         <center>
+                                            <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                                                <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/upload}">Upload</a>
+                                            </nav>
                                             <form id="singleUploadForm" enctype="multipart/form-data" name="singleUploadForm" th:action="@{/uploadFile}" method="POST">
-                                                 <span class="label label-success">Change Profile pict</span>
-                                                 <br>
+                                                <span class="label label-success">Change Profile pict</span>
+                                                <br>
                                                 <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
                                                 <button type="submit" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-dot-circle-o"></i> Submit</button>

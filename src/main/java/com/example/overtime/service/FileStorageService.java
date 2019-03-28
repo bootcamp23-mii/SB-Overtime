@@ -10,6 +10,7 @@ import com.example.overtime.exception.FileStorageException;
 import com.example.overtime.exception.MyFileNotFoundException;
 import com.example.overtime.repository.DBRepository;
 import java.io.IOException;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -24,7 +25,7 @@ public class FileStorageService {
     @Autowired
     private DBRepository dbr;
 
-     public Employee storeFile(MultipartFile file) {
+     public Employee storeFile(MultipartFile file, HttpSession session) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -33,8 +34,9 @@ public class FileStorageService {
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            Employee e = dbr.findById("EMP1").get();
-            Employee employee = new Employee(e.getEmail(), e.getName(), e.getAddress(), 
+            
+            Employee e = dbr.findById(session.getId()).get();
+            Employee employee = new Employee(e.getId(), e.getName(), e.getAddress(), 
                     e.getSalary(), e.getEmail(), e.getPassword(), 
                     file.getBytes(), e.getActivation(),e.getManager(), e.getDivision(), e.getSite(), e.getJob());
 
