@@ -1,109 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-    layout:decorate="~{index}">
+      layout:decorate="~{index}">
 
-<section layout:fragment="content">
+    <section layout:fragment="content">
 
-    <!-- CEK SESSION DATA -->
+        <!-- CEK SESSION DATA -->
 
-    <form th:action="@{/ovtaccept}" method="POST">
-        <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
-            aris-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h3 class="modal-title">EDITOR</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">ID</label>
-                            <input type="text" id="AotId" name="AotId" class="form-control AotId" />
+        <form th:action="@{/ovtaccept}" method="POST">
+            <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+                 aris-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h3 class="modal-title">EDITOR</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Date</label>
-                            <input type="date" id="Aotdate" name="Aotdate" class="form-control" />
+                        <div class="modal-body">
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">ID</label>
+                                <input type="text" id="AotId" name="AotId" class="form-control AotId" />
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">Date</label>
+                                <input type="date" id="Aotdate" name="Aotdate" class="form-control" />
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">Duration</label>
+                                <input type="text" id="Aotduration" name="Aotduration" class="form-control" />
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">Description</label>
+                                <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" />
+                            </div>
+                            <div class="md-form mb-2">
+                                <label data-error="wrong" data-success="true" class="">Time Sheet</label>
+                                <input type="text" id="Atimesheet" name="Atimesheet" class="form-control Atimesheet" />
+                            </div>
+                            <div class="md-form mb-2">
+                                <!-- <label data-error="wrong" data-success="true" class="">Status</label> -->
+                                <input type="hidden" id="Aotstatus" class="form-control" value="STA02" />
+                            </div>
                         </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Duration</label>
-                            <input type="text" id="Aotduration" name="Aotduration" class="form-control" />
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT</button>
                         </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Description</label>
-                            <input type="text" id="Aotdesc" name="Aotdesc" class="form-control" />
-                        </div>
-                        <div class="md-form mb-2">
-                            <label data-error="wrong" data-success="true" class="">Time Sheet</label>
-                            <input type="text" id="Atimesheet" name="Atimesheet" class="form-control Atimesheet" />
-                        </div>
-                        <div class="md-form mb-2">
-                            <!-- <label data-error="wrong" data-success="true" class="">Status</label> -->
-                            <input type="hidden" id="Aotstatus" class="form-control" value="STA02" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="overview-wrap">
-
-                        <div class="row m-t-45">
-                        </div>
-                        <!--<h2 class="title-1">ALL HISTORY</h2>-->
                     </div>
                 </div>
             </div>
-            <div class="row m-t-25">
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="au-card recent-report">
-                        <div class="au-card-inner">
+        </form>
 
-                            <div class="col-lg-12">
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <!--TABLE HERE-->
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="overview-wrap">
 
-                                    <table id="approvalTable" class="table table-borderless table-striped table-earning"
-                                        cellspacing='30' align='center'>
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Date</th>
-                                                <th>Duration</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="dataapp : ${approvaldata}">
-                                                <td th:text="${dataapp.timesheet.employee.name}"></td>
-                                                <td th:text="${dataapp.date}"></td>
-                                                <td th:text="${dataapp.timeduration}"></td>
-                                                <td>
-                                                    <button data-target="#modalApproval" data-toggle="modal"
-                                                        th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
-                                                        th:data-getduration="${dataapp.timeduration}"
-                                                        th:data-getdescription="${dataapp.keterangan}"
-                                                        th:data-getts="${dataapp.timesheet.id}"
-                                                        class="btn btn-primary">ACCEPT</button>
+                            <div class="row m-t-45">
+                            </div>
+                            <!--<h2 class="title-1">ALL HISTORY</h2>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-t-25">
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="au-card recent-report">
+                            <div class="au-card-inner">
 
-                                                    <button data-target="#modalDelete" data-toggle="modal"
-                                                        th:data-getid="${dataapp.id}"
-                                                        class="btn btn-warning">DELETE</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="col-lg-12">
+                                    <div class="table-responsive table--no-card m-b-30">
+                                        <!--TABLE HERE-->
+
+                                        <table id="approvalTable" class="table table-borderless table-striped table-earning"
+                                               cellspacing='30' align='center'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Date</th>
+                                                    <th>Duration</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="dataapp : ${approvaldata}">
+                                                    <td th:text="${dataapp.timesheet.employee.name}"></td>
+                                                    <td th:text="${dataapp.date}"></td>
+                                                    <td th:text="${dataapp.timeduration}"></td>
+                                                    <td>
+                                                        <button data-target="#modalApproval" data-toggle="modal"
+                                                                th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
+                                                                th:data-getduration="${dataapp.timeduration}"
+                                                                th:data-getdescription="${dataapp.keterangan}"
+                                                                th:data-getts="${dataapp.timesheet.id}"
+                                                                class="btn btn-primary">ACCEPT</button>
+
+                                                        <button data-target="#modalDelete" data-toggle="modal"
+                                                                th:data-getid="${dataapp.id}"
+                                                                class="btn btn-warning">DELETE</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -111,9 +112,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
+        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> -->
 
-</section>
+    </section>
 
 </html>

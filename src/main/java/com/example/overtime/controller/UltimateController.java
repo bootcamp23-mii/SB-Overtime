@@ -8,7 +8,6 @@ package com.example.overtime.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +19,7 @@ import com.example.overtime.entity.Site;
 import com.example.overtime.entity.Status;
 import com.example.overtime.entity.TimeSheet;
 import com.example.overtime.service.BCrypt;
+import com.example.overtime.service.FileStorageService;
 import com.example.overtime.serviceimpl.DivisionDAO;
 import com.example.overtime.serviceimpl.EmailService;
 import com.example.overtime.serviceimpl.EmployeeDAO;
@@ -27,14 +27,20 @@ import com.example.overtime.serviceimpl.JobDAO;
 import com.example.overtime.serviceimpl.OvertimeDAO;
 import com.example.overtime.serviceimpl.SiteDAO;
 import com.example.overtime.serviceimpl.TimeSheetDAO;
+import com.example.overtime.serviceimpl.UploadFileResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.mail.Quota.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -45,7 +51,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  *
@@ -79,6 +87,9 @@ public class UltimateController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     // ==========PAGE CONTROLLER==========
     @GetMapping("/*")
     public String indexnull(Model model, HttpSession session) {
@@ -99,6 +110,53 @@ public class UltimateController {
         // DELETED SOME MODEL ATTRIBUTE
 
         return "pages/content";
+    }
+
+    @GetMapping("/upload")
+    public String upload() {
+        return "/upload";
+    }
+
+    @PostMapping("/uploadFile")
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
+        Employee employee = fileStorageService.storeFile(file);
+
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/downloadFile/")
+//                .path(employee.getId())
+//                .toUriString();
+//
+//        new UploadFileResponse(employee.getName(), fileDownloadUri,
+//                file.getContentType(), file.getSize());
+        return "redirect:/profile";
+    }
+
+//    @PostMapping("/uploadMultipleFiles")
+//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return Arrays.asList(files)
+//                .stream()
+//                .map(file -> uploadFile(file))
+//                .collect(Collectors.toList());
+//    }
+    @GetMapping("/downloadFile/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) {
+        // Load file from database
+        Employee employee = fileStorageService.getFile(fileId);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + employee.getName() + "\"")
+                .body(new ByteArrayResource(employee.getPhoto()));
+    }
+
+    @GetMapping("/lihatFile")
+    public ResponseEntity<byte[]> getImage() throws IOException {
+        Employee employee = fileStorageService.getFile("EMP10");
+
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(employee.getPhoto());
     }
 
     @GetMapping("/contentadmin")

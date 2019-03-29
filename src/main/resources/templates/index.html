@@ -29,29 +29,6 @@
             <!--<jsp:include page="navbarmobile.jsp"/>-->
 
         </header>
-        <!-- END HEADER MOBILE-->
-
-        <!-- MENU SIDEBAR-->
-        <!--SIDEBAR CONTENT DETERMINED BY USER LOGIN TYPE-->
-
-        <!--        <span th:if="${job.id=='JOB03'}">
-            <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
-            </span>
-            <span th:unless="${job.id=='JOB02'}">
-            <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
-            </span>
-            <span th:unless="${job.id=='JOB01'}">-->
-        <!-- <div th:each="data :${session.roleloginses}">
-                <div th:if="${data=='JOB01'}">
-                    <div th:replace="fragments/sidebar :: sidebar"></div>
-                </div>
-                <div th:unless="${data=='JOB02'}">
-                    <div th:replace="fragments/sidebarManager :: sidebarManager"></div>
-                </div>
-                <div th:unless="${data=='JOB03'}">
-                    <div th:replace="fragments/sidebarAdmin :: sidebarAdmin"></div>
-                </div>
-            </div> -->
 
 
         <div th:switch="${session.roleloginses}">
@@ -98,6 +75,97 @@
             <!-- END PAGE CONTAINER-->
         </div>
 
+        <!-- Jquery JS-->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+        <!-- <script th:src="@{vendor/jquery-3.2.1.min.js}"></script> -->
+
+        <!-- Bootstrap JS-->
+        <script th:src="@{vendor/bootstrap-4.1/popper.min.js}"></script>
+        <script th:src="@{vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+
+        <!-- Vendor JS       -->
+        <script th:src="@{vendor/slick/slick.min.js}">
+        </script>
+        <script th:src="@{vendor/wow/wow.min.js}"></script>
+        <script th:src="@{vendor/animsition/animsition.min.js}"></script>
+        <script th:src="@{vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}">
+        </script>
+        <script th:src="@{vendor/counter-up/jquery.waypoints.min.js}"></script>
+        <script th:src="@{vendor/counter-up/jquery.counterup.min.js}">
+        </script>
+        <script th:src="@{vendor/circle-progress/circle-progress.min.js}"></script>
+        <script th:src="@{vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
+        <script th:src="@{vendor/chartjs/Chart.bundle.min.js}"></script>
+        <script th:src="@{vendor/select2/select2.min.js}">
+        </script>
+
+        <!-- <script>
+            function myFunction() {
+                var divnya;
+                var role = ${namaAttribute};
+                if (role < 10) {
+                    divnya = "Good morning";
+                } else if (time < 20) {
+                    divnya = "Good day";
+                } else {
+                    divnya = "Good evening";
+                }
+                document.getElementById("demo").innerHTML = divnya;
+            }
+        </script> -->
+
+        <!-- Main JS-->
+        <script th:src="@{js/main.js}"></script>
+        <script th:src="@{js/selfScript.js}"></script>
+        <!-- <script>
+            $('#modalStatus').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('getid')
+                var ts = button.data('getts')
+                var modal = $(this)
+                modal.find('.AotId').val(id)
+                modal.find('.Atimesheet').val(ts)
+            })
+        </script> -->
+
+        <!--Update Overtime For Approval-->
+        <script>
+            $('#modalStatus').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('getid')
+                var ts = button.data('getts')
+                var date = button.data('getdate')
+                var duration = button.data('getduration')
+                var desc = button.data('getdescription')
+                var status = button.data('getstatus')
+
+                var modal = $(this)
+                modal.find('#AotId').val(id)
+                modal.find('#Aotdate').val(date)
+                modal.find('#Aotduration').val(duration)
+                modal.find('#Aotdesc').val(desc)
+                modal.find('#Atimesheet').val(ts)
+                modal.find('#Aotstatus').val(status)
+            });
+        </script>
+
+        <!--Change Role User-->
+        <script>
+            $('#modalUserAccess').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('getid');
+                var name = button.data('getname');
+                var job = button.data('getjob');
+
+                var modal = $(this);
+                modal.find('#UAid').val(id);
+                modal.find('#UAname').val(name);
+                modal.find('#UAjob').val(job);
+            });
+        </script>
+
+    </body>
         <!--INCLUDE THE FOOTER PAGE-->
         <div th:replace="fragments/footer :: footer"></div>
         <!--<jsp:include page="footer.jsp"/>-->
