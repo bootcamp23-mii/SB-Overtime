@@ -119,7 +119,7 @@ public class UltimateController {
 
     @PostMapping("/uploadFile")
     public String uploadFile(HttpSession session, @RequestParam("file") MultipartFile file) {
-        String idEmployee = session.getAttribute("loginles").toString();
+        String idEmployee = session.getAttribute("loginses").toString();
         Employee employee = fileStorageService.storeFile(idEmployee, file);
 
         // String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -153,7 +153,7 @@ public class UltimateController {
     @GetMapping("/lihatFile")
     public ResponseEntity<byte[]> getImage(HttpSession session) throws IOException {
 
-        String idEmployee = session.getAttribute("loginles").toString();
+        String idEmployee = session.getAttribute("loginses").toString();
         Employee employee = fileStorageService.getFile(idEmployee);
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(employee.getPhoto());
