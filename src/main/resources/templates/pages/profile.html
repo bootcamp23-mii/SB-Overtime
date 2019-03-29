@@ -1,47 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{index}">
 
-    <section layout:fragment="content">
+<section layout:fragment="content">
 
-        <div class="section__content section__content--p30">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+        aris-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="modal-title">CHANGE PASSWORD</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="row m-t-25">
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row m-t-45">
+                <form th:action="@{/changepass}" method="POST">
+                    <div class="modal-body">
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">Enter Old Password</label>
+                            <input type="password" id="oldpass" name="oldpass" class="form-control" />
                         </div>
-                        <div class="au-card recent-report">
-                            <div class="au-card-inner">
-                                <h3 class="title-1">PROFILE</h3>
-                                <div class="container">
-                                    <div class="span3 well">
-                                        <center>
-                                            <img th:src="@{/lihatFile}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">Enter New Password</label>
+                            <input type="password" id="newpass" name="newpass" class="form-control" />
+                        </div>
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">Re-type the New Password</label>
+                            <input type="password" id="newretype" name="newretype" class="form-control" />
+                        </div>
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">STORED DATA</label>
+                            <input type="hidden" id="CPid" name="CPid" class="form-control" />
+                            <input type="hidden" id="CPname" name="CPname" class="form-control" />
+                            <input type="hidden" id="CPaddress" name="CPaddress" class="form-control" />
+                            <input type="hidden" id="CPsalary" name="CPsalary" class="form-control" />
+                            <input type="hidden" id="CPemail" name="CPemail" class="form-control" />
+                            <input type="hidden" id="CPpassword" name="CPpassword" class="form-control" />
+                            <input type="hidden" id="CPphoto" name="CPphoto" class="form-control" />
+                            <input type="hidden" id="CPactivation" name="CPactivation" class="form-control" />
+                            <input type="hidden" id="CPmanager" name="CPmanager" class="form-control" />
+                            <input type="hidden" id="CPdivision" name="CPdivision" class="form-control" />
+                            <input type="hidden" id="CPsite" name="CPsite" class="form-control" />
+                            <input type="hidden" id="CPjob" name="CPjob" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" value="updateJob" name="updateJob">
+                            SAVE CHANGE
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div class="row m-t-25">
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row m-t-45">
+                    </div>
+                    <div class="au-card recent-report">
+                        <div class="au-card-inner">
+                            <h3 class="title-1">PROFILE</h3>
+                            <div class="container">
+                                <div th:each="user : ${employeedata}" class="span3 well">
+                                    <center>
+                                        <img th:src="@{/lihatFile}" name="aboutme" width="140" height="140" border="0"
+                                            class="img-circle"></a>
+                                        <br />
+                                        <br />
+                                        <h3 class="media-heading" th:text="${user.name}"><small
+                                                th:text="${user.address}">Indonesia</small></h3>
+                                        <span><strong>EMPLOYEE DATA </strong></span>
+                                        <br />
+
+                                        <span class="label label-info">Managed By : <strong
+                                                th:text="${user.manager.name}"></strong></span>
+                                        <br />
+                                        <span class="label label-info" th:text="${user.email}"></span>
+                                        <br />
+                                        <span class="label label-info" th:text="${user.job.position}"></span>
+                                        <br />
+                                        <span class="label label-info" th:text="${user.site.name}"></span>
+                                        <br />
+                                        <span class="label label-info" th:text="${user.division.name}"></span>
+                                    </center>
+                                    <hr>
+                                    <center>
+                                        <form id="singleUploadForm" enctype="multipart/form-data"
+                                            name="singleUploadForm" th:action="@{/uploadFile}" method="POST">
+                                            <span class="label label-success">Change Profile pict</span>
                                             <br>
-                                            <br>
-                                            <h3 class="media-heading">Muhamad Ilham Afemi <small>Indonesia</small></h3>
-                                            <span><strong>Skills: </strong></span>
-                                            <span class="label label-warning">HTML5/CSS</span>
-                                            <span class="label label-info">Java</span>
-                                            <span class="label label-info">Springboot</span>
-                                            <span class="label label-success">Windows 10</span>
-                                        </center>
-                                        <hr>
-                                        <center>
-                                            <form id="singleUploadForm" enctype="multipart/form-data" name="singleUploadForm" th:action="@{/uploadFile}" method="POST">
-                                                <span class="label label-success">Change Profile pict</span>
-                                                <br>
-                                                <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fa fa-dot-circle-o"></i> Submit</button>
-                                            </form>
-                                        </center>
-                                    </div>
+                                            <input id="singleFileUploadInput" type="file" name="file" class="file-input"
+                                                required />
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-dot-circle-o"></i> Submit</button>
+                                        </form>
+                                    </center>
+                                    <button data-target="#modalChangePass" data-toggle="modal"
+                                        th:data-getidcp="${user.id}" 
+                                        th:data-getnamecp="${user.name}"
+                                        th:data-getaddresscp="${user.address}" 
+                                        th:data-getsalarycp="${user.salary}"
+                                        th:data-getemailcp="${user.email}" 
+                                        th:data-getpasswordcp="${user.password}"
+                                        th:data-getphotocp="${user.photo}" 
+                                        th:data-getactivationcp="${user.activation}"
+                                        th:data-getmanagercp="${user.manager.id}"
+                                        th:data-getdivisioncp="${user.division.id}" 
+                                        th:data-getsitecp="${user.site.id}"
+                                        th:data-getjobcp="${user.job.id}" 
+                                        class="btn btn-success">Change
+                                        Password</button>
+
                                 </div>
                             </div>
                         </div>
@@ -49,5 +131,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 </html>

@@ -118,45 +118,45 @@ public class UltimateController {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        Employee employee = fileStorageService.storeFile(file);
+    public String uploadFile(HttpSession session, @RequestParam("file") MultipartFile file) {
+        String idEmployee = session.getAttribute("loginles").toString();
+        Employee employee = fileStorageService.storeFile(idEmployee, file);
 
-//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                .path("/downloadFile/")
-//                .path(employee.getId())
-//                .toUriString();
-//
-//        new UploadFileResponse(employee.getName(), fileDownloadUri,
-//                file.getContentType(), file.getSize());
+        // String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+        // .path("/downloadFile/")
+        // .path(employee.getId())
+        // .toUriString();
+        //
+        // new UploadFileResponse(employee.getName(), fileDownloadUri,
+        // file.getContentType(), file.getSize());
         return "redirect:/profile";
     }
 
-//    @PostMapping("/uploadMultipleFiles")
-//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-//        return Arrays.asList(files)
-//                .stream()
-//                .map(file -> uploadFile(file))
-//                .collect(Collectors.toList());
-//    }
+    // @PostMapping("/uploadMultipleFiles")
+    // public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files")
+    // MultipartFile[] files) {
+    // return Arrays.asList(files)
+    // .stream()
+    // .map(file -> uploadFile(file))
+    // .collect(Collectors.toList());
+    // }
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) {
         // Load file from database
         Employee employee = fileStorageService.getFile(fileId);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + employee.getName() + "\"")
                 .body(new ByteArrayResource(employee.getPhoto()));
     }
 
     @GetMapping("/lihatFile")
-    public ResponseEntity<byte[]> getImage() throws IOException {
-        Employee employee = fileStorageService.getFile("EMP10");
+    public ResponseEntity<byte[]> getImage(HttpSession session) throws IOException {
 
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(employee.getPhoto());
+        String idEmployee = session.getAttribute("loginles").toString();
+        Employee employee = fileStorageService.getFile(idEmployee);
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(employee.getPhoto());
     }
 
     @GetMapping("/contentadmin")
@@ -248,7 +248,10 @@ public class UltimateController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
+    public String profile(HttpSession session, Model model) {
+        String idEmployee = (String) session.getAttribute("loginses");
+        System.out.println(idEmployee);
+        model.addAttribute("employeedata", edao.findById(idEmployee));
         return "pages/profile";
     }
 
@@ -368,22 +371,28 @@ public class UltimateController {
     @RequestMapping(value = "/changepass", method = RequestMethod.POST)
     public String changepass(HttpSession session, @RequestParam("oldpass") String oldpass,
             @RequestParam("newpass") String newpass, @RequestParam("newretype") String newpass2) {
-        String userid = session.getAttribute("loginles").toString();
+        String userid = session.getAttribute("loginses").toString();
+        System.out.println(oldpass + " " + newpass + " " + newpass2 + " " + userid);
         Employee ep = edao.findById(userid);
         String id = ep.getId();
         String name = ep.getName();
         String address = ep.getAddress();
         String salary = ep.getSalary().toString();
         String email = ep.getEmail();
-        String password = ep.getPassword();
+        // String password = ep.getPassword();
         String manager = ep.getManager().getId();
         String division = ep.getDivision().getId();
         String site = ep.getSite().getId();
         String job = ep.getJob().getId();
 
-        if (BCrypt.checkpw(oldpass, password) && newpass.equals(newpass2)) {
-            edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, newpass,
-                    new Integer("1"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
+        System.out.println(id+" "+name+" "+address+" "+salary+" "+email+" "+manager+" "+division+" "+site+" "+job);
+
+        if (BCrypt.checkpw(oldpass, ep.getPassword()) && newpass.equals(newpass2)) {
+        String passwordHash = BCrypt.hashpw(newpass, BCrypt.gensalt());
+        edao.save(new Employee(id, name, address, new
+        Integer(Integer.valueOf(salary)), email, passwordHash,
+        new Integer("1"), new Employee(manager), new Division(division), new
+        Site(site), new Job(job)));
         }
         return "redirect:/";
     }
