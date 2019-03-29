@@ -18,5 +18,9 @@ public interface IEmployeeDAO {
 
     Employee findById(String id);
 
+    Employee findToken(String email);
+
     void deleteById(String id);
+
+    void activation(String email);
 }

@@ -41,4 +41,14 @@ public class EmployeeDAO implements IEmployeeDAO {
         erep.deleteWithId(id);
     }
 
+    @Override
+    public void activation(String email) {
+        erep.activation(email);
+    }
+
+    @Override
+    public Employee findToken(String token) {
+        return erep.findToken(token);
+    }
+
 }

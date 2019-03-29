@@ -33,12 +33,15 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String emailAddress, String emailSubject) throws Exception {
+    public void sendEmail(String emailAddress, String emailSubject, String user, String context, String link)
+            throws Exception {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         Map<String, Object> model = new HashMap();
-        model.put("user", "content");
+        model.put("user", user);
+        model.put("link", link);
+        model.put("context", context);
         configuration.setClassForTemplateLoading(this.getClass(), "/");
 
         Template t = configuration.getTemplate("hummingbird.html");

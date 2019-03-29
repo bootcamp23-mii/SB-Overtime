@@ -96,32 +96,8 @@ public class UltimateController {
         model.addAttribute("updaterole", new Employee());
         model.addAttribute("divdata", ddao.findAll());
 
-        // model.addAttribute("divsave", new Division());
-        // model.addAttribute("divdelete", new Division());
+        // DELETED SOME MODEL ATTRIBUTE
 
-        // model.addAttribute("empdata", edao.findAll());
-        // model.addAttribute("empsave", new Employee());
-        // model.addAttribute("empdelete", new Employee());
-
-        // model.addAttribute("jobdata", jdao.findAll());
-        // model.addAttribute("jobsave", new Job());
-        // model.addAttribute("jobdelete", new Job());
-
-        // model.addAttribute("ovtdata", odao.findAll());
-        // model.addAttribute("ovtsave", new Overtime());
-        // model.addAttribute("ovtdelete", new Overtime());
-
-        // model.addAttribute("sitedata", sdao.findAll());
-        // model.addAttribute("sitesave", new Site());
-        // model.addAttribute("sitedelete", new Site());
-
-        // model.addAttribute("tsdata", tdao.findAll());
-        // model.addAttribute("tssave", new TimeSheet());
-        // model.addAttribute("tsdelete", new TimeSheet());
-        // ==========INDIRECT METHOD==========
-        // String id = "EMP1";
-        // model.addAttribute("userhistory", odao.findHistoryByUser(id));
-        // model.addAttribute("userstatus", odao.findStatusByUser(id));
         return "pages/content";
     }
 
@@ -150,13 +126,41 @@ public class UltimateController {
         return "login";
     }
 
-    // @GetMapping("/content")
-    // public String content(Model model) {
-    // return "pages/content";
-    // }
     @GetMapping("/activation")
-    public String activation(Model model) {
-        return "pages/activationUser";
+    public String activation(@RequestParam("xd") String hashString, Model model) {
+        // CEK KETERSEDIAAN UNAME dan EMAIL
+        Employee e = edao.findToken(hashString);
+        String id = e.getId();
+        String name = e.getName();
+        String address = e.getAddress();
+        String salary = e.getSalary().toString();
+        String email = e.getEmail();
+        String password = e.getPassword();
+        String manager = e.getManager().getId();
+        String division = e.getDivision().getId();
+        String site = e.getSite().getId();
+        String job = e.getJob().getId();
+
+        System.out.println(email);
+        if (email != null) {
+            edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, password,
+                    new Integer("1"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
+            return "pages/activationUser";
+        } else {
+            return "pages/login";
+        }
+    }
+
+    @GetMapping("/tokentest")
+    public String tokentest(@RequestParam("xd") String hashString, Model model) {
+        Employee ed = edao.findToken(hashString);
+        String cekName = ed.getEmail();
+        if (cekName != null) {
+            System.out.println(cekName);
+        } else {
+            System.out.println("NO DATA FOUND");
+        }
+        return cekName;
     }
 
     @GetMapping("/createuser")
@@ -165,7 +169,6 @@ public class UltimateController {
         model.addAttribute("divdata", ddao.findAll());
         model.addAttribute("sitedata", sdao.findAll());
         model.addAttribute("jobdata", jdao.findAll());
-
         return "pages/adminCreateUser";
     }
 
@@ -204,18 +207,17 @@ public class UltimateController {
         return "pages/status";
     }
 
-    // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    // public String detailRefresh(@PathVariable long id, Model model) {
-    //
-    // T element = service.findOne(id);
-    //
-    // return "/pages :: ELEMENT"; // fragment
-    // }
     // ==========FUNCTIONAL TOOLS CONTROL==========
     @GetMapping("/sendemail")
     public String signUpComplete() {
+
+        String passwordHash = BCrypt.hashpw("password", BCrypt.gensalt());
+        String subject = "ACCOUNT ACTIVATION";
+        // String linkformail = "localhost:8081/activation?xd=" + passwordHash;
+        String linkformail = "pandu4431@gmail.com";
         try {
-            emailService.sendEmail("pandu4431@gmail.com", "BABI");
+            emailService.sendEmail("pandu4431@gmail.com", "ACTIVET", "Pandu", "Activate",
+                    "http://localhost:8081/activation?xd=" + linkformail);
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
         }
@@ -224,8 +226,6 @@ public class UltimateController {
 
     public void UploadPhoto() {
         String folderName = "resources";
-        // String uploadPath = request.getServletContext().getRealPath("tf-signature") +
-        // File.separator + folderName;
         String pathFile = "D:/372267-200.png";
         File file = new File("D:/372267-200.png");
 
@@ -251,8 +251,9 @@ public class UltimateController {
 
         if (edao.findById(id) != null) {
             Employee employee = edao.findById(id);
+            String activeStatus = employee.getActivation().toString();
 
-            if (BCrypt.checkpw(password, employee.getPassword())) {
+            if (BCrypt.checkpw(password, employee.getPassword()) && activeStatus.equals("1")) {
                 String role = edao.findById(id).getJob().getId();
                 String uname = edao.findById(id).getName();
                 String uaddress = edao.findById(id).getAddress();
@@ -306,17 +307,45 @@ public class UltimateController {
         return "redirect:/";
     }
 
+    @RequestMapping(value = "/changepass", method = RequestMethod.POST)
+    public String changepass(HttpSession session, @RequestParam("oldpass") String oldpass,
+            @RequestParam("newpass") String newpass, @RequestParam("newretype") String newpass2) {
+        String userid = session.getAttribute("loginles").toString();
+        Employee ep = edao.findById(userid);
+        String id = ep.getId();
+        String name = ep.getName();
+        String address = ep.getAddress();
+        String salary = ep.getSalary().toString();
+        String email = ep.getEmail();
+        String password = ep.getPassword();
+        String manager = ep.getManager().getId();
+        String division = ep.getDivision().getId();
+        String site = ep.getSite().getId();
+        String job = ep.getJob().getId();
+
+        if (BCrypt.checkpw(oldpass, password) && newpass.equals(newpass2)) {
+            edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, newpass,
+                    new Integer("1"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
+        }
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
     public String empSave(String id, @RequestParam("tf-name") String name, @RequestParam("tf-address") String address,
             @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String password,
-            String activation, @RequestParam("tf-manager") String manager, @RequestParam("cb-division") String division,
+            String activation, @RequestParam("cb-man") String manager, @RequestParam("cb-division") String division,
             @RequestParam("cb-site") String site, @RequestParam("cb-job") String job) throws Exception {
         password = "EMP" + email;
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
+        String token = email.split("@")[0];
         String subject = "ACCOUNT ACTIVATION";
+        String linkformail = "http://localhost:8081/activation?xd=" + token;
+        System.out.println(linkformail);
+
         edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
                 new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
-        emailService.sendEmail(email, subject);
+
+        emailService.sendEmail(email, subject, name, "ACTIVATE", linkformail);
         return "redirect:/";
     }
 
@@ -360,22 +389,11 @@ public class UltimateController {
         return "redirect:/";
     }
 
-    // @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
-    // public String ovtDelete(@ModelAttribute("ovtdelete") Overtime ovt) {
-    // odao.deleteById(ovt.getId());
-    // return "redirect:/";
-    // }
-
     @RequestMapping(value = "/ovtdelete", method = RequestMethod.POST)
     public String ovtDelete(@RequestParam() String id) {
         odao.deleteById(id);
         return "redirect:/";
     }
-
-    // @RequestMapping(value = "/ovtaccept")
-    // public String ovtAccept(@RequestParam) {
-    // return "redirect:/";
-    // }
 
     @RequestMapping(value = "/ovtaccept")
     public String ovtAccept(@RequestParam("AotId") String id, @RequestParam("Aotdate") String date,
@@ -384,6 +402,15 @@ public class UltimateController {
         System.out.println("INI IDINYA  HAHA " + id);
         odao.save(new Overtime(id, sdf.parse(date), Integer.valueOf(timeduration), keterangan, new TimeSheet(timesheet),
                 new Status("STA02")));
+        TimeSheet ts = tdao.findById(timesheet);
+        String emailFromTs = ts.getEmployee().getEmail();
+        String employeeFromTs = ts.getEmployee().getName();
+        try {
+            emailService.sendEmail(employeeFromTs, "OVERTIME ACCEPED", employeeFromTs, "LOGIN",
+                    "http://localhost:8081/login");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
         return "redirect:/approval";
     }
 
@@ -394,6 +421,15 @@ public class UltimateController {
         System.out.println("INI IDINYA  HAHA " + id);
         odao.save(new Overtime(id, sdf.parse(date), Integer.valueOf(timeduration), keterangan, new TimeSheet(timesheet),
                 new Status("STA03")));
+        TimeSheet ts = tdao.findById(timesheet);
+        String emailFromTs = ts.getEmployee().getEmail();
+        String employeeFromTs = ts.getEmployee().getName();
+        try {
+            emailService.sendEmail(employeeFromTs, "OVERTIME REJECTION", employeeFromTs, "LOGIN",
+                    "http://localhost:8081/login");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
         return "redirect:/approval";
     }
 
