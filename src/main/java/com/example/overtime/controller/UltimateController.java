@@ -170,7 +170,6 @@ public class UltimateController {
         model.addAttribute("divdata", ddao.findAll());
         model.addAttribute("sitedata", sdao.findAll());
         model.addAttribute("jobdata", jdao.findAll());
-
         return "pages/adminUserAccess";
     }
 
@@ -363,8 +362,29 @@ public class UltimateController {
     }
 
     @RequestMapping(value = "/updaterole", method = RequestMethod.POST)
-    public String updateRole(@ModelAttribute("updaterole") Employee employee) {
-        edao.save(employee);
+    public String updateRole(@RequestParam("UAid") String ids, @RequestParam("UAjob") String newJob,
+            @ModelAttribute("updaterole") Employee employee) {
+
+        Employee ep = edao.findById(ids);
+        String id = ep.getId();
+        String name = ep.getName();
+        String address = ep.getAddress();
+        String salary = ep.getSalary().toString();
+        String email = ep.getEmail();
+        String password = ep.getPassword();
+        byte[] photos = ep.getPhoto();
+        int activation = ep.getActivation();
+        String manager = ep.getManager().getId();
+        String division = ep.getDivision().getId();
+        String site = ep.getSite().getId();
+        String job = ep.getJob().getId();
+
+        System.out.println(id + " " + name + " " + address + " " + salary + " " + email + " " + manager + " " + division
+                + " " + site + " " + job);
+
+        edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, password, photos,
+                activation, new Employee(manager), new Division(division), new Site(site), new Job(newJob)));
+
         return "redirect:/";
     }
 
@@ -385,14 +405,13 @@ public class UltimateController {
         String site = ep.getSite().getId();
         String job = ep.getJob().getId();
 
-        System.out.println(id+" "+name+" "+address+" "+salary+" "+email+" "+manager+" "+division+" "+site+" "+job);
+        System.out.println(id + " " + name + " " + address + " " + salary + " " + email + " " + manager + " " + division
+                + " " + site + " " + job);
 
         if (BCrypt.checkpw(oldpass, ep.getPassword()) && newpass.equals(newpass2)) {
-        String passwordHash = BCrypt.hashpw(newpass, BCrypt.gensalt());
-        edao.save(new Employee(id, name, address, new
-        Integer(Integer.valueOf(salary)), email, passwordHash,
-        new Integer("1"), new Employee(manager), new Division(division), new
-        Site(site), new Job(job)));
+            String passwordHash = BCrypt.hashpw(newpass, BCrypt.gensalt());
+            edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
+                    new Integer("1"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
         }
         return "redirect:/";
     }

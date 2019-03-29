@@ -1,90 +1,97 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{index}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{index}">
 
-    <section layout:fragment="content">
+<section layout:fragment="content">
 
-        <!--SESSION CHECK DATA LOG-->
+    <!--SESSION CHECK DATA LOG-->
 
-        <div class="modal fade" id="modalUserAccess" tabindex="-1" role="dialog" aria-labeledby="myModalHeader" aris-hidden="true">
-            <div class="modal-dialog" role="document" >
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h3 class="modal-title">EDITOR</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form th:action="@{/updaterole}" method="POST">
-                        <div class="modal-body">
-                            <div class="md-form mb-2">
-                                <label data-error="wrong" data-success="true" class="label">ID</label>
-                                <input type="text" id="UAid" name="UAid" class="form-control"/>
-                            </div>
-                            <div class="md-form mb-2">
-                                <label data-error="wrong" data-success="true" class="label">Name</label>
-                                <input type="text" id="UAname" name="UAname" class="form-control"/>
-                            </div>
-                            <div class="md-form mb-2">
-                                <label data-error="wrong" data-success="true" class="">Job</label>
-                                <div>
-                                    <select class="custom-select" name="UAjob" id="UAjob">
-                                        <div th:each="job :${jobdata}">
-                                            <option class="form-control" th:value="${job.id}"
-                                                    th:text="${job.position}"></option>
-                                        </div>
-                                    </select>
-                                </div>
-                            </div>
+    <div class="modal fade" id="modalUserAccess" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+        aris-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h3 class="modal-title">EDITOR</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/updaterole}" method="POST">
+                    <div class="modal-body">
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">ID</label>
+                            <input type="text" id="UAid" name="UAid" class="form-control" />
                         </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" type="submit" value="updateJob" name="updateJob" >SAVE CHANGE</button>
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="label">Name</label>
+                            <input type="text" id="UAname" name="UAname" class="form-control" />
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="section__content section__content--p30">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                    </div>
-                </div>
-                <div class="row m-t-25">
-                </div>
-                <!--            <div class="row m-t-25">
-                            </div>-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="au-card recent-report">
-                            <div class="au-card-inner">
-                                <h3 class="title-10" >User Access</h3>
-                                <div class="row m-t-25">
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="table-responsive table--no-card m-b-30">
-                                        <!--TABLE HERE-->
-                                        <table id="userAccessTable" class="table table-borderless table-striped table-earning" cellspacing='30' align ='center'>
-                                            <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Job</th>
-                                                    <th>Edit</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tblData">
-                                                <tr th:each="emp : ${empdata}">
-                                                    <td th:text="${emp.id}"></td>
-                                                    <td th:text="${emp.name}"></td>
-                                                    <td th:text="${emp.job.position}"></td>
-                                                    <td>
-                                                        <button data-target="#modalUserAccess" data-toggle="modal"  th:data-getid="${emp.id}" th:data-getname="${emp.name}" th:data-getjob="${emp.job.position}" class="btn btn-success">Change Role</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div class="md-form mb-2">
+                            <label data-error="wrong" data-success="true" class="">Job</label>
+                            <div>
+                                <select class="custom-select" name="UAjob" id="UAjob">
+                                    <div th:each="job :${jobdata}">
+                                        <option class="form-control" th:value="${job.id}" th:text="${job.position}">
+                                        </option>
                                     </div>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" value="updateJob" name="updateJob">SAVE
+                            CHANGE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div class="row m-t-25">
+            </div>
+            <!--            <div class="row m-t-25">
+                            </div>-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="au-card recent-report">
+                        <div class="au-card-inner">
+                            <h3 class="title-10">User Access</h3>
+                            <div class="row m-t-25">
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="table-responsive table--no-card m-b-30">
+                                    <!--TABLE HERE-->
+                                    <table id="userAccessTable"
+                                        class="table table-borderless table-striped table-earning" cellspacing='30'
+                                        align='center'>
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Job</th>
+                                                <th>Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tblData">
+                                            <tr th:each="emp : ${empdata}">
+                                                <td th:text="${emp.id}"></td>
+                                                <td th:text="${emp.name}"></td>
+                                                <td th:text="${emp.job.position}"></td>
+                                                <td>
+                                                    <button data-target="#modalUserAccess" data-toggle="modal"
+                                                        th:data-getid="${emp.id}" th:data-getname="${emp.name}"
+                                                        th:data-getjob="${emp.job.position}"
+                                                        class="btn btn-success">Change Role</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -92,5 +99,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 </html>
