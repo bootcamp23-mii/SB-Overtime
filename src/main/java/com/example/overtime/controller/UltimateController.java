@@ -170,7 +170,7 @@ public class UltimateController {
 
     @GetMapping("/lihatFile")
     public ResponseEntity<byte[]> getImage() throws IOException {
-        Employee employee = fileStorageService.getFile("EMP2");
+        Employee employee = fileStorageService.getFile("EMP10");
 
         return ResponseEntity
                 .ok()
