@@ -100,16 +100,20 @@ public class UltimateController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(HttpSession session, Model model) {
 
         // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
-        // THE APP, CC:PANDU
+
         model.addAttribute("updaterole", new Employee());
         model.addAttribute("divdata", ddao.findAll());
-
+        if (session.getAttribute("loginses") != null) {
+            return "pages/content";
+        } else {
+            return "login";
+        }
         // DELETED SOME MODEL ATTRIBUTE
 
-        return "pages/content";
+        // return "pages/content";
     }
 
     @GetMapping("/upload")
@@ -121,25 +125,9 @@ public class UltimateController {
     public String uploadFile(HttpSession session, @RequestParam("file") MultipartFile file) {
         String idEmployee = session.getAttribute("loginses").toString();
         Employee employee = fileStorageService.storeFile(idEmployee, file);
-
-        // String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-        // .path("/downloadFile/")
-        // .path(employee.getId())
-        // .toUriString();
-        //
-        // new UploadFileResponse(employee.getName(), fileDownloadUri,
-        // file.getContentType(), file.getSize());
         return "redirect:/profile";
     }
 
-    // @PostMapping("/uploadMultipleFiles")
-    // public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files")
-    // MultipartFile[] files) {
-    // return Arrays.asList(files)
-    // .stream()
-    // .map(file -> uploadFile(file))
-    // .collect(Collectors.toList());
-    // }
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) {
         // Load file from database
@@ -179,7 +167,10 @@ public class UltimateController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(HttpSession session, Model model) {
+        if (session.getAttribute("loginses") != null) {
+            session.removeAttribute("loginses");
+        }
         return "login";
     }
 

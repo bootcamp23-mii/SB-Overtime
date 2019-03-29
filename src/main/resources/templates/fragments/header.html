@@ -1,5 +1,6 @@
 <div th:fragment="header">
     <header class="header-desktop">
+        <>
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="header-wrap">
@@ -87,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a th:href="http://localhost:8081/login" >
+                                        <a th:href="@{http://localhost:8081/login}">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
