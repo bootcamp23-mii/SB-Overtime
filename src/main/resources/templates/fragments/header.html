@@ -17,9 +17,9 @@
                                 <span class="quantity"></span>
                                 <!--<span class="quantity">3</span>-->
                                 <div class="notifi-dropdown js-dropdown">
-                                    <div class="notifi__title" th:each="data : ${session.notification}">
+                                    <div class="notifi__title" th:each="data : ${notification}">
                                         <p th:text="${data.id}"></p>
-                                        <!-- <p th:text="${data.timesheet.employee.name}"> </p> -->
+                                        <p th:text="${data.timesheet.employee.name}"> </p>
                                     </div>
                                     <div class="notifi__footer">
                                         <a th:href="@{/approval}">All notifications</a>

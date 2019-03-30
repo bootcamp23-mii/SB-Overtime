@@ -15,8 +15,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m-t-25" th:each="user : ${session.logindata}">
-                    <div class="col-sm-6 col-lg-3">
+                <div class="row m-t-25" th:each="user : ${logindata}">
+                    <div class="col-sm-6 col-lg-6">
                         <div class="overview-item overview-item--c1">
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
@@ -25,29 +25,11 @@
                                     </div>
                                     <div class="text">
                                             <h2 th:text="${user.id}"></h2>
-                                            <span>EMPLOYEE</span>
+                                            <span th:text="${user.job.position}" >EMPLOYEE</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
                                     <!--<canvas id="widgetChart1"></canvas>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="overview-item overview-item--c2">
-                            <div class="overview__inner">
-                                <div class="overview-box clearfix">
-                                    <div class="icon">
-                                        <i class="zmdi "></i>
-                                    </div>
-                                    <div class="text">
-                                        <h2>~~Hours</h2>
-                                        <span>Overtime Taken</span>
-                                    </div>
-                                </div>
-                                <div class="overview-chart">
-                                    <!--<canvas id="widgetChart2"></canvas>-->
                                 </div>
                             </div>
                         </div>

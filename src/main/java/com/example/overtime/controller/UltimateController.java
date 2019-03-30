@@ -84,6 +84,8 @@ public class UltimateController {
         // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
         model.addAttribute("updaterole", new Employee());
         model.addAttribute("divdata", ddao.findAll());
+        model.addAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
+        model.addAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
         if (session.getAttribute("loginses") != null) {
             return "pages/content";
         } else {
@@ -203,8 +205,6 @@ public class UltimateController {
 
                 session.setAttribute("loginses", id);
                 session.setAttribute("roleloginses", role);
-                session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
-                session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
 
             } else {
                 return "redirect:/login";
