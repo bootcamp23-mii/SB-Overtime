@@ -96,7 +96,6 @@ public class UltimateController {
     public String index(HttpSession session, Model model) {
 
         // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
-
         model.addAttribute("updaterole", new Employee());
         model.addAttribute("divdata", ddao.findAll());
         if (session.getAttribute("loginses") != null) {
@@ -150,24 +149,22 @@ public class UltimateController {
         return "pages/status";
     }
 
-    // ==========FUNCTIONAL TOOLS CONTROL==========
-    @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileId) {
-        // Load file from database
-        Employee employee = fileStorageService.getFile(fileId);
-
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + employee.getName() + "\"")
-                .body(new ByteArrayResource(employee.getPhoto()));
+    @GetMapping("/changerole")
+    public String changerole(Model model) {
+        model.addAttribute("empdata", edao.findAll());
+        model.addAttribute("divdata", ddao.findAll());
+        model.addAttribute("sitedata", sdao.findAll());
+        model.addAttribute("jobdata", jdao.findAll());
+        return "pages/adminUserAccess";
     }
 
-    @GetMapping("/lihatFile")
-    public ResponseEntity<byte[]> getImage(HttpSession session) throws IOException {
-
-        String idEmployee = session.getAttribute("loginses").toString();
-        Employee employee = fileStorageService.getFile(idEmployee);
-
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(employee.getPhoto());
+    @GetMapping("/createuser")
+    public String createuser(Model model) {
+        model.addAttribute("empdata", edao.findAll());
+        model.addAttribute("divdata", ddao.findAll());
+        model.addAttribute("sitedata", sdao.findAll());
+        model.addAttribute("jobdata", jdao.findAll());
+        return "pages/adminCreateUser";
     }
 
     @GetMapping("/login")
@@ -203,6 +200,45 @@ public class UltimateController {
         }
     }
 
+    // ==========FUNCTIONAL TOOLS CONTROL==========
+    @PostMapping("/loginmed")
+    public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
+            HttpServletRequest request, HttpSession session) {
+
+        if (edao.findById(id) != null) {
+            Employee employee = edao.findById(id);
+            String activeStatus = employee.getActivation().toString();
+
+            if (BCrypt.checkpw(password, employee.getPassword()) && activeStatus.equals("1")) {
+                String role = edao.findById(id).getJob().getId();
+                String uname = edao.findById(id).getName();
+                String uaddress = edao.findById(id).getAddress();
+                String usalary = edao.findById(id).getSalary().toString();
+                String umail = edao.findById(id).getEmail();
+                String umanager = edao.findById(id).getManager().getName();
+                String udivision = edao.findById(id).getDivision().getName();
+                String usite = edao.findById(id).getSite().getName();
+
+                System.out.println(role);
+
+                session.setAttribute("loginses", id);
+                session.setAttribute("roleloginses", role);
+
+                session.setAttribute("uname", uname);
+                session.setAttribute("uaddress", uaddress);
+                session.setAttribute("usalary", usalary);
+                session.setAttribute("umail", umail);
+                session.setAttribute("umanager", umanager);
+                session.setAttribute("udivision", udivision);
+                session.setAttribute("usite", usite);
+            } else {
+                return "redirect:/login";
+            }
+        }
+        return "redirect:/";
+    }
+
+    // TESTER
     @GetMapping("/tokentest")
     public String tokentest(@RequestParam("xd") String hashString, Model model) {
         Employee ed = edao.findToken(hashString);
@@ -246,90 +282,6 @@ public class UltimateController {
             System.out.println("Error Reading The File.");
             e1.printStackTrace();
         }
-    }
-
-    @PostMapping("/loginmed")
-    public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
-            HttpServletRequest request, HttpSession session) {
-
-        if (edao.findById(id) != null) {
-            Employee employee = edao.findById(id);
-            String activeStatus = employee.getActivation().toString();
-
-            if (BCrypt.checkpw(password, employee.getPassword()) && activeStatus.equals("1")) {
-                String role = edao.findById(id).getJob().getId();
-                String uname = edao.findById(id).getName();
-                String uaddress = edao.findById(id).getAddress();
-                String usalary = edao.findById(id).getSalary().toString();
-                String umail = edao.findById(id).getEmail();
-                String umanager = edao.findById(id).getManager().getName();
-                String udivision = edao.findById(id).getDivision().getName();
-                String usite = edao.findById(id).getSite().getName();
-
-                System.out.println(role);
-
-                session.setAttribute("loginses", id);
-                session.setAttribute("roleloginses", role);
-
-                session.setAttribute("uname", uname);
-                session.setAttribute("uaddress", uaddress);
-                session.setAttribute("usalary", usalary);
-                session.setAttribute("umail", umail);
-                session.setAttribute("umanager", umanager);
-                session.setAttribute("udivision", udivision);
-                session.setAttribute("usite", usite);
-            } else {
-                return "redirect:/login";
-            }
-        }
-        return "redirect:/";
-    }
-
-    // ==========MAPPING ALL CONTROLLER NEED==========
-    @RequestMapping(value = "/changepass", method = RequestMethod.POST)
-    public String changepass(HttpSession session, @RequestParam("oldpass") String oldpass,
-            @RequestParam("newpass") String newpass, @RequestParam("newretype") String newpass2) {
-        String userid = session.getAttribute("loginses").toString();
-        System.out.println(oldpass + " " + newpass + " " + newpass2 + " " + userid);
-        Employee ep = edao.findById(userid);
-        String id = ep.getId();
-        String name = ep.getName();
-        String address = ep.getAddress();
-        String salary = ep.getSalary().toString();
-        String email = ep.getEmail();
-        // String password = ep.getPassword();
-        String manager = ep.getManager().getId();
-        String division = ep.getDivision().getId();
-        String site = ep.getSite().getId();
-        String job = ep.getJob().getId();
-
-        System.out.println(id + " " + name + " " + address + " " + salary + " " + email + " " + manager + " " + division
-                + " " + site + " " + job);
-
-        if (BCrypt.checkpw(oldpass, ep.getPassword()) && newpass.equals(newpass2)) {
-            String passwordHash = BCrypt.hashpw(newpass, BCrypt.gensalt());
-            edao.save(new Employee(id, name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
-                    new Integer("1"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
-        }
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/tssave", method = RequestMethod.POST)
-    public String tsSave(@ModelAttribute("tssave") TimeSheet ts) {
-        tdao.save(ts);
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/tsdelete", method = RequestMethod.POST)
-    public String tsDelete(@ModelAttribute("tsdelete") TimeSheet ts) {
-        tdao.deleteById(ts.getId());
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/tsdelete/{id}", method = RequestMethod.GET)
-    public ModelAndView tsdelete(@PathVariable String id, ModelMap model) {
-        tdao.deleteById(id);
-        return new ModelAndView("redirect:/");
     }
 
 }
