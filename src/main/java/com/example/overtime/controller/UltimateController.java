@@ -483,7 +483,7 @@ public class UltimateController {
         String emailFromTs = ts.getEmployee().getEmail();
         String employeeFromTs = ts.getEmployee().getName();
         try {
-            emailService.sendEmail(employeeFromTs, "OVERTIME ACCEPED", employeeFromTs, "LOGIN",
+            emailService.sendEmail(emailFromTs, "OVERTIME "+id+" ACCEPTED", employeeFromTs, "LOGIN",
                     "http://localhost:8081/login");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
@@ -502,7 +502,7 @@ public class UltimateController {
         String emailFromTs = ts.getEmployee().getEmail();
         String employeeFromTs = ts.getEmployee().getName();
         try {
-            emailService.sendEmail(employeeFromTs, "OVERTIME REJECTION", employeeFromTs, "LOGIN",
+            emailService.sendEmail(emailFromTs, "OVERTIME "+id+" REJECTION", employeeFromTs, "LOGIN",
                     "http://localhost:8081/login");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
