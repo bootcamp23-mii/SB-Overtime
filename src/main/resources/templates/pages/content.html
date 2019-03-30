@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m-t-25">
+                <div class="row m-t-25" th:each="user : ${session.logindata}">
                     <div class="col-sm-6 col-lg-3">
                         <div class="overview-item overview-item--c1">
                             <div class="overview__inner">
@@ -24,10 +24,8 @@
                                         <i class="zmdi zmdi-account-o"></i>
                                     </div>
                                     <div class="text">
-                                        <div th:each="user : ${session.loginses}">
-                                            <h2 th:text="${user}"></h2>
+                                            <h2 th:text="${user.id}"></h2>
                                             <span>EMPLOYEE</span>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -63,7 +61,7 @@
                                     </div>
                                     <div class="text">
                                         <h2>0 H</h2>
-                                        <span>This Week</span>
+                                        <span>This Month</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -104,11 +102,7 @@
                                     <div class="chart-info__left">
                                         <div class="chart-note">
                                             <button class="btn au-btn au-btn-icon au-btn--blue">
-                                                <i class="zmdi"></i>History</button>
-                                        </div>
-                                        <div class="chart-note">
-                                            <button class="btn au-btn au-btn-icon au-btn--blue" type="submit">
-                                                <i class="zmdi"></i>SEND</button>
+                                                <i class="zmdi"></i>MINI REPORT</button>
                                         </div>
                                     </div>
                                 </div>

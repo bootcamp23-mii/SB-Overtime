@@ -3,13 +3,15 @@ package com.example.overtime.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Overtime;
 import com.example.overtime.entity.Status;
 import com.example.overtime.entity.TimeSheet;
-import com.example.overtime.service.FileStorageService;
 import com.example.overtime.serviceimpl.DivisionDAO;
 import com.example.overtime.serviceimpl.EmailService;
 import com.example.overtime.serviceimpl.EmployeeDAO;
@@ -54,16 +56,26 @@ public class OvertimeController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private FileStorageService fileStorageService;
-
     @RequestMapping(value = "/ovtsave", method = RequestMethod.POST)
-    public String ovtSave(String id, @RequestParam("tf-date") String date,
+    public String ovtSave(HttpSession session, String id, @RequestParam("tf-date") String date,
             @RequestParam("tf-duration") String timeduration, @RequestParam("tf-description") String keterangan,
             @RequestParam("tf-timesheet") String timesheet, String status)
             throws NumberFormatException, ParseException {
         odao.save(new Overtime("id", sdf.parse(date), Integer.valueOf(timeduration), keterangan,
                 new TimeSheet(timesheet), new Status("STA01")));
+        Employee employee = edao.findById(session.getAttribute("loginses").toString());
+        String requester = employee.getName();
+        String manager = employee.getManager().getName();
+        String managerEmail = employee.getManager().getEmail();
+
+        try {
+            emailService.sendEmail(managerEmail, requester + ", OVERTIME REQUEST", manager,
+                    "Your Subordinates " + requester + " has requesting the approval for his/her Overtime",
+                    "http://localhost:8081/login");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
+
         return "redirect:/";
     }
 
@@ -84,8 +96,8 @@ public class OvertimeController {
         String emailFromTs = ts.getEmployee().getEmail();
         String employeeFromTs = ts.getEmployee().getName();
         try {
-            emailService.sendEmail(emailFromTs, "OVERTIME " + id + " ACCEPTED", employeeFromTs, "LOGIN",
-                    "http://localhost:8081/login");
+            emailService.sendEmail(emailFromTs, "OVERTIME " + id + " ACCEPTED", employeeFromTs,
+                    "Yay, your Overtime Request has been Accepted by your Manager", "http://localhost:8081/login");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
         }
@@ -103,8 +115,8 @@ public class OvertimeController {
         String emailFromTs = ts.getEmployee().getEmail();
         String employeeFromTs = ts.getEmployee().getName();
         try {
-            emailService.sendEmail(emailFromTs, "OVERTIME " + id + " REJECTION", employeeFromTs, "LOGIN",
-                    "http://localhost:8081/login");
+            emailService.sendEmail(emailFromTs, "OVERTIME " + id + " REJECTION", employeeFromTs,
+                    "Sorry, but your Overtime Request has been rejected", "http://localhost:8081/login");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
         }

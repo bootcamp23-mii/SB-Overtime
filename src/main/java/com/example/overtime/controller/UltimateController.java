@@ -5,7 +5,6 @@
  */
 package com.example.overtime.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +15,6 @@ import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
 import com.example.overtime.entity.Overtime;
 import com.example.overtime.entity.Site;
-import com.example.overtime.entity.Status;
-import com.example.overtime.entity.TimeSheet;
 import com.example.overtime.service.BCrypt;
 import com.example.overtime.service.FileStorageService;
 import com.example.overtime.serviceimpl.DivisionDAO;
@@ -34,22 +31,12 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -202,35 +189,24 @@ public class UltimateController {
 
     // ==========FUNCTIONAL TOOLS CONTROL==========
     @PostMapping("/loginmed")
-    public String checkLogin(@RequestParam("loginId") String id, @RequestParam("loginPass") String password,
-            HttpServletRequest request, HttpSession session) {
+    public String checkLogin(Model model, @RequestParam("loginId") String id,
+            @RequestParam("loginPass") String password, HttpServletRequest request, HttpSession session) {
 
         if (edao.findById(id) != null) {
             Employee employee = edao.findById(id);
             String activeStatus = employee.getActivation().toString();
 
             if (BCrypt.checkpw(password, employee.getPassword()) && activeStatus.equals("1")) {
+
                 String role = edao.findById(id).getJob().getId();
-                String uname = edao.findById(id).getName();
-                String uaddress = edao.findById(id).getAddress();
-                String usalary = edao.findById(id).getSalary().toString();
-                String umail = edao.findById(id).getEmail();
-                String umanager = edao.findById(id).getManager().getName();
-                String udivision = edao.findById(id).getDivision().getName();
-                String usite = edao.findById(id).getSite().getName();
 
                 System.out.println(role);
 
                 session.setAttribute("loginses", id);
                 session.setAttribute("roleloginses", role);
+                session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
+                session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
 
-                session.setAttribute("uname", uname);
-                session.setAttribute("uaddress", uaddress);
-                session.setAttribute("usalary", usalary);
-                session.setAttribute("umail", umail);
-                session.setAttribute("umanager", umanager);
-                session.setAttribute("udivision", udivision);
-                session.setAttribute("usite", usite);
             } else {
                 return "redirect:/login";
             }
@@ -256,7 +232,7 @@ public class UltimateController {
 
         String linkformail = "pandu4431@gmail.com";
         try {
-            emailService.sendEmail("pandu4431@gmail.com", "ACTIVET", "Pandu", "Activate",
+            emailService.sendEmail("pandu4431@gmail.com", "ACCOUNT ACTIVATION TEST", "Pandu", "Activate",
                     "http://localhost:8081/activation?xd=" + linkformail);
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());

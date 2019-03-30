@@ -3,8 +3,6 @@
     layout:decorate="~{index}">
 
 <section layout:fragment="content">
-
-
     <!-- MODAL -->
     <div class="modal fade" id="modalChangePass" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
         aris-hidden="true">
@@ -77,7 +75,7 @@
                                 <div th:each="user : ${employeedata}" class="span3 well">
                                     <center>
                                         <img th:src="@{/lihatFile}" name="aboutme" width="140" height="140" border="0"
-                                            class="img-circle"></a>
+                                            class="img-circle"/>
                                         <br />
                                         <br />
                                         <h3 class="media-heading" th:text="${user.name}"><small

@@ -1,6 +1,5 @@
 package com.example.overtime.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.slf4j.Logger;
@@ -9,12 +8,8 @@ import org.slf4j.LoggerFactory;
 import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
-import com.example.overtime.entity.Overtime;
 import com.example.overtime.entity.Site;
-import com.example.overtime.entity.Status;
-import com.example.overtime.entity.TimeSheet;
 import com.example.overtime.service.BCrypt;
-import com.example.overtime.service.FileStorageService;
 import com.example.overtime.serviceimpl.DivisionDAO;
 import com.example.overtime.serviceimpl.EmailService;
 import com.example.overtime.serviceimpl.EmployeeDAO;
@@ -60,9 +55,6 @@ public class EmployeeController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private FileStorageService fileStorageService;
-
     @RequestMapping(value = "/empsave", method = RequestMethod.POST)
     public String empSave(String id, @RequestParam("tf-name") String name, @RequestParam("tf-address") String address,
             @RequestParam("tf-salary") String salary, @RequestParam("tf-email") String email, String password,
@@ -78,7 +70,7 @@ public class EmployeeController {
         edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
                 new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
 
-        emailService.sendEmail(email, subject, name, "ACTIVATE", linkformail);
+        emailService.sendEmail(email, subject, name, "Congratulation, your Account have been created, click the button below to activate your account", linkformail);
         return "redirect:/";
     }
 

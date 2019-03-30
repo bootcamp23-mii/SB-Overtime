@@ -13,77 +13,50 @@
                     <div class="header-button">
                         <div class="noti-wrap">
                             <div class="noti__item js-item-menu">
-                                <i class="zmdi zmdi-comment-more"></i>
-                                <!--<span class="quantity">1</span>-->
-                                <div class="mess-dropdown js-dropdown">
-                                    <div class="mess__title">
-                                        <p>You have no message</p>
-                                    </div>
-                                    <div class="mess__footer">
-                                        <a href="#">View all messages</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="noti__item js-item-menu">
-                                <i class="zmdi zmdi-email"></i>
-                                <!--<span class="quantity">1</span>-->
-                                <div class="email-dropdown js-dropdown">
-                                    <div class="email__title">
-                                        <p>You have No Emails</p>
-                                    </div>
-                                    <div class="email__footer">
-                                        <a href="#">See all emails</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="noti__item js-item-menu">
                                 <i class="zmdi zmdi-notifications"></i>
+                                <span class="quantity"></span>
                                 <!--<span class="quantity">3</span>-->
                                 <div class="notifi-dropdown js-dropdown">
-                                    <div class="notifi__title">
-                                        <p>You have No Notifications</p>
+                                    <div class="notifi__title" th:each="data : ${session.notification}">
+                                        <p th:text="${data.id}"></p>
+                                        <!-- <p th:text="${data.timesheet.employee.name}"> </p> -->
                                     </div>
                                     <div class="notifi__footer">
-                                        <a href="#">All notifications</a>
+                                        <a th:href="@{/approval}">All notifications</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="account-wrap">
-                            <div class="account-item clearfix js-item-menu">
+                            <div class="account-item clearfix js-item-menu" th:each="userdata : ${session.logindata}">
                                 <div class="image">
-                                    <img src="images/icon/user.png" alt="Pandu Galang" />
+                                    <img th:src="@{/lihatFile}" name="aboutme" class="img-cir"
+                                        onerror="this.src='images/icon/user.png'" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">GET EMPLOYEE NAME</a>
+                                    <a class="js-acc-btn" th:href="@{/profile}" th:text="${userdata.name}">GET EMPLOYEE
+                                        NAME</a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
                                                 <!--RETRIEVE IMAGES FROM DB-->
-                                                <img src="images/icon/user.png" alt="Pandu Galang" />
+                                                <img th:src="@{/lihatFile}" name="aboutme" class="img-cir"
+                                                    onerror="this.src='images/icon/user.png'" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="#">GET EMPLOYEE NAME</a>
+                                                <a href="#" th:text="${userdata.name}">GET EMPLOYEE NAME</a>
                                             </h5>
-                                            <span class="email">GET EMPLOYEE EMAIL</span>
+                                            <span class="email" th:text="${userdata.email}">GET EMPLOYEE EMAIL</span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="#">
+                                            <a th:href="@{/profile}">
                                                 <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__footer">
