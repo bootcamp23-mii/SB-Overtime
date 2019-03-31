@@ -18,6 +18,8 @@ public interface ITimeSheetDAO {
     TimeSheet save(TimeSheet ts);
 
     TimeSheet findById(String id);
+    
+    Iterable<TimeSheet> findByMan(String id);
 
     TimeSheet activeTimeSheet(String name);
 

@@ -98,7 +98,7 @@ public class UltimateController {
                 session.setAttribute("activetimesheet", tdao.activeTimeSheet(
                         session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
             } else {
-                session.setAttribute("activetimesheet", new TimeSheet("--", "No Active TimeSheet", date,
+                session.setAttribute("activetimesheet", new TimeSheet("No Data", "No Active TimeSheet", date,
                         new Employee(session.getAttribute("loginses").toString())));
             }
 
@@ -119,7 +119,8 @@ public class UltimateController {
     public String approval(HttpSession session, Model model) {
         String data = (String) session.getAttribute("loginses");
         System.out.println("DATANYA : " + data);
-        model.addAttribute("approvaldata", odao.findStatusByManager(data));
+        model.addAttribute("getovertime", odao.findStatusByManager(data));
+        model.addAttribute("approvaldata", tdao.findByMan(data));
         return "pages/approvalManager";
     }
 

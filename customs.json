@@ -2,11 +2,14 @@
     "elements": {},
     "attributes": {
         "th:text": {},
+        "aria-labeledby": {},
         "th:src": {},
+        "th:action": {},
         "th:each": {
             "context": "div"
         },
         "th:href": {},
-        "th:fragment": {}
+        "th:fragment": {},
+        "layout:fragment": {}
     }
 }

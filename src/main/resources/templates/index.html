@@ -96,6 +96,13 @@
     <script th:src="@{js/main.js}"></script>
     <script th:src="@{js/selfScript.js}"></script>
 
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#approvalTable').DataTable();
+        });
+    </script>
+
     <!--Change Role User-->
     <script>
         $('#modalUserAccess').on('show.bs.modal', function (event) {
@@ -129,6 +136,17 @@
             modal.find('#Aotdesc').val(desc)
             modal.find('#Atimesheet').val(ts)
             modal.find('#Aotstatus').val(status)
+        });
+    </script>
+    
+    <!--MODAL OVERTIME-->
+    <script>
+        $('#modalOvertime').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('getid')
+
+            var modal = $(this)
+            modal.find('#GotId').val(id)
         });
     </script>
 

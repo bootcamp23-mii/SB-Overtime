@@ -62,7 +62,27 @@ public class TimeSheetController {
         String month = getMonth.format(date);
         String year = getYears.format(date);
         String empIndex = session.getAttribute("loginses").toString();
-        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex)));
+        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA01")));
+        return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/tsaccept", method = RequestMethod.POST)
+    public String tsAccept(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
+        Date date = new Date();
+        String month = getMonth.format(date);
+        String year = getYears.format(date);
+        String empIndex = session.getAttribute("loginses").toString();
+        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA02")));
+        return "redirect:/";
+    }
+    
+    @RequestMapping(value = "/tsreject", method = RequestMethod.POST)
+    public String tsReject(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
+        Date date = new Date();
+        String month = getMonth.format(date);
+        String year = getYears.format(date);
+        String empIndex = session.getAttribute("loginses").toString();
+        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA03")));
         return "redirect:/";
     }
 

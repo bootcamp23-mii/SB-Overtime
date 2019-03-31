@@ -48,6 +48,9 @@ public class TimeSheet implements Serializable {
     @Lob
     @Column(name = "signature")
     private byte[] signature;
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Status status;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,6 +77,17 @@ public class TimeSheet implements Serializable {
 
     public TimeSheet(String id, String name, Date date, Employee employee) {
         this.id = id;
+        this.name = name;
+        this.date = date;
+        this.employee = employee;
+    }
+    
+    public TimeSheet(String id, String name, Date date, Employee employee, Status status) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.employee = employee;
+        this.status = status;
     }
 
     public String getId() {
@@ -147,6 +161,14 @@ public class TimeSheet implements Serializable {
 
     public void setSignature(byte[] signature) {
         this.signature = signature;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
     
 }

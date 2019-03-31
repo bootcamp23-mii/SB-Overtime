@@ -8,7 +8,7 @@
 
         <form th:action="@{/ovtaccept}" method="POST">
             <div class="modal fade" id="modalApproval" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
-                 aris-hidden="true">
+                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header text-center">
@@ -51,6 +51,43 @@
             </div>
         </form>
 
+
+        MODAL LIST DATA OVERTIME
+        <div class="modal fade" id="modalOvertimeList" tabindex="-1" role="dialog" aria-labeledby="myModalHeader"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h3 class="modal-title">EDITOR</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="approvalTable" class="table table-borderless table-striped table-earning"
+                               cellspacing='30' align='center'>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="dataapp : ${approvaldata}">
+                                    <td th:text="${dataapp.employee.name}"></td>
+                                    <td th:text="${dataapp.date}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" value="Save" name="save">ACCEPT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="row">
@@ -78,23 +115,20 @@
                                                cellspacing='30' align='center'>
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <th>Requester Name</th>
+                                                    <th>TimeSheet Name</th>
                                                     <th>Date</th>
-                                                    <th>Duration</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr th:each="dataapp : ${approvaldata}">
-                                                    <td th:text="${dataapp.timesheet.employee.name}"></td>
+                                                    <td th:text="${dataapp.employee.name}"></td>
+                                                    <td th:text="${dataapp.name}"></td>
                                                     <td th:text="${dataapp.date}"></td>
-                                                    <td th:text="${dataapp.timeduration}"></td>
-                                                    <td>
-                                                        <button data-target="#modalApproval" data-toggle="modal"
-                                                                th:data-getid="${dataapp.id}" th:data-getdate="${dataapp.date}"
-                                                                th:data-getduration="${dataapp.timeduration}"
-                                                                th:data-getdescription="${dataapp.keterangan}"
-                                                                th:data-getts="${dataapp.timesheet.id}"
+                                                    <td> 
+                                                        <button data-target="#modalOvertimeList" data-toggle="modal"
+                                                                th:data-getid="${dataapp.id}"
                                                                 class="btn btn-primary">ACCEPT</button>
 
                                                         <button data-target="#modalDelete" data-toggle="modal"

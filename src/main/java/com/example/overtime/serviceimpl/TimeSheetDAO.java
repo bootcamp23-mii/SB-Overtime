@@ -46,4 +46,9 @@ public class TimeSheetDAO implements ITimeSheetDAO {
         return trep.activeTimesheet(name);
     }
 
+    @Override
+    public Iterable<TimeSheet> findByMan(String id) {
+        return trep.getTimesheetByMgr(id);
+    }
+
 }

@@ -35,6 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Status.findByStatus", query = "SELECT s FROM Status s WHERE s.status = :status")})
 public class Status implements Serializable {
 
+    @Size(max = 100)
+    @Column(name = "status")
+    private String status;
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
+    private List<TimeSheet> timeSheetList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,9 +48,6 @@ public class Status implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "id")
     private String id;
-    @Size(max = 100)
-    @Column(name = "status")
-    private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
     private List<Overtime> overtimeList;
 
@@ -63,13 +66,6 @@ public class Status implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @XmlTransient
     public List<Overtime> getOvertimeList() {
@@ -102,6 +98,23 @@ public class Status implements Serializable {
     @Override
     public String toString() {
         return "com.example.overtime.entity.Status[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @XmlTransient
+    public List<TimeSheet> getTimeSheetList() {
+        return timeSheetList;
+    }
+
+    public void setTimeSheetList(List<TimeSheet> timeSheetList) {
+        this.timeSheetList = timeSheetList;
     }
     
 }
