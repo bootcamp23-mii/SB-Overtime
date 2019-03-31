@@ -90,7 +90,6 @@ public class UltimateController {
         model.addAttribute("divdata", ddao.findAll());
         session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
         session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
-        //session.setAttribute("activetimesheet", tdao.activeTimeSheet("EMP5" + "MAR" + "19"));
 
         if (tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date).toString() + getYear.format(date).toString()) != null) {
             session.setAttribute("activetimesheet", tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
