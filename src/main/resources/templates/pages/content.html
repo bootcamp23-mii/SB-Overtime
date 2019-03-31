@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m-t-25" th:each="user : ${logindata}">
+                <div class="row m-t-25" th:each="user : ${session.logindata}">
                     <div class="col-sm-6 col-lg-6">
                         <div class="overview-item overview-item--c1">
                             <div class="overview__inner">
@@ -41,9 +41,9 @@
                                     <div class="icon">
                                         <i class="zmdi zmdi-calendar-note"></i>
                                     </div>
-                                    <div class="text">
-                                        <h2>0 H</h2>
-                                        <span>This Month</span>
+                                    <div class="text" th:each="timesheet : ${session.activetimesheet}">
+                                        <h2 th:text="${timesheet.id}">0 H</h2>
+                                        <span th:text="${timesheet.id}">This Month</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">

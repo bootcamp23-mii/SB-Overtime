@@ -18,6 +18,9 @@ public interface TimeSheetRepo extends CrudRepository<TimeSheet, String> {
 
 
     @Modifying
-    @Query(value = "DELETE TIMESHEET WHERE id='?'1", nativeQuery = true)
+    @Query(value = "DELETE TIMESHEET WHERE id=?1", nativeQuery = true)
     public void deleteWithId(String id);
+
+    @Query(value = "SELECT * FROM tb_t_time_sheet WHERE name LIKE ?1%", nativeQuery = true)
+    public TimeSheet activeTimesheet(String name);
 }

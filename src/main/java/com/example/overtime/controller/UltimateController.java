@@ -6,6 +6,7 @@
 package com.example.overtime.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import com.example.overtime.entity.Division;
 import com.example.overtime.entity.Employee;
 import com.example.overtime.entity.Job;
 import com.example.overtime.entity.Site;
+import com.example.overtime.entity.TimeSheet;
 import com.example.overtime.service.BCrypt;
 import com.example.overtime.service.FileStorageService;
 import com.example.overtime.serviceimpl.DivisionDAO;
@@ -45,6 +47,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class UltimateController {
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat getMonth = new SimpleDateFormat("MMM");
+    SimpleDateFormat getYear = new SimpleDateFormat("yy");
 
     private static Logger log = LoggerFactory.getLogger(UltimateController.class);
 
@@ -80,12 +84,20 @@ public class UltimateController {
 
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
-
+        Date date = new Date();
         // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
         model.addAttribute("updaterole", new Employee());
         model.addAttribute("divdata", ddao.findAll());
-        model.addAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
-        model.addAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
+        session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
+        session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
+        //session.setAttribute("activetimesheet", tdao.activeTimeSheet("EMP5" + "MAR" + "19"));
+
+        if (tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date).toString() + getYear.format(date).toString()) != null) {
+            session.setAttribute("activetimesheet", tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
+        } else {
+            session.setAttribute("activetimesheet", new TimeSheet("--", "No Active TimeSheet", date, new Employee(session.getAttribute("loginses").toString())));
+        }
+
         if (session.getAttribute("loginses") != null) {
             return "pages/content";
         } else {

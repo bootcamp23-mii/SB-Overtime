@@ -41,4 +41,9 @@ public class TimeSheetDAO implements ITimeSheetDAO {
         trep.deleteWithId(id);
     }
 
+    @Override
+    public TimeSheet activeTimeSheet(String name) {
+        return trep.activeTimesheet(name);
+    }
+
 }

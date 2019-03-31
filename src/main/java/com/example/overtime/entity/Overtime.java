@@ -43,6 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Overtime.findByKeterangan", query = "SELECT o FROM Overtime o WHERE o.keterangan = :keterangan")})
 public class Overtime implements Serializable {
 
+    @Size(max = 100)
+    @Column(name = "keterangan")
+    private String keterangan;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,12 +59,6 @@ public class Overtime implements Serializable {
     private Date date;
     @Column(name = "timeduration")
     private Integer timeduration;
-    @Size(max = 100)
-    @Column(name = "keterangan")
-    private String keterangan;
-    @Lob
-    @Column(name = "signature")
-    private byte[] signature;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "overtime", fetch = FetchType.LAZY)
     private List<Task> taskList;
     @JoinColumn(name = "timesheet", referencedColumnName = "id")
@@ -110,22 +108,6 @@ public class Overtime implements Serializable {
         this.timeduration = timeduration;
     }
 
-    public String getKeterangan() {
-        return keterangan;
-    }
-
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
-    }
-
-    public byte[] getSignature() {
-        return signature;
-    }
-
-    public void setSignature(byte[] signature) {
-        this.signature = signature;
-    }
-
     @XmlTransient
     public List<Task> getTaskList() {
         return taskList;
@@ -173,6 +155,14 @@ public class Overtime implements Serializable {
     @Override
     public String toString() {
         return "com.example.overtime.entity.Overtime[ id=" + id + " ]";
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
     }
     
 }

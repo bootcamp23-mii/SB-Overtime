@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,6 +42,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "TimeSheet.findByDate", query = "SELECT t FROM TimeSheet t WHERE t.date = :date")})
 public class TimeSheet implements Serializable {
 
+    @Size(max = 100)
+    @Column(name = "name")
+    private String name;
+    @Lob
+    @Column(name = "signature")
+    private byte[] signature;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -48,9 +56,6 @@ public class TimeSheet implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "id")
     private String id;
-    @Size(max = 100)
-    @Column(name = "name")
-    private String name;
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -67,20 +72,16 @@ public class TimeSheet implements Serializable {
         this.id = id;
     }
 
+    public TimeSheet(String id, String name, Date date, Employee employee) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getDate() {
@@ -130,6 +131,22 @@ public class TimeSheet implements Serializable {
     @Override
     public String toString() {
         return "com.example.overtime.entity.TimeSheet[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public byte[] getSignature() {
+        return signature;
+    }
+
+    public void setSignature(byte[] signature) {
+        this.signature = signature;
     }
     
 }

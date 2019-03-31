@@ -19,5 +19,7 @@ public interface ITimeSheetDAO {
 
     TimeSheet findById(String id);
 
+    TimeSheet activeTimeSheet(String name);
+
     void deleteById(String id);
 }
