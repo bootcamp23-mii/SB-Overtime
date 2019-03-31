@@ -14,7 +14,11 @@
                         <div class="noti-wrap">
                             <div class="noti__item js-item-menu">
                                 <i class="zmdi zmdi-notifications"></i>
-                                <span class="quantity"></span>
+                                <div th:each="isdata : ${session.notification}">
+                                    <div th:if="${isdata.id !=null}">
+                                        <span class="quantity"></span>
+                                    </div>
+                                </div>
                                 <!--<span class="quantity">3</span>-->
                                 <div class="notifi-dropdown js-dropdown">
                                     <div class="notifi__title" th:each="data : ${session.notification}">

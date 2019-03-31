@@ -84,20 +84,24 @@ public class UltimateController {
 
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
+
         Date date = new Date();
-        // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
-        model.addAttribute("updaterole", new Employee());
-        model.addAttribute("divdata", ddao.findAll());
-        session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
-        session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
-
-        if (tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date).toString() + getYear.format(date).toString()) != null) {
-            session.setAttribute("activetimesheet", tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
-        } else {
-            session.setAttribute("activetimesheet", new TimeSheet("--", "No Active TimeSheet", date, new Employee(session.getAttribute("loginses").toString())));
-        }
-
         if (session.getAttribute("loginses") != null) {
+            // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
+            model.addAttribute("updaterole", new Employee());
+            model.addAttribute("divdata", ddao.findAll());
+            session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
+            session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
+
+            if (tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date).toString()
+                    + getYear.format(date).toString()) != null) {
+                session.setAttribute("activetimesheet", tdao.activeTimeSheet(
+                        session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
+            } else {
+                session.setAttribute("activetimesheet", new TimeSheet("--", "No Active TimeSheet", date,
+                        new Employee(session.getAttribute("loginses").toString())));
+            }
+
             return "pages/content";
         } else {
             return "login";

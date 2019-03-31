@@ -75,7 +75,7 @@
                                 <div th:each="user : ${employeedata}" class="span3 well">
                                     <center>
                                         <img th:src="@{/lihatFile}" name="aboutme" width="140" height="140" border="0"
-                                            class="img-circle"/>
+                                            class="img-circle" onerror="this.src='images/icon/user.png'"/>
                                         <br />
                                         <br />
                                         <h3 class="media-heading" th:text="${user.name}"><small
