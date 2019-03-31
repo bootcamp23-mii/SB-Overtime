@@ -82,7 +82,8 @@ public class TimeSheetController {
         String employeeFromTs = tsData.getEmployee().getName();
         try {
             emailService.sendEmail(emailFromTs, "TIMESHEET " + id + " ACCEPTED", employeeFromTs,
-                    "Yay, your Overtime Request TimeSheet has been Accepted by your Manager", "http://localhost:8081/login");
+                    "Yay, your Overtime Request TimeSheet has been Accepted by your Manager",
+                    "http://localhost:8081/login");
         } catch (Exception ex) {
             log.info("error" + ex.getMessage());
         }
