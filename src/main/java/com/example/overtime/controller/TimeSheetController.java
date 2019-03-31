@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TimeSheetController {
 
+    SimpleDateFormat toDate = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat getMonth = new SimpleDateFormat("MMM");
     SimpleDateFormat getYears = new SimpleDateFormat("yy");
 
@@ -56,6 +57,9 @@ public class TimeSheetController {
     @Autowired
     TimeSheetDAO tdao;
 
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping(value = "/tssave", method = RequestMethod.POST)
     public String tsSave(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
         Date date = new Date();
@@ -65,24 +69,42 @@ public class TimeSheetController {
         tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA01")));
         return "redirect:/";
     }
-    
-    @RequestMapping(value = "/tsaccept", method = RequestMethod.POST)
-    public String tsAccept(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
-        Date date = new Date();
-        String month = getMonth.format(date);
-        String year = getYears.format(date);
-        String empIndex = session.getAttribute("loginses").toString();
-        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA02")));
+
+    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=accept")
+    public String tsAccept(HttpSession session, @ModelAttribute("tssave") TimeSheet ts,
+            @RequestParam("Totid") String id, @RequestParam("Totname") String name,
+            @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
+
+        tdao.save(new TimeSheet(id, name, toDate.parse(date), new Employee(employee), new Status("STA02")));
+
+        TimeSheet tsData = tdao.findById(id);
+        String emailFromTs = tsData.getEmployee().getEmail();
+        String employeeFromTs = tsData.getEmployee().getName();
+        try {
+            emailService.sendEmail(emailFromTs, "TIMESHEET " + id + " ACCEPTED", employeeFromTs,
+                    "Yay, your Overtime Request TimeSheet has been Accepted by your Manager", "http://localhost:8081/login");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
         return "redirect:/";
     }
-    
-    @RequestMapping(value = "/tsreject", method = RequestMethod.POST)
-    public String tsReject(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
-        Date date = new Date();
-        String month = getMonth.format(date);
-        String year = getYears.format(date);
-        String empIndex = session.getAttribute("loginses").toString();
-        tdao.save(new TimeSheet("id", empIndex + month + year, date, new Employee(empIndex), new Status("STA03")));
+
+    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=reject")
+    public String tsReject(HttpSession session, @ModelAttribute("tssave") TimeSheet ts,
+            @RequestParam("Totid") String id, @RequestParam("Totname") String name,
+            @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
+
+        tdao.save(new TimeSheet(id, name, toDate.parse(date), new Employee(employee), new Status("STA03")));
+
+        TimeSheet tsData = tdao.findById(id);
+        String emailFromTs = tsData.getEmployee().getEmail();
+        String employeeFromTs = tsData.getEmployee().getName();
+        try {
+            emailService.sendEmail(emailFromTs, "TIMESHEET " + id + " REJECTED", employeeFromTs,
+                    "Sorry, but your Overtime Request has been rejected", "http://localhost:8081/login");
+        } catch (Exception ex) {
+            log.info("error" + ex.getMessage());
+        }
         return "redirect:/";
     }
 
