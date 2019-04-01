@@ -7,6 +7,7 @@ package com.example.overtime.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -88,19 +89,21 @@ public class UltimateController {
         Date date = new Date();
         if (session.getAttribute("loginses") != null) {
             // FOR SOME REASSON I DISSABLE SOME OF FUNCTION TO REDUCE THE LOADING TIME OF
+            String employeeid = session.getAttribute("loginses").toString();
             model.addAttribute("updaterole", new Employee());
             model.addAttribute("divdata", ddao.findAll());
-            session.setAttribute("notification", odao.findStatusByManager(session.getAttribute("loginses").toString()));
-            session.setAttribute("logindata", edao.findById(session.getAttribute("loginses").toString()));
+            session.setAttribute("notification", odao.findStatusByManager(employeeid));
+            session.setAttribute("notificationoftimesheet", tdao.findByMan(employeeid));
+            session.setAttribute("logindata", edao.findById(employeeid));
 
-            if (tdao.activeTimeSheet(session.getAttribute("loginses").toString() + getMonth.format(date).toString()
-                    + getYear.format(date).toString()) != null) {
-                session.setAttribute("activetimesheet", tdao.activeTimeSheet(
-                        session.getAttribute("loginses").toString() + getMonth.format(date) + getYear.format(date)));
+            if (tdao.activeTimeSheet(employeeid + getMonth.format(date).toString() + getYear.format(date).toString()) != null) {
+                session.setAttribute("activetimesheet", tdao.activeTimeSheet(employeeid + getMonth.format(date) + getYear.format(date)));
             } else {
-                session.setAttribute("activetimesheet", new TimeSheet("No Data", "No Active TimeSheet", date,
-                        new Employee(session.getAttribute("loginses").toString())));
+                session.setAttribute("activetimesheet", new TimeSheet("No Data", "No Active TimeSheet", date, new Employee(employeeid)));
             }
+
+            List<TimeSheet> count = (List<TimeSheet>)tdao.findByMan(employeeid);
+            session.setAttribute("counternotif", count.size());
 
             return "pages/content";
         } else {

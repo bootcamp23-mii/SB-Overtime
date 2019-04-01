@@ -23,6 +23,7 @@ import com.example.overtime.serviceimpl.TimeSheetDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +61,7 @@ public class TimeSheetController {
     @Autowired
     private EmailService emailService;
 
-    @RequestMapping(value = "/tssave", method = RequestMethod.POST)
+    @GetMapping("/tssave")
     public String tsSave(HttpSession session, @ModelAttribute("tssave") TimeSheet ts) {
         Date date = new Date();
         String month = getMonth.format(date);
@@ -71,7 +72,7 @@ public class TimeSheetController {
     }
 
     @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=accept")
-    public String tsAccept(HttpSession session, @ModelAttribute("tssave") TimeSheet ts,
+    public String tsAccept(HttpSession session, @ModelAttribute("tsaction") TimeSheet ts,
             @RequestParam("Totid") String id, @RequestParam("Totname") String name,
             @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
 
@@ -91,7 +92,7 @@ public class TimeSheetController {
     }
 
     @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=reject")
-    public String tsReject(HttpSession session, @ModelAttribute("tssave") TimeSheet ts,
+    public String tsReject(HttpSession session, @ModelAttribute("tsaction") TimeSheet ts,
             @RequestParam("Totid") String id, @RequestParam("Totname") String name,
             @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
 

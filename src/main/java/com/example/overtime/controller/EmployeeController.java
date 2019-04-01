@@ -69,8 +69,9 @@ public class EmployeeController {
 
         edao.save(new Employee("id", name, address, new Integer(Integer.valueOf(salary)), email, passwordHash,
                 new Integer("0"), new Employee(manager), new Division(division), new Site(site), new Job(job)));
-
-        emailService.sendEmail(email, subject, name, "Congratulation, your Account have been created, click the button below to activate your account", linkformail);
+        Employee getemp = edao.findToken(email);
+        String getid = getemp.getId();
+        emailService.sendEmail(email, subject, name, "Congratulation, your Account have been created, \nWith Username :"+getid+"\nAnd Password : "+password+"\n click the button below to activate your account", linkformail);
         return "redirect:/";
     }
 

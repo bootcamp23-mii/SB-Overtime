@@ -25,4 +25,5 @@ public interface TimeSheetRepo extends CrudRepository<TimeSheet, String> {
 
     @Query(value = "SELECT * FROM tb_t_time_sheet WHERE status = 'STA01' and employee IN(SELECT id FROM tb_m_employee WHERE manager=?1)", nativeQuery = true)
     public Iterable<TimeSheet> getTimesheetByMgr(String id);
+    
 }

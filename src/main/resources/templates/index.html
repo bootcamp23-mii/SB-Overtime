@@ -138,20 +138,20 @@
             modal.find('#Aotstatus').val(status)
         });
     </script>
-    
+
     <!--MODAL OVERTIME-->
     <script>
-        $('#modalOvertime').on('show.bs.modal', function (event) {
+        $('#modalOvertimeList').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
-            var id          = button.data('getid      ')
-            var name        = button.data('getname    ')
-            var date        = button.data('getdate    ')
-            var employee    = button.data('getemployee')
+            var id = button.data('getid')
+            var name = button.data('getname')
+            var date = button.data('getdate')
+            var employee = button.data('getemployee')
 
             var modal = $(this)
-            modal.find('#Totid      ').val(id      )
-            modal.find('#Totname    ').val(name    )
-            modal.find('#Totdate    ').val(date    )
+            modal.find('#Totid').val(id)
+            modal.find('#Totname').val(name)
+            modal.find('#Totdate').val(date)
             modal.find('#Totemployee').val(employee)
         });
     </script>

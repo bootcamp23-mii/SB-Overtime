@@ -63,10 +63,17 @@
                                 <div class="col col-md-3">
                                     <label for="tf-timesheet" class=" form-control-label">Active Time Sheet</label>
                                 </div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" id="tf-timesheet" name="tf-timesheet" placeholder="Time Sheet"
-                                        class="form-control" />
-                                    <span class="help-block">SELECT TIMESHEET</span>
+                                <div class="col-12 col-md-9" th:each="onactive : ${session.activetimesheet}">
+                                    <div th:if="${onactive.id != 'No Data'}">
+                                        <input type="text" id="tf-timesheet" name="tf-timesheet"
+                                            th:value="${onactive.id}" th:placeholder="${onactive.id}"
+                                            class="form-control" />
+                                        <span class="help-block">SELECT TIMESHEET</span>
+                                    </div>
+                                    <div th:if="${onactive.id == 'No Data'}">
+                                        <a class="btn btn-primary" th:href="@{/tssave}">ADD</a>
+                                        <span class="help-block">CREATE TIMESHEET</span>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">

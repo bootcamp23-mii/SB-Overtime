@@ -16,12 +16,14 @@
                                 <i class="zmdi zmdi-notifications"></i>
                                 <div th:each="isdata : ${session.notification}">
                                     <div th:if="${isdata.id !=null}">
-                                        <span class="quantity"></span>
+                                        <!-- <div th:each="iscounter : ${session.counternotif}"> -->
+                                        <span class="quantity" th:text="${session.counternotif}"></span>
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                                 <!--<span class="quantity">3</span>-->
                                 <div class="notifi-dropdown js-dropdown">
-                                    <div class="notifi__title" th:each="data : ${session.notification}">
+                                    <div class="notifi__title" th:each="data : ${session.notificationoftimesheet}">
                                         <p th:text="${data.id}"></p>
                                         <!--<p th:text="${data.timesheet.employee.name}"> </p>-->
                                     </div>

@@ -156,9 +156,10 @@
                                                 <td th:text="${dataapp.date}"></td>
                                                 <td>
                                                     <button data-target="#modalOvertimeList" data-toggle="modal"
-                                                        th:data-getid="${dataapp.id}" th:data-getname="${dataapp.name}"
+                                                        th:data-getid="${dataapp.id}" 
+                                                        th:data-getname="${dataapp.name}"
                                                         th:data-getdate="${dataapp.date}"
-                                                        th:data-getemployee="${dataapp.employee}"
+                                                        th:data-getemployee="${dataapp.employee.id}"
                                                         class="btn btn-primary">OVERVIEW</button>
                                                 </td>
                                             </tr>
