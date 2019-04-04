@@ -71,7 +71,7 @@ public class TimeSheetController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=accept")
+    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "accept")
     public String tsAccept(HttpSession session, @ModelAttribute("tsaction") TimeSheet ts,
             @RequestParam("Totid") String id, @RequestParam("Totname") String name,
             @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
@@ -91,7 +91,7 @@ public class TimeSheetController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "action=reject")
+    @RequestMapping(value = "/tsaction", method = RequestMethod.POST, params = "reject")
     public String tsReject(HttpSession session, @ModelAttribute("tsaction") TimeSheet ts,
             @RequestParam("Totid") String id, @RequestParam("Totname") String name,
             @RequestParam("Totdate") String date, @RequestParam("Totemployee") String employee) throws ParseException {
